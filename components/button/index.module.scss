@@ -1,5 +1,9 @@
 .button {
   box-sizing: content-box;
+  display: inline-flex;
+  // flex-direction: row;
+  align-items: center;
+  justify-content: center;
   color: #ffffff;
   width: 292px;
   height: 40px;
@@ -8,10 +12,10 @@
   background-color: var(--color-primary);
 
   font-family: "PingFang SC";
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 600;
-  line-height: 28px;
-  text-align: center;
+  gap: 10px;
+  // text-align: center;
 
   cursor: pointer;
 
@@ -19,5 +23,4 @@
     background-color: #ffffff;
     color: var(--color-primary);
   }
-
 }
