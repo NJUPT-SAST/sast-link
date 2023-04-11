@@ -1,0 +1,86 @@
+.layout {
+  // height: 100vh;
+  // min-height: 692px;
+  justify-content: flex-start;
+  @media screen and (max-width: 502px) {
+
+    max-height: 866px;
+  }
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  font-size: 64px;
+  margin: 76px 0 74px;
+  min-height: 80px ;
+  height: calc(23vh - 76px - 74px);
+
+  color: var(--color-primary);
+
+  @media screen and (max-width: 502px) {
+    justify-content: flex-start;
+
+    width: 322px;
+    margin: 55px auto 0px;
+
+    font-size: 36px;
+  }
+}
+
+.container {
+  display: inline-flex;
+
+  width: 397px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  // height: calc(58vh + 20px);
+  min-height: 523px;
+  max-height: 583px;
+  border: 5px solid var(--color-primary);
+  border-radius: 10px;
+  transition: height 0.5s ease;
+  @media screen and (max-width: 502px) {
+    border: none;
+    // margin: 0 auto;
+    margin-top: 5px;
+  }
+}
+
+.form {
+  height:33vh;
+  min-height: 281px;
+  max-height: 361px;
+}
+
+.anchor {
+  margin: 12px 0 55px 0;
+  min-height: 42px;
+}
+
+.input {
+  margin-top: 58px;
+}
+
+.icons {
+  display: inline-flex;
+  height: 60px;
+  width: 312px;
+  gap: 30px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.toRegist {
+  margin: 23px 0 27px;
+  color: var(--color-primary);
+  font-size: 16px;
+  line-height: 22px;
+
+  a {
+    color: #199af8;
+  }
+}
