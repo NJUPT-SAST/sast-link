@@ -3,6 +3,8 @@ import classNames from "classnames";
 import styles from "./index.module.scss";
 
 interface InputProps {
+  className?: (string | { [key: string]: boolean })[];
+  name?: string;
   afterContent?: string;
   placeholder?: string;
   value?: string;
@@ -13,12 +15,20 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   props,
   ref?,
 ) {
-  const { afterContent, placeholder, value, defaultValue } = props;
+  const {
+    className = [],
+    name = "",
+    afterContent,
+    placeholder,
+    value,
+    defaultValue,
+  } = props;
 
   return (
     <>
       <input
-        className={`${styles.input} ${classNames()}`}
+        name={name}
+        className={`${styles.input} ${classNames(...className)}`}
         style={{
           "--content-after": afterContent,
         }}
