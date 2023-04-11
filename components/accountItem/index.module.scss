@@ -5,12 +5,13 @@
   justify-content: space-around;
   width: 322px;
   height: 64px;
-  padding:1px 4px;
+  padding: 1px 4px;
   border-radius: 10px;
 
   background: var(--color-linkFocus);
 
   font-family: "PingFang SC";
+  user-select: none;
   .avator {
     box-sizing: content-box;
     display: inline-block;
@@ -47,8 +48,10 @@
   }
 
   .closeIcon {
-    display:flex;
+    display: flex;
     flex-direction: column;
     align-content: center;
+
+    cursor: pointer;
   }
 }
