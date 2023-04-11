@@ -4,18 +4,29 @@ import classNames from "classnames";
 import styles from "./index.module.scss";
 
 interface AProps {
+  className?: (string | { [key: string]: boolean })[];
   children: ReactNode;
   href: string;
+  outer?: boolean;
 }
 
-const A = forwardRef<HTMLAnchorElement, AProps>(function A(props: any, ref?) {
-  const { children, href } = props;
+const A = forwardRef<HTMLAnchorElement, AProps>(function A(props, ref?) {
+  const { className = [], outer = false, children, href } = props;
+
+  if (!outer)
+    return (
+      <>
+        <Link className={`${styles.a} ${classNames(...className)}`} href={href} ref={ref}>
+          {children}
+        </Link>
+      </>
+    );
 
   return (
     <>
-        <Link className={`${styles.a} ${classNames()}`} href={href} ref={ref}>
-          {children}
-        </Link>
+      <a className={`${styles.a} ${classNames(...className)}`} href={href} ref={ref}>
+        {children}
+      </a>
     </>
   );
 });
