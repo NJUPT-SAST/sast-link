@@ -1,51 +1,38 @@
-import { Input } from "@/components/input";
-import { Button, NextButton } from "@/components/button";
-import { A } from "@/components/a";
-import { AccountItem } from "@/components/accountItem";
-import { GithubIcon, QqIcon, MsIcon } from "@/components/icon";
-import classNames from "classnames";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import styles from "@/styles/Home.module.scss";
-import { Form } from "@/components/form";
-import Link from "next/link";
-import BackLayout from "@/components/Layout/BackLayout";
+import { AccountItem } from "@/components/accountItem";
+import { Button } from "@/components/button";
+import { A } from "@/components/a";
+import { Layout } from "@/components/Layout";
 
-export default function Home() {
+const Home = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (false) {
+      router.replace("/login", undefined, { shallow: true });
+    }
+  }, [router]);
+
   return (
     <>
-      <BackLayout className={[styles.layout]}>
-        <div className={`${styles.title}`}>{"<sast  link>"}</div>
-        <div className={`${styles.container}`}>
-          <Form
-            className={[`${styles.form}`]}
-            names={["username"]}
-            onSubmit={(args) => {
-              console.log(args);
-            }}
-          >
-            <Input className={[styles.input]} name={`username`} placeholder={`用户名或邮箱`} />
-            <Button className={[styles.formButton]} type={"submit"}>
-              登录
-            </Button>
-          </Form>
-          <A href="a" className={[styles.anchor]}>
-            SAST 飞书登录
-          </A>
-          <div className={`${styles.icons}`}>
-            <a>
-              <GithubIcon />{" "}
-            </a>
-            <a>
-              <QqIcon />
-            </a>
-            <a>
-              <MsIcon />
-            </a>
-          </div>
-          <div className={`${styles.toRegist}`}>
-            没有账号？<Link href={""}>注册</Link>
+      <Layout title={"<sast link>"}>
+        <div className={styles.accountList}>
+          <div className={styles.scroll}>
+            <AccountItem />
+            <AccountItem />
+            <AccountItem />
+            <AccountItem />
           </div>
         </div>
-      </BackLayout>
+        <div className={styles.footer}>
+          <Button>登录</Button>
+          <A href="/login">使用其他账号</A>
+        </div>
+      </Layout>
     </>
   );
-}
+};
+
+export default Home;
