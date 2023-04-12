@@ -1,0 +1,66 @@
+.form,
+.complete {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: 100%;
+  min-height: 500px;
+  max-height: 590px;
+
+  .inputDiv,
+  .success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 330px;
+    height: 36vh;
+    min-height: 220px;
+    max-height: 310px;
+    padding: 55px 0 75px;
+    gap: 12px;
+    .descript {
+      font-size: 14px;
+      width: 290px;
+      word-wrap: normal;
+      text-align: initial;
+    }
+  }
+
+  .footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 330px;
+    height: calc(105px + 8.8vh);
+    min-height: 150px;
+    max-height: 180px;
+
+    button, a {
+      margin-top: 56px;
+    }
+  }
+}
+
+.mailInput {
+  // position: absolute;
+
+  span {
+    height: 20px;
+    position: relative;
+    width: 161px;
+    color: var(--color-primary);
+    font-size: 20px;
+    top: -40px;
+    left: 80px;
+    user-select: none;
+  }
+}
+
+// .veriCodeInput {
+//   input {
+//     margin-bottom: 20px;
+//   }
+// }
