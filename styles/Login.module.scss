@@ -1,0 +1,84 @@
+.nameForm {
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  // align-items: center;
+  gap: 17px;
+  height: 36vh;
+  min-height: 220px;
+  max-height: 310px;
+  padding: 55px 0 0 0;
+  @media screen and (max-width: 498px) {
+    height: 36.73vh;
+  } // 67 + 50  => 127
+}
+
+.anchor {
+  margin: 12px 0 55px 0;
+  min-height: 42px;
+}
+
+// 50 px
+.icons {
+  display: inline-flex;
+  // height: 60px;
+  width: 312px;
+  gap: 30px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+// 45 px
+.toRegist {
+  display: flex;
+  align-items: flex-end;
+  margin: 0px 0 23px;
+  color: var(--color-primary);
+  height: 10vh;
+  min-height: 67px;
+  max-height: 77px;
+  font-size: 16px;
+  line-height: 22px;
+
+  a {
+    text-decoration: none;
+    color: #199af8;
+  }
+}
+// 520
+
+.passForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: 100%;
+  min-height: 500px;
+  max-height: 590px;
+
+  @media screen {
+  }
+
+  .passInput {
+    display: flex;
+    justify-content: center;
+    width: 330px;
+    height: 36vh;
+    min-height: 220px;
+    max-height: 310px;
+    padding: 55px 0 75px;
+  }
+
+  .footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 330px;
+    height: calc(105px + 8.8vh);
+    min-height: 150px;
+    max-height: 180px;
+    gap: 12px;
+  }
+}
