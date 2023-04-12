@@ -5,16 +5,17 @@ import arrow from "../../../public/svg/Arrow.svg";
 import { MouseEventHandler } from "react";
 
 interface NextButtonProps {
+  type?: "submit" | "button";
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 const NextButton = forwardRef<HTMLButtonElement, NextButtonProps>(
   function NextButton(props, ref?) {
-    const { onClick } = props;
+    const { type = "button", onClick } = props;
 
     return (
       <Button
         title="文字图标对不齐是你的问题，不是我们的问题"
-        type="button"
+        type={type}
         onClick={onClick}
       >
         下一步

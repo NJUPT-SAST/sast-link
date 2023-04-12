@@ -1,11 +1,14 @@
 .itemContainer {
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
+  // flex-grow: unset;
+  // flex-shrink: unset;
   align-items: center;
-  justify-content: space-around;
-  width: 322px;
-  height: 64px;
-  padding: 1px 4px;
+  justify-content: space-between;
+  width: 302px;
+  height: 78px;
+  margin: 1px 0;
+  padding: 1px 14px;
   border-radius: 10px;
 
   background: var(--color-linkFocus);
@@ -29,7 +32,6 @@
     flex-direction: column;
 
     width: 200px;
-    height: 40px;
 
     font-weight: 600px;
     .accountName {
@@ -48,9 +50,12 @@
   }
 
   .closeIcon {
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
-    align-content: center;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    width: 20px;
 
     cursor: pointer;
   }
