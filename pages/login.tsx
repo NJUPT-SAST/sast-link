@@ -9,6 +9,8 @@ import { Form } from "@/components/form";
 import Link from "next/link";
 import { Layout } from "@/components/Layout";
 import { useCallback, useState } from "react";
+import BackLayout from "@/components/Layout/BackLayout";
+
 
 export default function Login() {
   const [step, setStep] = useState<number>(1);
@@ -23,6 +25,7 @@ export default function Login() {
 
   return (
     <>
+      <BackLayout/>
       <Layout title="Maxtune">
         {step === 1 && <Step1 handleStep={nextStep} />}
         {step === 2 && <Step2 handleStep={backStep} />}

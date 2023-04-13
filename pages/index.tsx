@@ -5,6 +5,8 @@ import { AccountItem } from "@/components/accountItem";
 import { Button } from "@/components/button";
 import { A } from "@/components/a";
 import { Layout } from "@/components/Layout";
+import BackLayout from "@/components/Layout/BackLayout";
+
 
 const Home = () => {
   const router = useRouter();
@@ -17,9 +19,12 @@ const Home = () => {
 
   return (
     <>
+      {/* <BackLayout /> */}
       <Layout title={"<sast link>"}>
         <div className={styles.accountList}>
           <div className={styles.scroll}>
+            <AccountItem />
+            <AccountItem />
             <AccountItem />
             <AccountItem />
             <AccountItem />

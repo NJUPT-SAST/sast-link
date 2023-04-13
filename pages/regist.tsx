@@ -5,6 +5,7 @@ import styles from "@/styles/Regist.module.scss";
 import { Button, NextButton } from "@/components/button";
 import { useCallback, useState } from "react";
 import { A } from "@/components/a";
+import BackLayout from "@/components/Layout/BackLayout";
 
 const Regist = () => {
   const [step, setStep] = useState<number>(1);
@@ -14,6 +15,7 @@ const Regist = () => {
 
   return (
     <>
+      <BackLayout />
       <Layout title="<Register>">
         {step === 1 && <RegistStep1 handleStep={nextStep} />}
         {step === 2 && <RegistStep2 handleStep={nextStep} />}
