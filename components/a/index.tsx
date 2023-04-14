@@ -8,15 +8,29 @@ interface AProps {
   children: ReactNode;
   href: string;
   outer?: boolean;
+  black?: boolean;
 }
 
 const A = forwardRef<HTMLAnchorElement, AProps>(function A(props, ref?) {
-  const { className = [], outer = false, children, href } = props;
+  const {
+    black = false,
+    className = [],
+    outer = false,
+    children,
+    href,
+  } = props;
 
   if (!outer)
     return (
       <>
-        <Link className={`${styles.a} ${classNames(...className)}`} href={href} ref={ref}>
+        <Link
+          className={`${styles.a}  ${classNames(
+            { [styles.black]: black },
+            ...className,
+          )}`}
+          href={href}
+          ref={ref}
+        >
           {children}
         </Link>
       </>
@@ -24,7 +38,11 @@ const A = forwardRef<HTMLAnchorElement, AProps>(function A(props, ref?) {
 
   return (
     <>
-      <a className={`${styles.a} ${classNames(...className)}`} href={href} ref={ref}>
+      <a
+        className={`${styles.a} ${classNames(...className)}`}
+        href={href}
+        ref={ref}
+      >
         {children}
       </a>
     </>
