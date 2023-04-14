@@ -3,49 +3,82 @@
   overflow: hidden;
   min-height: 725px;
   height: 100vh;
-  width: 100%;
+  width: 100vw;
+  min-width: 397px;
+  // width: auto;
+  // width
 
   z-index: -10;
   opacity: 0.4;
 }
 
 .yellow {
-  position: relative;
-
-  left: calc(50% + 123px);
-  transform: translateX(-50%) translateY(-50%);
-  top: calc(50% - 59px);
   width: 681px;
   height: 681px;
   background: radial-gradient(47.47% 47.47% at 49.91% 52.53%, #ffce20 0%, rgba(217, 217, 217, 0) 100%);
 }
-.green {
-  position: absolute;
 
-  left: calc(50% + 136px);
-  top: calc(50% + 166px);
-  transform: translateX(-50%) translateY(-50%);
+.green {
   width: 823px;
   height: 823px;
   background: radial-gradient(47.47% 47.47% at 49.91% 52.53%, #20ffd7 0%, rgba(217, 217, 217, 0) 100%);
 }
-.orange {
-  position: absolute;
 
-  left: calc(50% - 166px);
-  top: calc(50% + 167px);
-  transform: translateX(-50%) translateY(-50%);
+.blue {
+  width: 885px;
+  height: 885px;
+  background: radial-gradient(47.47% 47.47% at 49.91% 52.53%, #20afff 0%, rgba(217, 217, 217, 0) 100%);
+}
+.orange {
   width: 681px;
   height: 681px;
   background: radial-gradient(47.47% 47.47% at 49.91% 52.53%, #ff8b20 0%, rgba(217, 217, 217, 0) 100%);
 }
-.blue {
-  position: absolute;
 
-  left: calc(50% - 166px);
-  top: calc(50% - 200px);
-  transform: translateX(-50%) translateY(-50%);
-  width: 885px;
-  height: 885px;
-  background: radial-gradient(47.47% 47.47% at 49.91% 52.53%, #20afff 0%, rgba(217, 217, 217, 0) 100%);
+.pc {
+  @media screen and (max-width: 498px) {
+    display: none;
+  }
+  .yellow {
+    position: relative;
+
+    left: calc(50% + 123px);
+    top: calc(50% - 59px);
+    transform: translateX(-50%) translateY(-50%);
+  }
+  .green {
+    position: absolute;
+
+    left: calc(50% + 136px);
+    top: calc(50% + 166px);
+    transform: translateX(-50%) translateY(-50%);
+  }
+  .orange {
+    position: absolute;
+
+    left: calc(50% - 166px);
+    top: calc(50% + 167px);
+    transform: translateX(-50%) translateY(-50%);
+  }
+  .blue {
+    position: absolute;
+
+    left: calc(50% - 166px);
+    top: calc(50% - 200px);
+    transform: translateX(-50%) translateY(-50%);
+  }
+}
+
+.mobile {
+  @media screen and (min-width: 498px) {
+    display: none;
+  }
+  .blue,
+  .green,
+  .orange,.yellow {
+    position: relative;
+    left: 0;
+    top: 0;
+    transform: translateY(-50%)
+  }
 }
