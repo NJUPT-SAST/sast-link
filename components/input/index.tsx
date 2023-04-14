@@ -5,10 +5,10 @@ import styles from "./index.module.scss";
 interface InputProps {
   className?: (string | { [key: string]: boolean })[];
   name?: string;
-  afterContent?: string;
   placeholder?: string;
   value?: string;
   defaultValue?: string;
+  maxLength?: number;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
@@ -16,9 +16,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   ref?,
 ) {
   const {
+    maxLength,
     className = [],
     name = "",
-    afterContent,
     placeholder,
     value,
     defaultValue,
@@ -29,9 +29,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       <input
         name={name}
         className={`${styles.input} ${classNames(...className)}`}
-        style={{
-          "--content-after": afterContent,
-        }}
+        maxLength={maxLength}
         placeholder={placeholder}
         value={value}
         defaultValue={defaultValue}
