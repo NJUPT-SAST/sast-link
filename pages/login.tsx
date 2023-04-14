@@ -11,7 +11,6 @@ import { Layout } from "@/components/Layout";
 import { useCallback, useState } from "react";
 import BackLayout from "@/components/Layout/BackLayout";
 
-
 export default function Login() {
   const [step, setStep] = useState<number>(1);
 
@@ -25,7 +24,7 @@ export default function Login() {
 
   return (
     <>
-      <BackLayout/>
+      <BackLayout type="orange" />
       <Layout title="Maxtune">
         {step === 1 && <Step1 handleStep={nextStep} />}
         {step === 2 && <Step2 handleStep={backStep} />}
@@ -60,14 +59,14 @@ const Step2 = (props: { handleStep: () => void }) => {
 };
 
 const Step1 = (props: { handleStep: () => void }) => {
-  const { handleStep }  = props
+  const { handleStep } = props;
   return (
     <>
       <Form
         className={[`${styles.nameForm}`]}
         names={["username"]}
         onSubmit={(args) => {
-          handleStep()
+          handleStep();
           console.log(args);
         }}
       >
@@ -85,7 +84,7 @@ const Step1 = (props: { handleStep: () => void }) => {
       </A>
       <div className={`${styles.icons}`}>
         <a>
-          <GithubIcon />{" "}
+          <GithubIcon />
         </a>
         <a>
           <QqIcon />

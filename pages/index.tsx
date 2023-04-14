@@ -7,7 +7,6 @@ import { A } from "@/components/a";
 import { Layout } from "@/components/Layout";
 import BackLayout from "@/components/Layout/BackLayout";
 
-
 const Home = () => {
   const router = useRouter();
 
@@ -19,16 +18,16 @@ const Home = () => {
 
   return (
     <>
-      {/* <BackLayout /> */}
+      <BackLayout type="green" />
       <Layout title={"<sast link>"}>
         <div className={styles.accountList}>
           <div className={styles.scroll}>
-            <AccountItem />
-            <AccountItem />
-            <AccountItem />
-            <AccountItem />
-            <AccountItem />
-            <AccountItem />
+            <AccountItem tabIndex={0} />
+            <AccountItem tabIndex={0} />
+            <AccountItem tabIndex={0} />
+            <AccountItem tabIndex={0} />
+            <AccountItem tabIndex={0} />
+            <AccountItem tabIndex={0} />
           </div>
         </div>
         <div className={styles.footer}>

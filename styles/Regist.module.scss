@@ -1,6 +1,6 @@
 .form,
 .complete {
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -38,15 +38,22 @@
     min-height: 150px;
     max-height: 180px;
 
-    button, a {
+    button,
+    a {
+      font-weight: 600;
+
       margin-top: 56px;
+      gap: 10px;
     }
   }
 }
 
 .mailInput {
   // position: absolute;
-
+  input {
+    width: 110px;
+    padding: 0 180px 0 20px;
+  }
   span {
     height: 20px;
     position: relative;
@@ -54,13 +61,7 @@
     color: var(--color-primary);
     font-size: 20px;
     top: -50px;
-    left: 80px;
+    left: 57px;
     user-select: none;
   }
 }
-
-// .veriCodeInput {
-//   input {
-//     margin-bottom: 20px;
-//   }
-// }

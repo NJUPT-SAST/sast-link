@@ -6,6 +6,7 @@ import { Button, NextButton } from "@/components/button";
 import { useCallback, useState } from "react";
 import { A } from "@/components/a";
 import BackLayout from "@/components/Layout/BackLayout";
+import { CenterArrow } from "@/components/icon/ArrowIcon";
 
 const Regist = () => {
   const [step, setStep] = useState<number>(1);
@@ -15,7 +16,7 @@ const Regist = () => {
 
   return (
     <>
-      <BackLayout />
+      <BackLayout type="blue" />
       <Layout title="<Register>">
         {step === 1 && <RegistStep1 handleStep={nextStep} />}
         {step === 2 && <RegistStep2 handleStep={nextStep} />}
@@ -41,7 +42,7 @@ const RegistStep1 = (props: { handleStep: () => void }) => {
         names={["mail"]}
       >
         <div className={`${styles.inputDiv} ${styles.mailInput}`}>
-          <Input placeholder="学号" name="mail" />
+          <Input maxLength={9} placeholder="学号" name="mail" />
           <span>@njupt.edu.cn</span>
           <div className={styles.descript}>
             确认后，我们将会往你的邮箱发送一封验证邮件，请在验证后继续。
@@ -112,12 +113,12 @@ const RegistStep4 = () => {
   return (
     <>
       <div className={`${styles.complete}`}>
-        <div className={`${styles.success}`}>
-          <Input placeholder="密码" name="password" />
-        </div>
+        <div className={`${styles.success}`}>注册成功</div>
         <div className={styles.footer}>
-          <NextButton />
-          {/* <A href="/login">返回登录</A> */}
+          <A black href="/login">
+            返回登录
+            <CenterArrow />
+          </A>
         </div>
       </div>
     </>
