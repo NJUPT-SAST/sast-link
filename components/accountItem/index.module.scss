@@ -1,19 +1,21 @@
 .itemContainer {
   display: inline-flex;
   flex-direction: row;
-  // flex-grow: unset;
-  // flex-shrink: unset;
+  flex-grow: 0;
+  flex-shrink: 0;
   align-items: center;
   justify-content: space-between;
-  width: 302px;
+  width: 300px;
   height: 78px;
   margin: 1px 0;
   padding: 1px 14px;
   border-radius: 10px;
 
-  background: var(--color-linkFocus);
+  &:focus {
+    background: var(--color-linkFocus);
+  }
 
-  font-family: "PingFang SC";
+  // font-family: "PingFang SC";
   user-select: none;
   .avator {
     box-sizing: content-box;
