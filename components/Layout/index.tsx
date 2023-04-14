@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import styles from "./index.module.scss";
 import classNames from "classnames";
+import { SFMono } from "@/public/fonts";
 
 interface LayoutProps {
   title: string;
@@ -13,7 +14,11 @@ const Layout = (props: LayoutProps) => {
 
   return (
     <>
-      <div className={`${styles.layout} ${classNames(...className)}`}>
+      <div
+        className={`${styles.layout} ${SFMono.variable} ${classNames(
+          ...className,
+        )}`}
+      >
         <div className={styles.title}>{title}</div>
         <div className={styles.container}>{children}</div>
       </div>
