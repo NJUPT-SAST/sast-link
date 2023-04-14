@@ -1,4 +1,4 @@
-import qq from "../../public/svg/qq.svg";
+import qq from "@/public/svg/qq.svg";
 import { CenterIcon } from ".";
 
 export function QqIcon() {
