@@ -10,10 +10,13 @@
   margin: 1px 0;
   padding: 1px 14px;
   border-radius: 10px;
-
-  &:focus {
+  cursor: pointer;
+  &.selected {
     background: var(--color-linkFocus);
   }
+  // &:focus {
+
+  // }
 
   // font-family: "PingFang SC";
   user-select: none;

@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { forwardRef, memo } from "react";
 import Image, { StaticImageData } from "next/image";
 import styles from "./index.module.scss";
 import classNames from "classnames";
@@ -6,20 +6,28 @@ import defaultAvator from "../../public/defaultAvator.png";
 import closeSVG from "../../public/svg/Vector.svg";
 
 interface AccountItemProps {
-  tabIndex: number;
+  index: number;
+  selected: boolean;
   nickName?: string;
   mail?: string;
   avator?: string | StaticImageData;
+  onFocus: (item: number) => void;
 }
 
 const AccountItem = forwardRef<any, AccountItemProps>(function Account(
   props,
   ref?,
 ) {
-  const { tabIndex, nickName, mail, avator } = props;
+  const { index, selected, onFocus, nickName, mail, avator } = props;
 
   return (
-    <div tabIndex={tabIndex} className={`${styles.itemContainer}`}>
+    <div
+      onFocus={() => onFocus(index)}
+      tabIndex={0}
+      className={`${styles.itemContainer} ${classNames({
+        [styles.selected]: selected,
+      })}`}
+    >
       <div className={`${styles.avator}`}>
         <Image
           src={avator ?? defaultAvator}
@@ -41,4 +49,11 @@ const AccountItem = forwardRef<any, AccountItemProps>(function Account(
   );
 });
 
-export { AccountItem };
+const MemorizedAccountItem = memo(AccountItem, (prevProps, nextProps) => {
+  return (
+    prevProps.selected === nextProps.selected &&
+    prevProps.onFocus === nextProps.onFocus
+  );
+});
+
+export { AccountItem, MemorizedAccountItem };
