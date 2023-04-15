@@ -5,6 +5,8 @@ import styles from "@/styles/Regist.module.scss";
 import { Button, NextButton } from "@/components/button";
 import { useCallback, useState } from "react";
 import { A } from "@/components/a";
+import { Player } from "@lottiefiles/react-lottie-player";
+
 import BackLayout from "@/components/Layout/BackLayout";
 import { CenterArrow } from "@/components/icon/ArrowIcon";
 
@@ -113,7 +115,17 @@ const RegistStep4 = () => {
   return (
     <>
       <div className={`${styles.complete}`}>
-        <div className={`${styles.success}`}>注册成功</div>
+        <div className={`${styles.success}`}>
+          <Player
+            autoplay={true}
+            loop={false}
+            src="https://assets5.lottiefiles.com/packages/lf20_svaw8skx.json"
+            style={{ height: "200px", width: "200px" }}
+            keepLastFrame
+            renderer="svg"
+          />
+          <span>注册成功</span>
+        </div>
         <div className={styles.footer}>
           <A black href="/login">
             返回登录
