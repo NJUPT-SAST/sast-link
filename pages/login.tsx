@@ -8,7 +8,7 @@ import styles from "@/styles/Login.module.scss";
 import { Form } from "@/components/form";
 import Link from "next/link";
 import { Layout } from "@/components/Layout";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import BackLayout from "@/components/Layout/BackLayout";
 
 export default function Login() {
@@ -33,33 +33,23 @@ export default function Login() {
   );
 }
 
-const Step2 = (props: { handleStep: () => void }) => {
-  const { handleStep } = props;
-  return (
-    <>
-      <Form
-        className={[`${styles.passForm}`]}
-        names={["password"]}
-        onSubmit={(args) => {
-          console.log(args);
-        }}
-      >
-        <div className={`${styles.passInput}`}>
-          <Input name={"password"} placeholder={"密码"} />
-        </div>
-        <div className={styles.footer}>
-          <Button type="submit">登录 SAST Link</Button>
-          <Button onClick={handleStep} type="button" white>
-            使用其他账号
-          </Button>
-        </div>
-      </Form>
-    </>
-  );
-};
-
 const Step1 = (props: { handleStep: () => void }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [error, setError] = useState<
+    { error: false } | { error: true; errMsg: string }
+  >({ error: false });
   const { handleStep } = props;
+
+  const nameCheck: (value: string) => boolean = useCallback((value) => {
+    if (value === "") {
+      setError({ error: true, errMsg: "用户名不可为空" });
+    } else {
+      setError((pre) => (pre.error ? { error: false } : pre));
+      return true;
+    }
+    return false;
+  }, []);
+
   return (
     <>
       <Form
@@ -70,12 +60,28 @@ const Step1 = (props: { handleStep: () => void }) => {
           console.log(args);
         }}
       >
-        <Input
-          className={[styles.input]}
-          name={`username`}
-          placeholder={`用户名或邮箱`}
-        />
-        <Button className={[styles.formButton]} type={"submit"}>
+        <div className={`${styles.input}`}>
+          <div className={styles.errMsg}>{error.error && error.errMsg}</div>
+          <Input
+            ref={inputRef}
+            error={error.error}
+            className={[styles.input]}
+            onBlur={nameCheck}
+            label="username"
+            name={`username`}
+            placeholder={`用户名或邮箱`}
+          />
+        </div>
+
+        <Button
+          onClick={(e) => {
+            if (!nameCheck(inputRef.current!.value)) {
+              e.preventDefault();
+            }
+          }}
+          className={[styles.formButton]}
+          type={"submit"}
+        >
           登录
         </Button>
       </Form>
@@ -96,6 +102,81 @@ const Step1 = (props: { handleStep: () => void }) => {
       <div className={`${styles.toRegist}`}>
         没有账号？<Link href={"/regist"}>注册</Link>
       </div>
+    </>
+  );
+};
+
+const Step2 = (props: { handleStep: () => void }) => {
+
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [error, setError] = useState<
+  { error: false } | { error: true; errMsg: string }
+  >({ error: false });
+  const { handleStep } = props;
+
+  const passCheck: (value: string) => boolean = useCallback((value) => {
+    if (value === "") {
+      setError({ error: true, errMsg: "密码不可为空！" });
+    } else {
+      setError((pre) => (pre.error ? { error: false } : pre));
+      return true;
+    }
+    return false;
+  }, []);
+
+  return (
+    <>
+      <Form
+        className={[`${styles.passForm} ${styles.input}`]}
+        names={["password"]}
+        onSubmit={(args) => {
+          const promise2 = new Promise<{ success: boolean; msg: string }>(
+            (resolve, reject) => {
+              setTimeout(() => {
+                resolve({ success: false, msg: "Hello" });
+              });
+            },
+          );
+          promise2.then((res) => {
+            console.log(123);
+            console.log(res);
+            if (res.success) {
+              setError({ error: false });
+              handleStep();
+            } else {
+              setError({ error: true, errMsg: res.msg });
+            }
+          });
+          console.log(args);
+        }}
+      >
+        <div className={`${styles.passInput}`}>
+          <div className={styles.errMsg}>{error.error && error.errMsg}</div>
+          <Input
+            ref={inputRef}
+            onBlur={passCheck}
+            name={"password"}
+            error={error.error}
+            label={"password"}
+            placeholder={"密码"}
+          />
+        </div>
+        <div className={styles.footer}>
+          <Button
+            onClick={(e) => {
+              if (!passCheck(inputRef.current!.value)) {
+                e.preventDefault();
+              }
+            }}
+            type="submit"
+          >
+            登录 SAST Link
+          </Button>
+          <Button type="button" white>
+            使用其他账号
+          </Button>
+        </div>
+      </Form>
     </>
   );
 };
