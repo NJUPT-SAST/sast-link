@@ -18,7 +18,7 @@
     height: 36vh;
     min-height: 220px;
     max-height: 310px;
-    padding: 55px 0 75px;
+    padding: 28px 0 58px;
     gap: 12px;
     .descript {
       font-size: 14px;
@@ -52,10 +52,10 @@
   // position: absolute;
   input {
     width: 110px;
-    padding: 0 180px 0 20px;
+    padding: 1px 180px 1px 13px;
   }
   span {
-    height: 20px;
+    height: 0px;
     position: relative;
     width: 161px;
     color: var(--color-primary);
@@ -64,4 +64,28 @@
     left: 57px;
     user-select: none;
   }
+}
+
+.inputDiv.passInput {
+  gap: 0px;
+}
+
+.success {
+  span {
+    font-weight: 600;
+    font-size: 20px;
+  }
+}
+.inputWithMsg {
+  height: 77px;
+}
+.errMsg {
+  display: flex;
+  align-items: center;
+  padding: 3px 0 0 17px;
+  align-self: flex-start;
+  width: 301px;
+  height: 24px;
+  font-size: 14px;
+  color: var(--color-error);
 }

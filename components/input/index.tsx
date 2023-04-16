@@ -9,6 +9,9 @@ interface InputProps {
   value?: string;
   defaultValue?: string;
   maxLength?: number;
+  label?: string;
+  error?: boolean;
+  onBlur?: (value: string) => boolean;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
@@ -16,19 +19,28 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   ref?,
 ) {
   const {
+    error = false,
     maxLength,
     className = [],
     name = "",
     placeholder,
     value,
     defaultValue,
+    label,
+    onBlur = (value: string) => true,
   } = props;
 
   return (
     <>
       <input
+        onBlur={(e) => {
+          onBlur(e.currentTarget.value);
+        }}
         name={name}
-        className={`${styles.input} ${classNames(...className)}`}
+        aria-label={label}
+        className={`${styles.input} ${classNames(...className, {
+          [styles.error]: error,
+        })}`}
         maxLength={maxLength}
         placeholder={placeholder}
         value={value}
