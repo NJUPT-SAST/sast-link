@@ -3,12 +3,13 @@ import { Form } from "@/components/form";
 import { Input } from "@/components/input";
 import styles from "@/styles/Regist.module.scss";
 import { Button, NextButton } from "@/components/button";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { A } from "@/components/a";
 import { Player } from "@lottiefiles/react-lottie-player";
 
 import BackLayout from "@/components/Layout/BackLayout";
 import { CenterArrow } from "@/components/icon/ArrowIcon";
+import classNames from "classnames";
 
 const Regist = () => {
   const [step, setStep] = useState<number>(1);
@@ -70,8 +71,8 @@ const RegistStep1 = (props: { handleStep: () => void }) => {
               placeholder="学号"
               name="mail"
             />
+            <span>@njupt.edu.cn</span>
           </div>
-          <span>@njupt.edu.cn</span>
           <div className={styles.descript}>
             确认后，我们将会往你的邮箱发送一封验证邮件，请在验证后继续。
           </div>
@@ -97,7 +98,8 @@ const RegistStep2 = (props: { handleStep: () => void }) => {
   const [error, setError] = useState<
     { error: false } | { error: true; errMsg: string }
   >({ error: false });
-
+  const [clickAble, setClickAble] = useState<boolean>(false);
+  const [count, setCount] = useState<number>(60);
   const codeCheck: (value: string) => boolean = useCallback((value) => {
     if (value.length === 0) {
       setError({ error: true, errMsg: "验证码不可为空" });
@@ -107,6 +109,23 @@ const RegistStep2 = (props: { handleStep: () => void }) => {
     }
     return false;
   }, []);
+
+  useEffect(() => {
+    let intervalId: NodeJS.Timer;
+    if (clickAble === false) {
+      intervalId = setInterval(() => {
+        setCount((pre) => {
+          if (pre <= 0) {
+            setClickAble(true);
+            clearInterval(intervalId);
+            return 60;
+          }
+          return pre - 1;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(intervalId);
+  }, [clickAble]);
 
   const { handleStep } = props;
   return (
@@ -130,7 +149,20 @@ const RegistStep2 = (props: { handleStep: () => void }) => {
               placeholder="验证码"
               name="veriCode"
             />
-          </div>{" "}
+            <span
+              aria-disabled={clickAble}
+              onClick={(e) => {
+                setClickAble(false);
+                console.log(123)
+                e.preventDefault();
+              }}
+              className={`${classNames({
+                [styles.clickAble]: clickAble,
+              })}`}
+            >
+              {clickAble ? "" : `${count}s 后`}重新发送
+            </span>
+          </div>
           <div className={styles.descript}>
             已经往 B21000000@njupt.edu.cn 发送一封带有验证码的邮件，请注意查收！
           </div>
@@ -177,7 +209,7 @@ const RegistStep3 = (props: { handleStep: () => void }) => {
       setVeriError({ error: true, errMsg: "密码不一致！" });
     } else {
       setVeriError((pre) => (pre.error ? { error: false } : pre));
-      return true
+      return true;
     }
     return false;
   }, []);
@@ -222,11 +254,17 @@ const RegistStep3 = (props: { handleStep: () => void }) => {
           </div>
         </div>
         <div className={styles.footer}>
-          <NextButton onClick={(e)=>{
-            if(!passCheck(passInputRef.current!.value) || !veriCheck(veriInputRef.current!.value)){
-              e.preventDefault()
-            }
-          }} type="submit" />
+          <NextButton
+            onClick={(e) => {
+              if (
+                !passCheck(passInputRef.current!.value) ||
+                !veriCheck(veriInputRef.current!.value)
+              ) {
+                e.preventDefault();
+              }
+            }}
+            type="submit"
+          />
         </div>
       </Form>
     </>
