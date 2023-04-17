@@ -18,7 +18,7 @@
     height: 36vh;
     min-height: 220px;
     max-height: 310px;
-    padding: 28px 0 58px;
+    padding: 28px 0 85px;
     gap: 12px;
     .descript {
       font-size: 14px;
@@ -34,7 +34,7 @@
     align-items: center;
 
     width: 330px;
-    height: calc(105px + 8.8vh);
+    height: calc(85px + 8.8vh);
     min-height: 150px;
     max-height: 180px;
 
@@ -42,27 +42,39 @@
     a {
       font-weight: 600;
 
-      margin-top: 56px;
+      margin-top: 37px;
       gap: 10px;
     }
   }
 }
 
-.mailInput {
+.mailInput,
+.veriCodeInput {
   // position: absolute;
   input {
-    width: 110px;
+    width: 121px;
     padding: 1px 180px 1px 13px;
   }
   span {
-    height: 0px;
+    height: 0;
     position: relative;
-    width: 161px;
+    align-self: flex-end;
     color: var(--color-primary);
     font-size: 20px;
-    top: -50px;
-    left: 57px;
+    top: -37px;
+    right: 20px;
     user-select: none;
+  }
+}
+.veriCodeInput span {
+  pointer-events: none;
+  font-size: 16px;
+  color: rgba(0, 0, 0,0.3);
+  font-weight: 600;
+  &.clickAble {
+    color: #0A96D6;
+    cursor: pointer;
+    pointer-events: auto;
   }
 }
 
@@ -77,6 +89,9 @@
   }
 }
 .inputWithMsg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   height: 77px;
 }
 .errMsg {
