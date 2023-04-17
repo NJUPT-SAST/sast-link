@@ -60,7 +60,7 @@ const Step1 = (props: { handleStep: () => void }) => {
           console.log(args);
         }}
       >
-        <div className={`${styles.input}`}>
+        <div className={`${styles.inputDiv}`}>
           <div className={styles.errMsg}>{error.error && error.errMsg}</div>
           <Input
             ref={inputRef}
@@ -107,10 +107,9 @@ const Step1 = (props: { handleStep: () => void }) => {
 };
 
 const Step2 = (props: { handleStep: () => void }) => {
-
   const inputRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<
-  { error: false } | { error: true; errMsg: string }
+    { error: false } | { error: true; errMsg: string }
   >({ error: false });
   const { handleStep } = props;
 
@@ -138,8 +137,6 @@ const Step2 = (props: { handleStep: () => void }) => {
             },
           );
           promise2.then((res) => {
-            console.log(123);
-            console.log(res);
             if (res.success) {
               setError({ error: false });
               handleStep();
@@ -150,7 +147,7 @@ const Step2 = (props: { handleStep: () => void }) => {
           console.log(args);
         }}
       >
-        <div className={`${styles.passInput}`}>
+        <div className={`${styles.inputDiv}`}>
           <div className={styles.errMsg}>{error.error && error.errMsg}</div>
           <Input
             ref={inputRef}
