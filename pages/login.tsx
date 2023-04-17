@@ -1,14 +1,13 @@
 import { Input } from "@/components/input";
 import { Button } from "@/components/button";
 import { A } from "@/components/a";
-import { AccountItem } from "@/components/accountItem";
 import { GithubIcon, QqIcon, MsIcon } from "@/components/icon";
 import classNames from "classnames";
 import styles from "@/styles/Login.module.scss";
 import { Form } from "@/components/form";
 import Link from "next/link";
 import { Layout } from "@/components/Layout";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import BackLayout from "@/components/Layout/BackLayout";
 
 export default function Login() {
@@ -34,6 +33,7 @@ export default function Login() {
 }
 
 const Step1 = (props: { handleStep: () => void }) => {
+  const [loading, setLoading] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<
     { error: false } | { error: true; errMsg: string }
@@ -56,8 +56,11 @@ const Step1 = (props: { handleStep: () => void }) => {
         className={[`${styles.nameForm}`]}
         names={["username"]}
         onSubmit={(args) => {
-          handleStep();
-          console.log(args);
+          setLoading(true);
+          setTimeout(() => {
+            setLoading(false);
+            handleStep();
+          }, 1000);
         }}
       >
         <div className={`${styles.inputDiv}`}>
@@ -74,9 +77,11 @@ const Step1 = (props: { handleStep: () => void }) => {
         </div>
 
         <Button
+          loading={loading}
           onClick={(e) => {
             if (!nameCheck(inputRef.current!.value)) {
               e.preventDefault();
+              return;
             }
           }}
           className={[styles.formButton]}
@@ -108,6 +113,7 @@ const Step1 = (props: { handleStep: () => void }) => {
 
 const Step2 = (props: { handleStep: () => void }) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<
     { error: false } | { error: true; errMsg: string }
   >({ error: false });
@@ -129,14 +135,16 @@ const Step2 = (props: { handleStep: () => void }) => {
         className={[`${styles.passForm} ${styles.input}`]}
         names={["password"]}
         onSubmit={(args) => {
+          setLoading(true);
           const promise2 = new Promise<{ success: boolean; msg: string }>(
             (resolve, reject) => {
               setTimeout(() => {
                 resolve({ success: false, msg: "Hello" });
-              });
+              }, 1000);
             },
           );
           promise2.then((res) => {
+            setLoading(false);
             if (res.success) {
               setError({ error: false });
               handleStep();
@@ -160,9 +168,11 @@ const Step2 = (props: { handleStep: () => void }) => {
         </div>
         <div className={styles.footer}>
           <Button
+            loading={loading}
             onClick={(e) => {
               if (!passCheck(inputRef.current!.value)) {
                 e.preventDefault();
+                return;
               }
             }}
             type="submit"

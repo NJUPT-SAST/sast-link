@@ -2,7 +2,7 @@ import { Layout } from "@/components/Layout";
 import { Form } from "@/components/form";
 import { Input } from "@/components/input";
 import styles from "@/styles/Regist.module.scss";
-import { Button, NextButton } from "@/components/button";
+import { NextButton } from "@/components/button";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { A } from "@/components/a";
 import { Player } from "@lottiefiles/react-lottie-player";
@@ -33,6 +33,7 @@ const Regist = () => {
 export default Regist;
 
 const RegistStep1 = (props: { handleStep: () => void }) => {
+  const [loading, setLoading] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<
     { error: false } | { error: true; errMsg: string }
@@ -80,6 +81,7 @@ const RegistStep1 = (props: { handleStep: () => void }) => {
 
         <div className={styles.footer}>
           <NextButton
+            loading={loading}
             onClick={(e) => {
               if (!mailCheck(inputRef.current!.value)) {
                 e.preventDefault();
@@ -94,6 +96,7 @@ const RegistStep1 = (props: { handleStep: () => void }) => {
 };
 
 const RegistStep2 = (props: { handleStep: () => void }) => {
+  const [loading, setLoading] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<
     { error: false } | { error: true; errMsg: string }
@@ -153,7 +156,7 @@ const RegistStep2 = (props: { handleStep: () => void }) => {
               aria-disabled={clickAble}
               onClick={(e) => {
                 setClickAble(false);
-                console.log(123)
+                console.log(123);
                 e.preventDefault();
               }}
               className={`${classNames({
@@ -170,6 +173,7 @@ const RegistStep2 = (props: { handleStep: () => void }) => {
 
         <div className={styles.footer}>
           <NextButton
+            loading={loading}
             onClick={(e) => {
               if (!codeCheck(inputRef.current!.value)) {
                 e.preventDefault();
@@ -184,6 +188,7 @@ const RegistStep2 = (props: { handleStep: () => void }) => {
 };
 
 const RegistStep3 = (props: { handleStep: () => void }) => {
+  const [loading, setLoading] = useState<boolean>(false);
   const passInputRef = useRef<HTMLInputElement>(null);
   const veriInputRef = useRef<HTMLInputElement>(null);
   const [passError, setPassError] = useState<
@@ -255,6 +260,7 @@ const RegistStep3 = (props: { handleStep: () => void }) => {
         </div>
         <div className={styles.footer}>
           <NextButton
+            loading={loading}
             onClick={(e) => {
               if (
                 !passCheck(passInputRef.current!.value) ||

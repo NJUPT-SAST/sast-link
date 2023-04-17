@@ -3,6 +3,7 @@ import classNames from "classnames";
 import styles from "./index.module.scss";
 import { MouseEventHandler } from "react";
 import NextButton from "./nextButton";
+import { DotLoading } from "../dotLoading";
 
 interface ButtonProps {
   title?: string;
@@ -11,6 +12,8 @@ interface ButtonProps {
   children: ReactNode;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   className?: (string | { [key: string]: boolean })[];
+  disabled?: boolean;
+  loading?: boolean;
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
@@ -18,6 +21,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   ref?,
 ) {
   const {
+    loading = false,
+    disabled = false,
     className = [],
     title,
     type,
@@ -28,6 +33,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   return (
     <>
       <button
+        disabled={disabled || loading}
         title={title}
         ref={ref}
         className={`${styles.button} ${classNames(
@@ -39,7 +45,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
         onClick={onClick}
         type={type ?? "button"}
       >
-        {children}
+        {loading ? (
+          <>
+            <DotLoading />
+          </>
+        ) : (
+          children
+        )}
       </button>
     </>
   );

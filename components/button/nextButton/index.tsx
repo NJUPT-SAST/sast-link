@@ -9,13 +9,24 @@ interface NextButtonProps {
   children?: string;
   type?: "submit" | "button";
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
+  loading?: boolean;
 }
 const NextButton = forwardRef<HTMLButtonElement, NextButtonProps>(
   function NextButton(props, ref?) {
-    const { className = [], children, type = "button", onClick } = props;
+    const {
+      loading = false,
+      disabled = false,
+      className = [],
+      children,
+      type = "button",
+      onClick,
+    } = props;
 
     return (
       <Button
+        loading={loading}
+        disabled={disabled}
         className={className}
         title="文字图标对不齐是你的问题，不是我们的问题"
         type={type}
