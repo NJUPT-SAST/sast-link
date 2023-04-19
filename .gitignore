@@ -35,5 +35,4 @@ yarn-error.log*
 next-env.d.ts
 
 # user
-*lock.yaml
 .vscode
