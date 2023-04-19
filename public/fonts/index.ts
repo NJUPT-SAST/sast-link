@@ -25,7 +25,7 @@ const SFMono = localFont({
     {
       path: "./SFMono/SF-Mono-Medium.otf",
       weight: "500",
-      style: "italic",
+      style: "normal",
     },
     {
       path: "./SFMono/SF-Mono-MediumItalic.otf",

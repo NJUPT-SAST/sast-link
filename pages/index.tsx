@@ -6,6 +6,7 @@ import { Button } from "@/components/button";
 import { A } from "@/components/a";
 import { Layout } from "@/components/Layout";
 import BackLayout from "@/components/Layout/BackLayout";
+import { Footer } from "@/components/footer";
 
 const Home = () => {
   const router = useRouter();
@@ -65,12 +66,13 @@ const Home = () => {
                 />
               );
             })}
+            <div className={styles.musk}></div>
           </div>
         </div>
-        <div className={styles.footer}>
+        <Footer>
           <Button>登录</Button>
           <A href="/login">使用其他账号</A>
-        </div>
+        </Footer>
       </Layout>
     </>
   );
