@@ -1,8 +1,10 @@
 import { forwardRef } from "react";
 import classNames from "classnames";
 import styles from "./index.module.scss";
-
+import { FocusEventHandler, ChangeEventHandler } from "react";
 interface InputProps {
+  // veridate?: (value: string) => boolean;
+  type?: "password";
   className?: (string | { [key: string]: boolean })[];
   name?: string;
   placeholder?: string;
@@ -11,7 +13,9 @@ interface InputProps {
   maxLength?: number;
   label?: string;
   error?: boolean;
-  onBlur?: (value: string) => boolean;
+  onBlur?: FocusEventHandler<HTMLInputElement>;
+  onFocus?: FocusEventHandler<HTMLInputElement>;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
@@ -19,6 +23,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   ref?,
 ) {
   const {
+    type,
     error = false,
     maxLength,
     className = [],
@@ -27,15 +32,18 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     value,
     defaultValue,
     label,
-    onBlur = (value: string) => true,
+    onChange,
+    onFocus,
+    onBlur,
   } = props;
 
   return (
     <>
       <input
-        onBlur={(e) => {
-          onBlur(e.currentTarget.value);
-        }}
+        type={type}
+        onChange={onChange}
+        onBlur={onBlur}
+        onFocus={onFocus}
         name={name}
         aria-label={label}
         className={`${styles.input} ${classNames(...className, {

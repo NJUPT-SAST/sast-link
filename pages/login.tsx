@@ -1,4 +1,3 @@
-import { Input } from "@/components/input";
 import { Button } from "@/components/button";
 import { A } from "@/components/a";
 import { GithubIcon, QqIcon, MsIcon } from "@/components/icon";
@@ -9,6 +8,9 @@ import Link from "next/link";
 import { Layout } from "@/components/Layout";
 import { useCallback, useRef, useState } from "react";
 import BackLayout from "@/components/Layout/BackLayout";
+import { InputWithLabel } from "@/components/input/inputWithLabel";
+import { Footer } from "@/components/footer";
+import { handleError } from "@/components/function";
 
 export default function Login() {
   const [step, setStep] = useState<number>(1);
@@ -40,12 +42,9 @@ const Step1 = (props: { handleStep: () => void }) => {
   >({ error: false });
   const { handleStep } = props;
 
-  const nameCheck: (value: string) => boolean = useCallback((value) => {
+  const veridate = useCallback((value: string) => {
     if (value === "") {
-      setError({ error: true, errMsg: "用户名不可为空" });
-    } else {
-      setError((pre) => (pre.error ? { error: false } : pre));
-      return true;
+      return "用户名不可为空";
     }
     return false;
   }, []);
@@ -64,22 +63,23 @@ const Step1 = (props: { handleStep: () => void }) => {
         }}
       >
         <div className={`${styles.inputDiv}`}>
-          <div className={styles.errMsg}>{error.error && error.errMsg}</div>
-          <Input
+          <InputWithLabel
+            setErrorState={setError}
+            veridate={veridate}
             ref={inputRef}
-            error={error.error}
-            className={[styles.input]}
-            onBlur={nameCheck}
-            label="username"
-            name={`username`}
-            placeholder={`用户名或邮箱`}
+            label="账户"
+            name="username"
+            error={error}
+            palceholder="学号或邮箱"
           />
         </div>
 
         <Button
           loading={loading}
           onClick={(e) => {
-            if (!nameCheck(inputRef.current!.value)) {
+            const check = veridate(inputRef.current!.value);
+            if (check) {
+              setError(handleError(check));
               e.preventDefault();
               return;
             }
@@ -118,13 +118,9 @@ const Step2 = (props: { handleStep: () => void }) => {
     { error: false } | { error: true; errMsg: string }
   >({ error: false });
   const { handleStep } = props;
-
-  const passCheck: (value: string) => boolean = useCallback((value) => {
+  const veridate = useCallback((value: string) => {
     if (value === "") {
-      setError({ error: true, errMsg: "密码不可为空！" });
-    } else {
-      setError((pre) => (pre.error ? { error: false } : pre));
-      return true;
+      return "密码不可为空";
     }
     return false;
   }, []);
@@ -147,7 +143,6 @@ const Step2 = (props: { handleStep: () => void }) => {
             setLoading(false);
             if (res.success) {
               setError({ error: false });
-              handleStep();
             } else {
               setError({ error: true, errMsg: res.msg });
             }
@@ -156,21 +151,23 @@ const Step2 = (props: { handleStep: () => void }) => {
         }}
       >
         <div className={`${styles.inputDiv}`}>
-          <div className={styles.errMsg}>{error.error && error.errMsg}</div>
-          <Input
+          <InputWithLabel
+            setErrorState={setError}
+            veridate={veridate}
+            label="密码"
+            palceholder="密码"
+            error={error}
             ref={inputRef}
-            onBlur={passCheck}
-            name={"password"}
-            error={error.error}
-            label={"password"}
-            placeholder={"密码"}
+            name="password"
           />
         </div>
-        <div className={styles.footer}>
+        <Footer>
           <Button
             loading={loading}
             onClick={(e) => {
-              if (!passCheck(inputRef.current!.value)) {
+              const check = veridate(inputRef.current!.value);
+              if (check) {
+                setError(handleError(check));
                 e.preventDefault();
                 return;
               }
@@ -179,10 +176,10 @@ const Step2 = (props: { handleStep: () => void }) => {
           >
             登录 SAST Link
           </Button>
-          <Button type="button" white>
+          <Button onClick={handleStep} type="button" white>
             使用其他账号
           </Button>
-        </div>
+        </Footer>
       </Form>
     </>
   );

@@ -1,15 +1,17 @@
 import { Layout } from "@/components/Layout";
 import { Form } from "@/components/form";
-import { Input } from "@/components/input";
 import styles from "@/styles/Regist.module.scss";
 import { NextButton } from "@/components/button";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { A } from "@/components/a";
 import { Player } from "@lottiefiles/react-lottie-player";
-
+import { InputWithLabel } from "@/components/input/inputWithLabel";
+import { handleError } from "@/components/function";
 import BackLayout from "@/components/Layout/BackLayout";
 import { CenterArrow } from "@/components/icon/ArrowIcon";
 import classNames from "classnames";
+import { VeriCode } from "@/components/veriCode";
+import { Footer } from "@/components/footer";
 
 const Regist = () => {
   const [step, setStep] = useState<number>(1);
@@ -39,13 +41,8 @@ const RegistStep1 = (props: { handleStep: () => void }) => {
     { error: false } | { error: true; errMsg: string }
   >({ error: false });
 
-  const mailCheck: (value: string) => boolean = useCallback((value) => {
-    if (value === "") {
-      setError({ error: true, errMsg: "学号不可为空" });
-    } else {
-      setError((pre) => (pre.error ? { error: false } : pre));
-      return true;
-    }
+  const veridate = useCallback((value: string) => {
+    if (value === "") return "学号不可为空";
     return false;
   }, []);
 
@@ -62,34 +59,35 @@ const RegistStep1 = (props: { handleStep: () => void }) => {
         names={["mail"]}
       >
         <div className={`${styles.inputDiv} ${styles.mailInput}`}>
-          <div className={`${styles.inputWithMsg}`}>
-            <div className={styles.errMsg}>{error.error && error.errMsg}</div>
-            <Input
-              error={error.error}
-              ref={inputRef}
-              onBlur={mailCheck}
-              maxLength={9}
-              placeholder="学号"
-              name="mail"
-            />
+          <InputWithLabel
+            setErrorState={setError}
+            veridate={veridate}
+            label="学生邮箱"
+            error={error}
+            ref={inputRef}
+            maxLength={9}
+            name="mail"
+            palceholder="学号"
+          >
             <span>@njupt.edu.cn</span>
-          </div>
+          </InputWithLabel>
           <div className={styles.descript}>
             确认后，我们将会往你的邮箱发送一封验证邮件，请在验证后继续。
           </div>
         </div>
 
-        <div className={styles.footer}>
+        <Footer>
           <NextButton
             loading={loading}
             onClick={(e) => {
-              if (!mailCheck(inputRef.current!.value)) {
+              if (veridate(inputRef.current!.value)) {
+                setError(handleError(veridate(inputRef.current!.value)));
                 e.preventDefault();
               }
             }}
             type="submit"
           />
-        </div>
+        </Footer>
       </Form>
     </>
   );
@@ -101,36 +99,16 @@ const RegistStep2 = (props: { handleStep: () => void }) => {
   const [error, setError] = useState<
     { error: false } | { error: true; errMsg: string }
   >({ error: false });
-  const [clickAble, setClickAble] = useState<boolean>(false);
-  const [count, setCount] = useState<number>(60);
-  const codeCheck: (value: string) => boolean = useCallback((value) => {
-    if (value.length === 0) {
-      setError({ error: true, errMsg: "验证码不可为空" });
-    } else {
-      setError((pre) => (pre.error ? { error: false } : pre));
-      return true;
+
+  const { handleStep } = props;
+
+  const veridate = useCallback((value: string) => {
+    if (value === "") {
+      return "验证码不可为空";
     }
     return false;
   }, []);
 
-  useEffect(() => {
-    let intervalId: NodeJS.Timer;
-    if (clickAble === false) {
-      intervalId = setInterval(() => {
-        setCount((pre) => {
-          if (pre <= 0) {
-            setClickAble(true);
-            clearInterval(intervalId);
-            return 60;
-          }
-          return pre - 1;
-        });
-      }, 1000);
-    }
-    return () => clearInterval(intervalId);
-  }, [clickAble]);
-
-  const { handleStep } = props;
   return (
     <>
       <Form
@@ -142,46 +120,34 @@ const RegistStep2 = (props: { handleStep: () => void }) => {
         names={["veriCode"]}
       >
         <div className={`${styles.inputDiv} ${styles.veriCodeInput}`}>
-          <div className={`${styles.inputWithMsg}`}>
-            <div className={styles.errMsg}>{error.error && error.errMsg}</div>
-            <Input
-              error={error.error}
-              onBlur={codeCheck}
-              ref={inputRef}
-              label="vericode"
-              placeholder="验证码"
-              name="veriCode"
-            />
-            <span
-              aria-disabled={clickAble}
-              onClick={(e) => {
-                setClickAble(false);
-                console.log(123);
-                e.preventDefault();
-              }}
-              className={`${classNames({
-                [styles.clickAble]: clickAble,
-              })}`}
-            >
-              {clickAble ? "" : `${count}s 后`}重新发送
-            </span>
-          </div>
+          <InputWithLabel
+            setErrorState={setError}
+            veridate={veridate}
+            ref={inputRef}
+            error={error}
+            name="veriCode"
+            label="验证码"
+            palceholder="验证码"
+          >
+            <VeriCode />
+          </InputWithLabel>
           <div className={styles.descript}>
             已经往 B21000000@njupt.edu.cn 发送一封带有验证码的邮件，请注意查收！
           </div>
         </div>
 
-        <div className={styles.footer}>
+        <Footer>
           <NextButton
             loading={loading}
             onClick={(e) => {
-              if (!codeCheck(inputRef.current!.value)) {
+              if (veridate(inputRef.current!.value)) {
+                setError(handleError(veridate(inputRef.current!.value)));
                 e.preventDefault();
               }
             }}
             type="submit"
           />
-        </div>
+        </Footer>
       </Form>
     </>
   );
@@ -199,22 +165,14 @@ const RegistStep3 = (props: { handleStep: () => void }) => {
     { error: false } | { error: true; errMsg: string }
   >({ error: false });
 
-  const passCheck: (value: string) => boolean = useCallback((value) => {
-    if (value === "") {
-      setPassError({ error: true, errMsg: "密码不可为空！" });
-    } else {
-      setPassError((pre) => (pre.error ? { error: false } : pre));
-      return true;
-    }
+  const veridate = useCallback((value: string) => {
+    if (value === "") return "密码不可为空";
     return false;
   }, []);
 
-  const veriCheck: (value: string) => boolean = useCallback((value) => {
+  const veridate2 = useCallback((value: string) => {
     if (value !== passInputRef.current!.value) {
-      setVeriError({ error: true, errMsg: "密码不一致！" });
-    } else {
-      setVeriError((pre) => (pre.error ? { error: false } : pre));
-      return true;
+      return "密码不一致";
     }
     return false;
   }, []);
@@ -231,47 +189,46 @@ const RegistStep3 = (props: { handleStep: () => void }) => {
         names={["password", "veriPassword"]}
       >
         <div className={`${styles.inputDiv} ${styles.passInput}`}>
-          <div className={`${styles.inputWithMsg}`}>
-            <div className={styles.errMsg}>
-              {passError.error && passError.errMsg}
-            </div>
-            <Input
-              onBlur={passCheck}
-              error={passError.error}
-              ref={passInputRef}
-              label={"password"}
-              placeholder="密码"
-              name="password"
-            />
-          </div>
-          <div className={`${styles.inputWithMsg}`}>
-            <div className={styles.errMsg}>
-              {veriError.error && veriError.errMsg}
-            </div>
-            <Input
-              onBlur={veriCheck}
-              error={veriError.error}
-              ref={veriInputRef}
-              placeholder="确认密码"
-              label={"veri password"}
-              name="veriPassword"
-            />
-          </div>
+          <InputWithLabel
+            type="password"
+            withBlur={() =>
+              setVeriError(handleError(veridate2(veriInputRef.current!.value)))
+            }
+            setErrorState={setPassError}
+            veridate={veridate}
+            ref={passInputRef}
+            palceholder="密码"
+            label="密码"
+            name="password"
+            error={passError}
+          />
+          <InputWithLabel
+            type="password"
+            setErrorState={setVeriError}
+            veridate={veridate2}
+            ref={veriInputRef}
+            palceholder="确认密码"
+            label="确认密码"
+            name="veriPassword"
+            error={veriError}
+          />
         </div>
-        <div className={styles.footer}>
+        <Footer>
           <NextButton
             loading={loading}
             onClick={(e) => {
-              if (
-                !passCheck(passInputRef.current!.value) ||
-                !veriCheck(veriInputRef.current!.value)
-              ) {
+              const passCheck = veridate(passInputRef.current!.value);
+              const veriCheck = veridate2(veriInputRef.current!.value);
+              if (passCheck || veriCheck) {
+                setPassError(handleError(passCheck));
+                setVeriError(handleError(veriCheck));
                 e.preventDefault();
+                return;
               }
             }}
             type="submit"
           />
-        </div>
+        </Footer>
       </Form>
     </>
   );
@@ -292,12 +249,12 @@ const RegistStep4 = () => {
           />
           <span>注册成功</span>
         </div>
-        <div className={styles.footer}>
+        <Footer>
           <A black href="/login">
             返回登录
             <CenterArrow />
           </A>
-        </div>
+        </Footer>
       </div>
     </>
   );
