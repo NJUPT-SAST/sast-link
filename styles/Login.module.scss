@@ -2,7 +2,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  // align-items: center;
   gap: 17px;
   height: 36vh;
   min-height: 220px;
@@ -10,7 +9,7 @@
   padding: 28px 0 0 0;
   @media screen and (max-width: 498px) {
     height: 36.73vh;
-  } // 67 + 50  => 127
+  }
 }
 
 .anchor {
@@ -19,17 +18,15 @@
   font-weight: 600;
 }
 
-// 50 px
 .icons {
   display: inline-flex;
-  // height: 60px;
   width: 312px;
   gap: 30px;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 }
-// 45 px
+
 .toRegist {
   display: flex;
   align-items: flex-end;
@@ -46,7 +43,6 @@
     color: #199af8;
   }
 }
-// 520
 
 .passForm {
   display: flex;
@@ -57,9 +53,6 @@
   height: 100%;
   min-height: 500px;
   max-height: 590px;
-
-  @media screen {
-  }
 
   .inputDiv {
     display: flex;
@@ -72,32 +65,4 @@
     padding: 28px 0 85px;
   }
 
-  .footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    width: 330px;
-    height: calc(85px + 8.8vh);
-    min-height: 150px;
-    max-height: 180px;
-    gap: 12px;
-  }
 }
-
-.errMsg {
-  display: flex;
-  align-items: center;
-  padding: 3px 0 0 17px;
-  align-self: flex-start;
-  width: 301px;
-  height: 24px;
-  font-size: 14px;
-  color: var(--color-error);
-}
-
-// .input {
-//  height: 76px;
-//  display: flex;
-//  disp
-// }

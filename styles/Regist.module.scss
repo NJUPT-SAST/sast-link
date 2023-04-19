@@ -28,53 +28,20 @@
     }
   }
 
-  .footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  button,
+  a {
+    font-weight: 600;
 
-    width: 330px;
-    height: calc(85px + 8.8vh);
-    min-height: 150px;
-    max-height: 180px;
-
-    button,
-    a {
-      font-weight: 600;
-
-      margin-top: 37px;
-      gap: 10px;
-    }
+    margin-top: 36px;
+    gap: 10px;
   }
 }
 
 .mailInput,
 .veriCodeInput {
-  // position: absolute;
   input {
     width: 121px;
     padding: 1px 180px 1px 13px;
-  }
-  span {
-    height: 0;
-    position: relative;
-    align-self: flex-end;
-    color: var(--color-primary);
-    font-size: 20px;
-    top: -37px;
-    right: 20px;
-    user-select: none;
-  }
-}
-.veriCodeInput span {
-  pointer-events: none;
-  font-size: 16px;
-  color: rgba(0, 0, 0,0.3);
-  font-weight: 600;
-  &.clickAble {
-    color: #0A96D6;
-    cursor: pointer;
-    pointer-events: auto;
   }
 }
 
@@ -83,24 +50,6 @@
 }
 
 .success {
-  span {
-    font-weight: 600;
-    font-size: 20px;
-  }
-}
-.inputWithMsg {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 77px;
-}
-.errMsg {
-  display: flex;
-  align-items: center;
-  padding: 3px 0 0 17px;
-  align-self: flex-start;
-  width: 301px;
-  height: 24px;
-  font-size: 14px;
-  color: var(--color-error);
+  font-weight: 600;
+  font-size: 20px;
 }

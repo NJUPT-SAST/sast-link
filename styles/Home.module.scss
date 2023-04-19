@@ -2,34 +2,26 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 36vh;
-  min-height: 240px;
-  max-height: 310px;
-  padding: 55px 0 58px;
+  height: calc(27px + 36vh);
+  min-height: 267px;
+  max-height: 337px;
+  padding: 28px 0 58px;
 
   width: 330px;
 
   .scroll {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 240px;
+    height: calc(30vh);
+    min-height: 240px;
     width: 330px;
     overflow-y: scroll;
+    mask-image: linear-gradient( transparent 0%, rgba(0, 0, 0, 1) 30%,rgba(0, 0, 0, 1)  70%, transparent 100%);
+    mask-border-width: 0px;
     &::-webkit-scrollbar {
       width: 0;
     }
   }
-}
-
-.footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  width: 330px;
-  height: calc(85px + 8.8vh);
-  min-height: 150px;
-  max-height: 180px;
-  gap: 12px;
 }

@@ -1,0 +1,11 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 330px;
+  height: calc(85px + 8.8vh);
+  min-height: 150px;
+  max-height: 180px;
+  gap: 12px;
+}
