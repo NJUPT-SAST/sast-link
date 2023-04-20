@@ -1,4 +1,4 @@
-import { forwardRef, memo } from "react";
+import { FocusEventHandler, forwardRef, memo } from "react";
 import Image, { StaticImageData } from "next/image";
 import styles from "./index.module.scss";
 import classNames from "classnames";
@@ -11,7 +11,7 @@ interface AccountItemProps {
   nickName?: string;
   mail?: string;
   avator?: string | StaticImageData;
-  onFocus: (item: number) => void;
+  onFocus: FocusEventHandler;
 }
 
 const AccountItem = forwardRef<any, AccountItemProps>(function Account(
@@ -22,7 +22,7 @@ const AccountItem = forwardRef<any, AccountItemProps>(function Account(
 
   return (
     <div
-      onFocus={() => onFocus(index)}
+      onFocus={onFocus}
       tabIndex={0}
       className={`${styles.itemContainer} ${classNames({
         [styles.selected]: selected,
