@@ -1,9 +1,10 @@
 .a {
-  display: inline-flex;
+  box-sizing: content-box;
+  display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 312px; // 312 + 3 * 2 + 6 * 2 = 332 px
+  width: 314px; // 312 + 3 * 2 + 6 * 2 = 332 px
   height: 42px; // 42 + 3 * 2 + 1 * 2 = 50 px
   padding: 1px 6px;
   border-radius: 10px;

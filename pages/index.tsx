@@ -7,6 +7,7 @@ import { A } from "@/components/a";
 import { Layout } from "@/components/Layout";
 import BackLayout from "@/components/Layout/BackLayout";
 import { Footer } from "@/components/footer";
+import { AccountList } from "@/components/list/accountList";
 
 const Home = () => {
   const router = useRouter();
@@ -52,23 +53,11 @@ const Home = () => {
     <>
       <BackLayout type="green" />
       <Layout title={"<sast link>"}>
-        <div className={styles.accountList}>
-          <div className={styles.scroll}>
-            {Item.map((value, index) => {
-              return (
-                <MemorizedAccountItem
-                  index={index}
-                  selected={index === selected}
-                  key={`${value.mail}_${value.nickName}`}
-                  nickName={`${value.nickName}`}
-                  mail={`${value.mail}`}
-                  onFocus={changeFocus}
-                />
-              );
-            })}
-            <div className={styles.musk}></div>
-          </div>
-        </div>
+        <AccountList
+          accountList={Item}
+          changeFocus={changeFocus}
+          selected={selected}
+        />
         <Footer>
           <Button>登录</Button>
           <A href="/login">使用其他账号</A>

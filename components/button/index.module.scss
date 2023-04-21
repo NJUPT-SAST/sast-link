@@ -1,12 +1,13 @@
 .button {
   box-sizing: content-box;
-  display: inline-flex;
+  display: flex;
 
   align-items: center;
   justify-content: center;
   color: #ffffff;
   width: 314px; // 314 + 3 * 2 + 6 * 2 = 332 px
   height: 42px; // 42 + 3 * 2 + 1 * 2 = 50 px
+  padding: 1px 6px;
   border-radius: 10px;
   border: 3px solid var(--color-primary);
   background-color: var(--color-primary);

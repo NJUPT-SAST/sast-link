@@ -8,8 +8,9 @@
   width: 300px;
   height: 78px;
   margin: 1px 0;
-  padding: 1px 14px;
+  padding: 0px 14px;
   border-radius: 10px;
+  scroll-margin-bottom: 40px;
   cursor: pointer;
   &.selected {
     background: var(--color-linkFocus);
@@ -61,7 +62,12 @@
     justify-content: center;
     height: 20px;
     width: 20px;
+    // clip-path: circle;
+    border-radius: 50%;
 
     cursor: pointer;
+    &:hover {
+      background-color: #e2d4d4
+    }
   }
 }
