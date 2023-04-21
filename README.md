@@ -12,7 +12,10 @@ pnpm dev
 
 ## TODO
 
-- [ ] 首页 account 可选中与聚焦高亮
+- [X] 首页 account 可选中与聚焦高亮
+- [ ] 首页 accountList 滚动高度调整与关闭按钮的聚焦高亮
 - [ ] 首页 逻辑
 - [ ] Button => focus 等样式
-- [ ] register 图标
+- [X] register 图标
+- [ ] message 组件，预计使用单例模式
+- [ ] notify 组件，预计使用单例模式
