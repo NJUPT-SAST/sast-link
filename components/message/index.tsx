@@ -1,8 +1,13 @@
 import { Linkqueue } from "@/type/class/linkqueue";
+import { useState, useRef } from "react";
+import { Dispatch, SetStateAction } from "react";
+import { MemoMessageItem } from "./messageItem";
+import styles from "./index.module.scss";
 
 interface messageProps {
   content: string;
-  delay?: number;
+  id: number;
+  delay: number;
 }
 
 interface messageType extends messageProps {
@@ -10,55 +15,65 @@ interface messageType extends messageProps {
 }
 
 interface LinkType {
+  timer: NodeJS.Timer;
   isTail: boolean;
   before: LinkType | null;
-  next: LinkType | null;
+  next: LinkType;
   message: messageType;
+  this: LinkType;
 }
 
-class Message {
-  #queue;
-  static #instance: Message;
+let GlobalsComponents: (props: any) => JSX.Element;
 
-  static getInstance() {
-    if (!Message.#instance) {
-      this.#instance = new Message();
-    }
-    return this.#instance;
+function Messagefn() {
+  let msgHandler: Linkqueue<messageType, LinkType> | null = null;
+  let fresh: Dispatch<SetStateAction<{}>> | null = null;
+
+  function Message() {
+    const [, setState] = useState<{}>({});
+    const messages = useRef<Linkqueue<messageType, LinkType>>(
+      new Linkqueue<messageType, LinkType>({
+        next: null,
+        tail: null,
+        size: 0,
+      }),
+    );
+    msgHandler = messages.current;
+    fresh = setState;
+    return (
+      <>
+        <div className={styles.messagePanel}>
+          {messages.current.getMessage().map((value) => {
+            return (
+              <MemoMessageItem
+                key={`${value.message.content}_${value.message.id}`}
+                {...value.message}
+              />
+            );
+          })}
+        </div>
+      </>
+    );
   }
 
-  private constructor() {
-    this.#queue = new Linkqueue<messageType, LinkType>();
-  }
+  GlobalsComponents = Message;
 
-  console() {
-    console.log(this.#queue.getMessage());
-  }
+  return {
+    info(props: { icon: "info"; content: string; delay?: number }) {
+      const a = {
+        ...props,
+        id: -1,
+        delay: props.delay ? props.delay + 0.5 : 6,
+      };
+      msgHandler?.addLinkNode(a);
+      if (fresh) fresh({});
 
-  info(props: messageProps) {
-    if (props.delay === undefined) {
-      props.delay = 6;
-    }
-    const linkNode: LinkType = {
-      isTail: true,
-      before: null,
-      next: null,
-      message: { icon: "info", ...props },
-    };
-
-    this.#queue.addLinkNode(linkNode);
-
-    setTimeout(() => {
-      this.#queue.RemoveLinkNode(linkNode);
-    }, linkNode.message.delay! * 1000);
-  }
-  getHead() {
-    return this.#queue.next;
-  }
-
-  getQueue() {
-    return this.#queue;
-  }
+      setTimeout(() => {
+        if (fresh === null) return;
+        fresh({});
+      }, a.delay * 1000);
+    },
+  };
 }
 
-export default Message.getInstance();
+export { Messagefn, GlobalsComponents };
