@@ -1,13 +1,15 @@
 .icon {
-  box-sizing: content-box;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  border-radius: 50%;
-  border: 3px solid var(--color-primary);
+  box-sizing: content-box;
   width: 44px;
   height: 44px;
-  user-select: none;
+  border: 3px solid var(--color-primary);
+
+  border-radius: 50%;
+
   cursor: pointer;
+
+  user-select: none;
 }

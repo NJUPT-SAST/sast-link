@@ -1,8 +1,8 @@
 .nameForm {
   flex-direction: column;
+  gap: 17px;
   align-items: center;
   justify-content: space-between;
-  gap: 17px;
   height: 36vh;
   min-height: 220px;
   max-height: 310px;
@@ -13,34 +13,36 @@
 }
 
 .anchor {
-  margin: 12px 0 55px 0;
   min-height: 42px;
+  margin: 12px 0 55px 0;
+
   font-weight: 600;
 }
 
 .icons {
   display: inline-flex;
-  width: 312px;
-  gap: 30px;
   flex-direction: row;
+  gap: 30px;
   align-items: center;
   justify-content: center;
+  width: 312px;
 }
 
 .toRegist {
   display: flex;
   align-items: flex-end;
-  margin: 0px 0 23px;
-  color: var(--color-primary);
   height: 10vh;
   min-height: 67px;
   max-height: 77px;
+  margin: 0px 0 23px;
+
+  color: var(--color-primary);
   font-size: 16px;
   line-height: 22px;
 
   a {
-    text-decoration: none;
     color: #199af8;
+    text-decoration: none;
   }
 }
 
@@ -64,5 +66,5 @@
     max-height: 310px;
     padding: 28px 0 85px;
   }
-
+ //
 }

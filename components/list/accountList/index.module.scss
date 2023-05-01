@@ -2,21 +2,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  width: 330px;
   height: calc(27px + 36vh);
   min-height: 267px;
   max-height: 337px;
   padding: 28px 0 58px;
 
-  width: 330px;
-
   .scroll {
     position: relative;
+
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 330px;
     height: calc(30vh);
     min-height: 240px;
-    width: 330px;
     overflow-y: scroll;
     mask-image: linear-gradient(
       transparent 0%,
@@ -24,16 +25,15 @@
       rgba(255, 255, 255, 1) calc(max(30vh, 240px) / 2 + 40px),
       transparent 100%
     );
-    // mask-border-width: 0px;
     .topWhite {
       flex-shrink: 0;
-      height: 80px;
       width: 100%;
+      height: 80px;
     }
     .bottomWhite {
       flex-shrink: 0;
-      height: calc(max(30vh, 240px) - 60px - 80px);
       width: 100%;
+      height: calc(max(30vh, 240px) - 60px - 80px);
     }
     &::-webkit-scrollbar {
       width: 0;

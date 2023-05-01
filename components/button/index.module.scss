@@ -1,27 +1,29 @@
 .button {
-  box-sizing: content-box;
   display: flex;
+  gap: 10px;
 
   align-items: center;
   justify-content: center;
-  color: #ffffff;
-  width: 314px; // 314 + 3 * 2 + 6 * 2 = 332 px
-  height: 42px; // 42 + 3 * 2 + 1 * 2 = 50 px
+  box-sizing: content-box;
+  width: 314px;
+  height: 42px;
   padding: 1px 6px;
-  border-radius: 10px;
   border: 3px solid var(--color-primary);
-  background-color: var(--color-primary);
+  border-radius: 10px;
 
-  // font-family: "PingFang SC";
-  font-size: 22px;
+  color: #ffffff;
   font-weight: 600;
-  gap: 10px;
-  // text-align: center;
+
+
+  font-size: 22px;
+
+  background-color: var(--color-primary);
 
   cursor: pointer;
 
   &.colorReverse {
-    background-color: #ffffff;
     color: var(--color-primary);
+
+    background-color: #ffffff;
   }
 }

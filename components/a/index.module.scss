@@ -1,26 +1,27 @@
 .a {
-  box-sizing: content-box;
   display: flex;
   flex-direction: row;
-  justify-content: center;
   align-items: center;
-  width: 314px; // 312 + 3 * 2 + 6 * 2 = 332 px
-  height: 42px; // 42 + 3 * 2 + 1 * 2 = 50 px
+  justify-content: center;
+  box-sizing: content-box;
+  width: 314px;
+  height: 42px;
   padding: 1px 6px;
-  border-radius: 10px;
   border: 3px solid var(--color-primary);
+  border-radius: 10px;
 
-  // font-family: "PingFang SC";
-  font-size: 20px;
+  color: var(--color-primary);
   font-weight: 600;
+
+  font-size: 20px;
   line-height: 24px;
   text-align: center;
   text-decoration: none;
   vertical-align: middle;
-  color: var(--color-primary);
 }
 
 .a.black {
   color: #ffffff;
+
   background: var(--color-primary);
 }

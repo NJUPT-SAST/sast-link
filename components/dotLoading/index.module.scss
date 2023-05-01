@@ -2,8 +2,8 @@
   display: inline-block;
   width: 10px;
   height: 10px;
-  // clip-path: circle(50%);
   border-radius: 100%;
+
   background-color: white;
   &:nth-child(1) {
     animation: firstDot 1s linear 0s infinite both;

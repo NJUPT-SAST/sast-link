@@ -1,11 +1,14 @@
 .veriCode {
-  pointer-events: none;
-  font-size: 16px;
   color: rgba(0, 0, 0, 0.3);
   font-weight: 600;
+  font-size: 16px;
+
+  pointer-events: none;
   &.clickAble {
     color: #0a96d6;
+
     cursor: pointer;
+
     pointer-events: auto;
   }
 }

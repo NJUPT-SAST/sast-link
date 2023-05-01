@@ -13,27 +13,29 @@
   .success {
     display: flex;
     flex-direction: column;
+    gap: 12px;
     align-items: center;
     width: 330px;
     height: 36vh;
     min-height: 220px;
     max-height: 310px;
     padding: 28px 0 85px;
-    gap: 12px;
     .descript {
-      font-size: 14px;
       width: 290px;
-      word-wrap: normal;
+
+      font-size: 14px;
       text-align: initial;
+      word-wrap: normal;
     }
   }
 
   button,
   a {
-    font-weight: 600;
+    gap: 10px;
 
     margin-top: 36px;
-    gap: 10px;
+
+    font-weight: 600;
   }
 }
 

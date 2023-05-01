@@ -6,31 +6,37 @@
   label {
     display: flex;
     align-items: center;
-    padding: 3px 0 0 17px;
     align-self: flex-start;
     width: 301px;
     height: 24px;
+    padding: 3px 0 0 17px;
+
     font-size: 14px;
+
     transition: all 0.15s ease;
-    // opacity: 0;
     &.errMsg {
       color: var(--color-error);
+
       opacity: 1;
     }
     &.label {
-      font-size: 12px;
       padding: 3px 0 0 5px;
+
       color: var(--color-inputBorder);
+      font-size: 12px;
     }
   }
   .afterContent {
-    height: 0;
     position: relative;
-    align-self: flex-end;
-    color: var(--color-primary);
-    font-size: 20px;
     top: -37px;
     right: 20px;
+
+    align-self: flex-end;
+    height: 0;
+
+    color: var(--color-primary);
+    font-size: 20px;
+
     user-select: none;
   }
 }
