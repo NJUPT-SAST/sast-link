@@ -1,32 +1,29 @@
 import styles from "../index.module.scss";
 import { memo } from "react";
-import { Success, Error, Info } from "./icons";
+import { Success, Error, Info, Warning } from "./icons";
+import { MessageItemPropsType } from "../type";
 
-interface InfoMessageProps {
-  id: string | number;
-  icon?: string;
-  delay: number;
-  content: string;
-}
-
-const MessageItem = (props: InfoMessageProps) => {
+const MessageItem = (props: MessageItemPropsType) => {
   const { icon, delay, content } = props;
   return (
     <>
       <div
-        style={{ "--time-delay": `${delay - 0.5}s` }}
+        style={{ "--time-delay": `${delay - 0.3}s` }}
         className={`${styles.messageContainer}`}
       >
         {(() => {
           switch (icon) {
-            case "loading":
-              return "loading";
+            case "success":
+              return <Success />;
             case "info":
               return <Info />;
+            case "warning":
+              return <Warning />;
             case "error":
               return <Error />;
-            case "sucess":
-              return <Success />;
+
+            case "loading":
+              return "loading";
             default:
               return <Info />;
           }

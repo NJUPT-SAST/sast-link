@@ -1,5 +1,5 @@
 export class Linkqueue<
-  M extends { id: number; delay: number },
+  M extends { id: number | string; delay: number },
   T extends {
     timer: NodeJS.Timer;
     this: T;
@@ -103,9 +103,8 @@ export class Linkqueue<
   }
 
   getMessage() {
-    const res: {timer: NodeJS.Timer; this: T; message: M }[] = [];
+    const res: { timer: NodeJS.Timer; this: T; message: M }[] = [];
     if (this.next === null) {
-      console.log(res)
       return res;
     }
     let linkNode: T = this.next!;
@@ -115,7 +114,6 @@ export class Linkqueue<
       message: linkNode.message,
     });
     if (linkNode.isTail) {
-      console.log(res)
       return res;
     }
     do {
@@ -126,7 +124,6 @@ export class Linkqueue<
         message: linkNode.message,
       });
     } while (!linkNode.isTail);
-    console.log(res)
     return res;
   }
 }
