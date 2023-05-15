@@ -12,6 +12,7 @@ import { CenterArrow } from "@/components/icon/ArrowIcon";
 import classNames from "classnames";
 import { VeriCode } from "@/components/veriCode";
 import { Footer } from "@/components/footer";
+import { sendMail, veriAccount } from "@/lib/apis/verify";
 
 const Regist = () => {
   const [step, setStep] = useState<number>(1);
@@ -53,8 +54,23 @@ const RegistStep1 = (props: { handleStep: () => void }) => {
       <Form
         className={[`${styles.form}`]}
         onSubmit={(args) => {
-          handleStep();
-          console.log(args);
+          setLoading(true);
+          if (typeof args.mail === "string") {
+            const mail = args.mail;
+            veriAccount(mail, 0)
+              .then(
+                (res) => {
+                  console.log(res);
+                  handleStep();
+                },
+                (error) => {},
+              )
+              .finally(() => {
+                setLoading(false);
+              });
+            return;
+          }
+          setError({ errMsg: "发生了未知错误", error: true });
         }}
         names={["mail"]}
       >
@@ -114,6 +130,7 @@ const RegistStep2 = (props: { handleStep: () => void }) => {
       <Form
         className={[`${styles.form}`]}
         onSubmit={(args) => {
+          sendMail().then();
           handleStep();
           console.log(args);
         }}

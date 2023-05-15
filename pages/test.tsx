@@ -45,9 +45,10 @@ const Test = () => {
           height: "200px",
           width: "200px",
           boxShadow: "1px 1px 1px black",
+          textOverflow:"ellipsis",
+          wordWrap:'unset'
         }}
       >
-        sadjhasjkfakjshfjaks
       </div>
     </>
   );

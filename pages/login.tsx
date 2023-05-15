@@ -11,6 +11,8 @@ import BackLayout from "@/components/Layout/BackLayout";
 import { InputWithLabel } from "@/components/input/inputWithLabel";
 import { Footer } from "@/components/footer";
 import { handleError } from "@/components/function";
+import { veriAccount } from "@/lib/apis/verify";
+import { userLogin } from "@/lib/apis/user";
 
 export default function Login() {
   const [step, setStep] = useState<number>(1);
@@ -56,10 +58,19 @@ const Step1 = (props: { handleStep: () => void }) => {
         names={["username"]}
         onSubmit={(args) => {
           setLoading(true);
-          setTimeout(() => {
-            setLoading(false);
-            handleStep();
-          }, 1000);
+          if (typeof args.username === "string") {
+            const username = args.username;
+            veriAccount(username, 1)
+              .then(
+                (res) => {
+                  handleStep();
+                },
+                (err) => {},
+              )
+              .finally(() => {
+                setLoading(false);
+              });
+          }
         }}
       >
         <div className={`${styles.inputDiv}`}>
@@ -132,22 +143,19 @@ const Step2 = (props: { handleStep: () => void }) => {
         names={["password"]}
         onSubmit={(args) => {
           setLoading(true);
-          const promise2 = new Promise<{ success: boolean; msg: string }>(
-            (resolve, reject) => {
-              setTimeout(() => {
-                resolve({ success: false, msg: "Hello" });
-              }, 1000);
-            },
-          );
-          promise2.then((res) => {
-            setLoading(false);
-            if (res.success) {
-              setError({ error: false });
-            } else {
-              setError({ error: true, errMsg: res.msg });
-            }
-          });
-          console.log(args);
+          if (typeof args.password === "string") {
+            const password = args.password;
+            userLogin(password)
+              .then(
+                (res) => {
+                  console.log(res);
+                },
+                (err) => {},
+              )
+              .finally(() => {
+                setLoading(false);
+              });
+          }
         }}
       >
         <div className={`${styles.inputDiv}`}>
