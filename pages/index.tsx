@@ -1,7 +1,5 @@
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
-import styles from "@/styles/Home.module.scss";
-import { MemorizedAccountItem } from "@/components/accountItem";
 import { Button } from "@/components/button";
 import { A } from "@/components/a";
 import { Layout } from "@/components/Layout";
