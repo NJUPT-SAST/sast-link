@@ -1,4 +1,4 @@
-import { FocusEventHandler, forwardRef, memo } from "react";
+import { MouseEventHandler, forwardRef, memo } from "react";
 import Image, { StaticImageData } from "next/image";
 import styles from "./index.module.scss";
 import classNames from "classnames";
@@ -11,18 +11,19 @@ interface AccountItemProps {
   nickName?: string;
   mail?: string;
   avator?: string | StaticImageData;
-  onFocus: FocusEventHandler;
+  onFocus: MouseEventHandler;
+  onClose: () => void;
 }
 
 const AccountItem = forwardRef<any, AccountItemProps>(function Account(
   props,
   ref?,
 ) {
-  const { index, selected, onFocus, nickName, mail, avator } = props;
+  const { onClose, index, selected, onFocus, nickName, mail, avator } = props;
 
   return (
     <div
-      onFocus={onFocus}
+      onClick={onFocus}
       tabIndex={0}
       className={`${styles.itemContainer} ${classNames({
         [styles.selected]: selected,
@@ -42,7 +43,13 @@ const AccountItem = forwardRef<any, AccountItemProps>(function Account(
           {mail ?? "B2100000@njupt.edu.cn"}
         </div>
       </div>
-      <div className={`${styles.closeIcon}`}>
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+          onClose();
+        }}
+        className={`${styles.closeIcon}`}
+      >
         <Image src={closeSVG} alt={`close`} width={11} height={11} />
       </div>
     </div>
@@ -52,7 +59,7 @@ const AccountItem = forwardRef<any, AccountItemProps>(function Account(
 const MemorizedAccountItem = memo(AccountItem, (prevProps, nextProps) => {
   return (
     prevProps.selected === nextProps.selected &&
-    prevProps.onFocus === nextProps.onFocus
+    prevProps.index === nextProps.index
   );
 });
 

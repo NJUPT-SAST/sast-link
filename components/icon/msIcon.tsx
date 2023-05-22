@@ -1,7 +1,6 @@
-import { CenterIcon } from ".";
-
 import ms from "@/public/svg/ms.svg";
+import Image from "next/image";
 
 export function MsIcon() {
-  return <CenterIcon src={ms} alt={`ms icon`} />;
+  return <Image src={ms} alt={`ms icon`} />;
 }

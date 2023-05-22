@@ -24,9 +24,9 @@ const Form = forwardRef<HTMLFormElement, FormProps>(function Form(props, ref?) {
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
       event.preventDefault();
       const formData = new FormData(event.currentTarget);
-      const obj: { [key: string]: formDataType } = {};
+      const obj: any = {};
       for (let value of names) {
-        obj[value] = formData.get(value) ?? undefined;
+        obj[value] = formData.get(value) ?? "";
       }
       onSubmit(obj);
     },
@@ -35,7 +35,7 @@ const Form = forwardRef<HTMLFormElement, FormProps>(function Form(props, ref?) {
 
   return (
     <form
-      onSubmit={handleSubmit}
+    onSubmit={handleSubmit}
       ref={ref}
       className={`${styles.form} ${classNames(...className)}`}
     >
