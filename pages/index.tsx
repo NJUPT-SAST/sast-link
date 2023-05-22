@@ -1,58 +1,38 @@
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/button";
 import { A } from "@/components/a";
 import { Layout } from "@/components/Layout";
 import BackLayout from "@/components/Layout/BackLayout";
 import { Footer } from "@/components/footer";
-import { AccountList } from "@/components/list/accountList";
+import { useAppSelector } from "@/redux";
+
+const AccountList = dynamic(
+  () => import("@/components/list/accountList").then((mod) => mod.AccountList),
+  { ssr: false },
+);
 
 const Home = () => {
   const router = useRouter();
+  const localUserList = useAppSelector((state) => state.localUserList);
   const [selected, setSelected] = useState<number>(0);
   const changeFocus = useCallback((item: number) => {
     setSelected(item);
   }, []);
 
   useEffect(() => {
-    if (false) {
+    if (localUserList.length === 0) {
       router.replace("/login", undefined, { shallow: true });
     }
-  }, [router]);
-
-  const Item = [
-    {
-      nickName: " Ming",
-      mail: "B21000000@njupt.edu.cn",
-    },
-    {
-      nickName: " Ming",
-      mail: "B21000001@njupt.edu.cn",
-    },
-    {
-      nickName: " Ming",
-      mail: "B21000002@njupt.edu.cn",
-    },
-    {
-      nickName: " Ming",
-      mail: "B21000003@njupt.edu.cn",
-    },
-    {
-      nickName: " Ming",
-      mail: "B21000004@njupt.edu.cn",
-    },
-    {
-      nickName: " Ming",
-      mail: "B21000005@njupt.edu.cn",
-    },
-  ];
+  }, [router, localUserList]);
 
   return (
     <>
       <BackLayout type="green" />
       <Layout title={"<sast link>"}>
         <AccountList
-          accountList={Item}
+          accountList={localUserList}
           changeFocus={changeFocus}
           selected={selected}
         />

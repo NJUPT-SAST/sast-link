@@ -1,6 +1,8 @@
 import { useCallback, useRef } from "react";
-import { MemorizedAccountItem } from "../../accountItem";
+import {MemorizedAccountItem, AccountItem } from "../../accountItem";
 import styles from "./index.module.scss";
+import { useAppDispatch } from "@/redux";
+import { removeAccount } from "@/redux/features/userList";
 
 interface AccountListProps {
   selected?: number;
@@ -11,7 +13,7 @@ interface AccountListProps {
 const AccountList = (props: AccountListProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const { selected, accountList = [], changeFocus = () => void 0 } = props;
-
+  const dispatch = useAppDispatch();
   const scroll = useCallback((index: number) => {
     scrollRef.current!.scroll({ top: index * 80, behavior: "smooth" });
   }, []);
@@ -31,6 +33,9 @@ const AccountList = (props: AccountListProps) => {
                 onFocus={() => {
                   changeFocus(index);
                   scroll(index);
+                }}
+                onClose={() => {
+                  dispatch(removeAccount(index));
                 }}
               />
             );
