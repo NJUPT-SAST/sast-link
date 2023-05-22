@@ -4,8 +4,10 @@ interface UserProfileType {
   username: string | null;
 }
 
+const isServer = typeof window === "undefined";
+
 const initialState: UserProfileType = {
-  username: localStorage.getItem("username"),
+  username: isServer ? "" : localStorage.getItem("username") ?? null,
 };
 
 const userProfileSlice = createSlice({
