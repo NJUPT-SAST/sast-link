@@ -1,6 +1,6 @@
 import qq from "@/public/svg/qq.svg";
-import { CenterIcon } from ".";
+import Image from "next/image";
 
 export function QqIcon() {
-  return <CenterIcon src={qq} alt={`qq icon`} />;
+  return <Image src={qq} alt={`qq icon`} />;
 }

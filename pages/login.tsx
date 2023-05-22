@@ -13,6 +13,25 @@ import { Footer } from "@/components/footer";
 import { handleError } from "@/components/function";
 import { veriAccount } from "@/lib/apis/verify";
 import { userLogin } from "@/lib/apis/user";
+import { OtherLoginList } from "@/components/list/otherLoginList";
+
+const list = [
+  {
+    target: "",
+    describe: "Github",
+    icon: <GithubIcon />,
+  },
+  {
+    target: "",
+    describe: "QQ",
+    icon: <QqIcon />,
+  },
+  {
+    target: "",
+    describe: "Microsoft",
+    icon: <MsIcon />,
+  },
+];
 
 export default function Login() {
   const [step, setStep] = useState<number>(1);
@@ -104,17 +123,7 @@ const Step1 = (props: { handleStep: () => void }) => {
       <A href="a" className={[styles.anchor]}>
         SAST 飞书登录
       </A>
-      <div className={`${styles.icons}`}>
-        <a>
-          <GithubIcon />
-        </a>
-        <a>
-          <QqIcon />
-        </a>
-        <a>
-          <MsIcon />
-        </a>
-      </div>
+      <OtherLoginList list={list} />
       <div className={`${styles.toRegist}`}>
         没有账号？<Link href={"/regist"}>注册</Link>
       </div>
