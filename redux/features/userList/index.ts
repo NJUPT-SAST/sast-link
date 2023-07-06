@@ -6,16 +6,17 @@ interface UserList {
   nickName: string;
   mail: string;
 }
+export const runtime = "edge";
 
 const initialState: UserList[] = isServer
   ? []
   : (() => {
-      const localUserList = isServer
-        ? []
-        : (JSON.parse(localStorage.getItem("userList") ?? "[]") as {
-            nickName: string;
-            mail: string;
-          }[]);
+      const localUserList = JSON.parse(
+        localStorage.getItem("userList") ?? "[]"
+      ) as {
+        nickName: string;
+        mail: string;
+      }[];
       if (localUserList.length && typeof localUserList.length === "number") {
         if (
           localUserList.every((item) => {
@@ -38,16 +39,13 @@ const UserListSlice = createSlice({
       action: PayloadAction<{
         nickName: string;
         mail: string;
-      }>,
+      }>
     ) => {
       state.push(action.payload);
       localStorage.setItem("userList", JSON.stringify(state));
     },
-    removeAccount: (
-      state,
-      action: PayloadAction<number>,
-    ) => {
-      state.splice(action.payload,1)
+    removeAccount: (state, action: PayloadAction<number>) => {
+      state.splice(action.payload, 1);
       localStorage.setItem("userList", JSON.stringify(state));
     },
   },

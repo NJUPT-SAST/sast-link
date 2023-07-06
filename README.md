@@ -14,8 +14,8 @@
 - 开发语言：[TypeScript](https://www.typescriptlang.org/)
 - CSS 扩展语言：[SASS](https://sass-lang.com/)
 - UI 组件库：本项目未使用 UI 组件库。
-- API 相关：预计使用 [Axios](https://axios-http.com/)
-- 全局状态管理：未定
+- API 相关：[Axios](https://axios-http.com/)
+- 全局状态管理：[Redux](https://redux.js.org/)
 - 其他：待补充
 
 ## 项目结构
@@ -43,6 +43,9 @@
 │  ├── fonts // 字体文件
 │  │  └── index.ts
 │  └── svg // 各种 icon
+├── redux // 存放全局状态
+│  ├── features // 存放包含 Reducer 的文件夹
+│  └── index.ts // 存放 config
 ├── styles // 样式
 │  ├── globals.scss // 全局样式
 │  ├── Home.module.scss
@@ -91,10 +94,11 @@ pnpm build
 ## TODO
 
 - [X] 首页 account 可选中与聚焦高亮
-- [ ] 首页 accountList 滚动高度调整与关闭按钮的聚焦高亮
-- [ ] 首页 逻辑
+- [X] 首页 accountList 滚动高度调整与关闭按钮的聚焦高亮
+- [X] 首页 逻辑
 - [ ] Button => focus 等样式
 - [X] register 图标
 - [X] message 组件，预计使用单例模式
 - [ ] notify 组件，预计使用单例模式
+- [ ] setupProxy 文件
 - [ ] 联调（不急，接口没写完）
