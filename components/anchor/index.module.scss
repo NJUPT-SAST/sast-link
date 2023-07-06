@@ -1,0 +1,27 @@
+.a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  box-sizing: content-box;
+  width: 314px;
+  height: 42px;
+  padding: 1px 6px;
+  border: 3px solid var(--color-primary);
+  border-radius: 10px;
+
+  color: var(--color-primary);
+  font-weight: 600;
+
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+}
+
+.a.black {
+  color: #ffffff;
+
+  background: var(--color-primary);
+}
