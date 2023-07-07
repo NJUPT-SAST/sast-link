@@ -1,7 +1,8 @@
 "use client";
 
 import React, { ReactNode, useCallback, useState } from "react";
-import styles from "./page.module.scss";
+import { LoginStep1 } from "./loginStep1";
+import { LoginStep2 } from "./loginStep2";
 
 export const metadata = {
   title: "SAST Link Login",
@@ -20,10 +21,9 @@ export const LoginContext = React.createContext<LoginContextProps>({
 
 const Login = (props: {
   children: ReactNode;
-  firstStep: ReactNode;
-  secondStep: ReactNode;
+  loginStep1: ReactNode;
+  loginStep2: ReactNode;
 }) => {
-  const { firstStep, secondStep } = props;
 
   const [step, setStep] = useState<number>(1);
   const [title, setTitle] = useState<string>("<sast link>");
@@ -39,10 +39,11 @@ const Login = (props: {
   };
   return (
     <>
-      <div className={styles.title}>{title}</div>
-      <div className={styles.container}>
+      <div className={"pageTitle"}>{title}</div>
+      <div className={"globalContainer"}>
+
         <LoginContext.Provider value={providerValue}>
-          {step === 1 ? firstStep : secondStep}
+          {step === 1 ? <LoginStep1 /> : <LoginStep2 />}
         </LoginContext.Provider>
       </div>
     </>

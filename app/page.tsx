@@ -11,12 +11,15 @@ export default function Home() {
   return (
     <>
       <BackLayout type="green" />
-      <Layout title={"<sast link>"}>
+      <Layout>
+      <div className={"pageTitle"}>{"<sast link>"}</div>
+      <div className={"globalContainer"}>
         <AccountPanel />
         <Footer>
           <Button>登录</Button>
           <Anchor href="/login">使用其他账号</Anchor>
         </Footer>
+        </div>
       </Layout>
     </>
   );

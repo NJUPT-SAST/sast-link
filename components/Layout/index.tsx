@@ -19,8 +19,6 @@ const Layout = (props: LayoutProps) => {
         )}`}
       >
         {children}
-        {/* <div className={styles.title}>{title}</div>
-        <div className={styles.container}></div> */}
       </div>
     </>
   );
