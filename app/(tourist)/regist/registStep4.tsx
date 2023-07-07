@@ -1,8 +1,10 @@
+"use client";
+
 import { Player } from "@lottiefiles/react-lottie-player";
 import { CenterArrow } from "@/components/icon/ArrowIcon";
 import { Footer } from "@/components/footer";
 import { Anchor } from "@/components/anchor";
-import styles from "../page.module.scss";
+import styles from "./page.module.scss";
 
 const RegistStep4 = () => {
   return (
@@ -30,4 +32,4 @@ const RegistStep4 = () => {
   );
 };
 
-export default RegistStep4;
+export { RegistStep4 };

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState, useRef, useCallback, useContext } from "react";
 import { userLogin } from "@/lib/apis/user";
@@ -7,9 +7,9 @@ import { Button } from "@/components/button";
 import { InputWithLabel } from "@/components/input/inputWithLabel";
 import { Footer } from "@/components/footer";
 import { handleError } from "@/lib/func";
+import { LoginContext } from "./page";
 
 import styles from "./page.module.scss";
-import { LoginContext } from "../page";
 
 const LoginStep2 = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -82,4 +82,4 @@ const LoginStep2 = () => {
   );
 };
 
-export default LoginStep2
+export { LoginStep2 };

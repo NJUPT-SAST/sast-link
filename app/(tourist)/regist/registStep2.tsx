@@ -1,3 +1,5 @@
+"use client"
+
 import { Form } from "@/components/form";
 import { NextButton } from "@/components/button";
 import { useCallback, useContext, useRef, useState } from "react";
@@ -7,8 +9,8 @@ import { handleError } from "@/lib/func";
 import { VeriCode } from "@/components/veriCode";
 import { Footer } from "@/components/footer";
 import { sendMail } from "@/lib/apis/verify";
-import { RegistContext } from "../page";
-import styles from "../page.module.scss"
+import { RegistContext } from "./page";
+import styles from "./page.module.scss"
 
 const RegistStep2 = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -71,4 +73,4 @@ const RegistStep2 = () => {
   );
 };
 
-export default RegistStep2;
+export { RegistStep2 };
