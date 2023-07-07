@@ -15,3 +15,53 @@ body {
     height: max-content;
   }
 }
+
+.pageTitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  height: 18vh;
+  min-height: 160px;
+  padding: 0 0 55px;
+
+  color: var(--color-primary);
+
+  font-size: 64px;
+
+  @media screen and (max-width: 498px) {
+    width: 322px;
+    height: 26.67vh;
+    min-height: 125px;
+    max-height: 225px;
+
+    padding: 0;
+
+    font-size: 36px;
+  }
+}
+
+.globalContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 397px;
+
+  height: calc(73.3vh);
+  min-height: 500px;
+  max-height: 590px;
+
+  border: 5px solid var(--color-primary);
+  border-radius: 10px;
+  @media screen and (min-width: 498px) {
+    background: #ffffff;
+  }
+
+  @media screen and (max-width: 498px) {
+    min-height: 510px;
+    max-height: 600px;
+    margin-top: 5px;
+    border: none;
+  }
+}
