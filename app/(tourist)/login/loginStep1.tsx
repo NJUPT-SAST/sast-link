@@ -3,7 +3,7 @@
 import { Form } from "@/components/form";
 import { useContext, useRef, useState, useCallback } from "react";
 import { LoginContext } from "./page";
-import { veriAccount } from "@/lib/apis/verify";
+import { veriLoginAccount } from "@/lib/apis/global";
 import { Button } from "@/components/button";
 import { InputWithLabel } from "@/components/input/inputWithLabel";
 import { handleError } from "@/lib/func";
@@ -11,7 +11,6 @@ import Link from "next/link";
 import { Anchor } from "@/components/anchor";
 import { OtherLoginList } from "@/components/list/otherLoginList";
 import { GithubIcon, QqIcon, MsIcon } from "@/components/icon";
-import { login } from "@/redux/features/userProfile";
 
 import styles from "./page.module.scss";
 
@@ -36,7 +35,7 @@ const list = [
 const LoginStep1 = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { handleTitle, handleStep } = useContext(LoginContext);
+  const { handleTitle, handleStep, handleTicket } = useContext(LoginContext);
   const [error, setError] = useState<
     { error: false } | { error: true; errMsg: string }
   >({ error: false });
@@ -55,20 +54,22 @@ const LoginStep1 = () => {
         names={["username"]}
         onSubmit={(args) => {
           setLoading(true);
-          handleStep(1)
-          if (typeof args.username === "string") {
-            const username = args.username;
-            veriAccount(username, 1)
-              .then(
-                (res) => {
-                  handleStep(1);
-                },
-                (err) => {}
-              )
-              .finally(() => {
-                setLoading(false);
-              });
-          }
+          const username = args.username as string;
+          veriLoginAccount(username)
+            .then(
+              (res) => {
+                console.log(res);
+                const ticket = res.data.Data.login_ticket;
+                handleTicket(ticket);
+                handleStep(1);
+              },
+              (err) => {
+                setError({ error: true, errMsg: err.response.data.ErrMsg });
+              }
+            )
+            .finally(() => {
+              setLoading(false);
+            });
         }}
       >
         <div className={`${styles.inputDiv}`}>

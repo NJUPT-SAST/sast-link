@@ -1,20 +1,22 @@
 "use client";
 
 import { useState, useRef, useCallback, useContext } from "react";
-import { userLogin } from "@/lib/apis/user";
+import { getUserInfo, userLogin } from "@/lib/apis/user";
 import { Form } from "@/components/form";
 import { Button } from "@/components/button";
 import { InputWithLabel } from "@/components/input/inputWithLabel";
 import { Footer } from "@/components/footer";
 import { handleError } from "@/lib/func";
 import { LoginContext } from "./page";
+import { useRouter } from "next/navigation";
 
 import styles from "./page.module.scss";
 
 const LoginStep2 = () => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
-  const { handleTitle, handleStep } = useContext(LoginContext);
+  const { loginTicket = "", handleStep } = useContext(LoginContext);
   const [error, setError] = useState<
     { error: false } | { error: true; errMsg: string }
   >({ error: false });
@@ -34,10 +36,13 @@ const LoginStep2 = () => {
           setLoading(true);
           if (typeof args.password === "string") {
             const password = args.password;
-            userLogin(password)
+            userLogin(password, loginTicket)
               .then(
                 (res) => {
                   console.log(res);
+                  const token = res.data.Data.token;
+                  localStorage.setItem("Token", JSON.stringify(token));
+                  router.replace("/home");
                 },
                 (err) => {}
               )
@@ -52,6 +57,7 @@ const LoginStep2 = () => {
             setErrorState={setError}
             veridate={veridate}
             label="密码"
+            type="password"
             palceholder="密码"
             error={error}
             ref={inputRef}
