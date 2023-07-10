@@ -1,14 +1,14 @@
-"use client"
+"use client";
 
 import { useRef, useState, useCallback, useContext } from "react";
 import { Form } from "@/components/form";
-import { veriAccount } from "@/lib/apis/verify";
+import { sendMail, veriRegistAccount } from "@/lib/apis/global";
 import { Footer } from "@/components/footer";
 import { NextButton } from "@/components/button";
 import { InputWithLabel } from "@/components/input/inputWithLabel";
 import { handleError } from "@/lib/func";
 import { RegistContext } from "./page";
-import styles from "./page.module.scss"
+import styles from "./page.module.scss";
 
 const RegistStep1 = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -22,7 +22,8 @@ const RegistStep1 = () => {
     return false;
   }, []);
 
-  const { handleStep } = useContext(RegistContext);
+  const { handleStep, handleTicket, handleUsername } =
+    useContext(RegistContext);
 
   return (
     <>
@@ -30,17 +31,24 @@ const RegistStep1 = () => {
         className={[`${styles.form}`]}
         onSubmit={(args) => {
           setLoading(true);
-          handleStep(1)
           if (typeof args.mail === "string") {
-            const mail = args.mail;
-            veriAccount(mail, 0)
+            const mail = args.mail + "@njupt.edu.cn";
+            handleUsername(mail);
+            veriRegistAccount(mail)
               .then(
                 (res) => {
-                  console.log(res);
-                  handleStep(1);
+                  const ticket = res.data.Data.register_ticket;
+                  handleTicket(ticket);
+                  return sendMail(ticket);
                 },
-                (error) => {}
+                (err) => {
+                  console.log(err);
+                }
               )
+              .then((res) => {
+                console.log(res);
+                handleStep(1);
+              })
               .finally(() => {
                 setLoading(false);
               });

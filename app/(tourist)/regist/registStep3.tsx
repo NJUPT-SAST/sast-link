@@ -8,12 +8,17 @@ import { handleError } from "@/lib/func";
 import { Footer } from "@/components/footer";
 import { RegistContext } from "./page";
 import styles from "./page.module.scss";
+import { userRegist } from "@/lib/apis/global";
 
 const RegistStep3 = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const passInputRef = useRef<HTMLInputElement>(null);
   const veriInputRef = useRef<HTMLInputElement>(null);
-  const { handleStep } = useContext(RegistContext);
+  const {
+    registTicket = "",
+    handleStep,
+    username = "",
+  } = useContext(RegistContext);
   const [passError, setPassError] = useState<
     { error: false } | { error: true; errMsg: string }
   >({ error: false });
@@ -39,8 +44,13 @@ const RegistStep3 = () => {
       <Form
         className={[`${styles.form}`]}
         onSubmit={(args) => {
-          handleStep(1);
-          console.log(args);
+          const password = args.password as string;
+          setLoading(true);
+          userRegist(password, registTicket)
+            .then((res) => {
+              console.log(res), handleStep(1);
+            })
+            .finally(() => setLoading(false));
         }}
         names={["password", "veriPassword"]}
       >

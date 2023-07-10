@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Form } from "@/components/form";
 import { NextButton } from "@/components/button";
@@ -8,9 +8,9 @@ import { handleError } from "@/lib/func";
 
 import { VeriCode } from "@/components/veriCode";
 import { Footer } from "@/components/footer";
-import { sendMail } from "@/lib/apis/verify";
+import { veriCaptcha } from "@/lib/apis/global";
 import { RegistContext } from "./page";
-import styles from "./page.module.scss"
+import styles from "./page.module.scss";
 
 const RegistStep2 = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -19,7 +19,7 @@ const RegistStep2 = () => {
     { error: false } | { error: true; errMsg: string }
   >({ error: false });
 
-  const { handleStep } = useContext(RegistContext);
+  const { username, registTicket = "", handleStep } = useContext(RegistContext);
 
   const veridate = useCallback((value: string) => {
     if (value === "") {
@@ -33,8 +33,22 @@ const RegistStep2 = () => {
       <Form
         className={[`${styles.form}`]}
         onSubmit={(args) => {
-          sendMail().then();
-          handleStep(1);
+          setLoading(true);
+          const captcha = args.veriCode as string;
+          console.log(captcha, registTicket);
+          veriCaptcha(registTicket, captcha)
+            .then(
+              (res) => {
+                handleStep(1);
+              },
+              (err) => {
+                console.log(err);
+              }
+            )
+            .finally(() => {
+              setLoading(false);
+            });
+
           console.log(args);
         }}
         names={["veriCode"]}
@@ -52,7 +66,7 @@ const RegistStep2 = () => {
             <VeriCode />
           </InputWithLabel>
           <div className={styles.descript}>
-            已经往 B21000000@njupt.edu.cn 发送一封带有验证码的邮件，请注意查收！
+            已经往 {username} 发送一封带有验证码的邮件，请注意查收！
           </div>
         </div>
 
