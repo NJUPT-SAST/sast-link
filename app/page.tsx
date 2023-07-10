@@ -1,5 +1,3 @@
-import styles from "./page.module.scss";
-// import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/button";
 import { Anchor } from "@/components/anchor";
 import { Layout } from "@/components/Layout";
@@ -12,13 +10,13 @@ export default function Home() {
     <>
       <BackLayout type="green" />
       <Layout>
-      <div className={"pageTitle"}>{"<sast link>"}</div>
-      <div className={"globalContainer"}>
-        <AccountPanel />
-        <Footer>
-          <Button>登录</Button>
-          <Anchor href="/login">使用其他账号</Anchor>
-        </Footer>
+        <div className={"pageTitle"}>{"<sast link>"}</div>
+        <div className={"globalContainer"}>
+          <AccountPanel />
+          <Footer>
+            <Button>登录</Button>
+            <Anchor href="/login">使用其他账号</Anchor>
+          </Footer>
         </div>
       </Layout>
     </>
