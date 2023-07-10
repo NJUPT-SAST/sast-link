@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import Layout from "../login/@loginStep1/layout";
+import { Layout } from "@/components/Layout";
 import BackLayout from "@/components/Layout/BackLayout";
 
 const RegistLayout = (props: { children: ReactNode }) => {

@@ -2,17 +2,21 @@
 
 import { ReactNode, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { getUserInfo } from "@/lib/apis/user";
 
 const AuthGuard = (props: { children: ReactNode }) => {
   const { children } = props;
   const router = useRouter();
-  const localToken = localStorage.getItem("Token");
 
   useEffect(() => {
-    if (localToken) {
-      router.replace("/home");
+    if (localStorage.getItem("Token")) {
+      getUserInfo()
+        .then((res) => {
+          if (res.data.Success) router.replace("/home");
+        })
+        .catch();
     }
-  });
+  }, [router]);
 
   return <>{children}</>;
 };

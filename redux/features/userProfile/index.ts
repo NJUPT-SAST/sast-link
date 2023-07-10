@@ -8,21 +8,22 @@ const isServer = typeof window === "undefined";
 
 const initialState: UserProfileType = isServer
   ? { username: "" }
-  : {
-      username: localStorage.getItem("username"),
-    };
+  : JSON.parse(
+      localStorage.getItem("userProfile") ?? JSON.stringify({ username: "" })
+    );
 
 const userProfileSlice = createSlice({
   name: "userProfile",
   initialState,
   reducers: {
     logout: (state) => {
-      localStorage.removeItem("username");
-      state.username = null;
+      localStorage.removeItem("userProfile");
+      localStorage.removeItem("Token");
+      state.username = "";
     },
-    login: (state, action: PayloadAction<string>) => {
-      localStorage.setItem("username", action.payload);
-      state.username = action.payload;
+    login: (state, action: PayloadAction<{ username: string }>) => {
+      localStorage.setItem("userProfile", JSON.stringify(action.payload));
+      state.username = action.payload.username;
     },
   },
 });
