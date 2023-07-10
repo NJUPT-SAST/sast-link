@@ -4,8 +4,6 @@ import { AccountList } from "./accountList";
 
 export const AccountPanel = () => {
   return (
-    <ReduxProvider>
       <AccountList />
-    </ReduxProvider>
   );
 };
