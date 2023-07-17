@@ -2,11 +2,11 @@
 
 ## 介绍
 
-  本仓库是 SAST-Link 的前端部分。关于 SAST-Link，请移步: [关于 SAST-Link](https://njuptsast.feishu.cn/wiki/wikcnH1EW60rsChyrSxruAkXVEe)
+本仓库是 SAST-Link 的前端部分。关于 SAST-Link，请移步: [关于 SAST-Link](https://njuptsast.feishu.cn/wiki/wikcnH1EW60rsChyrSxruAkXVEe)
 
 ## 文档
 
-  [SAST-Link 文档](https://njuptsast.feishu.cn/wiki/wikcnH1EW60rsChyrSxruAkXVEe)
+[SAST-Link 文档](https://njuptsast.feishu.cn/wiki/wikcnH1EW60rsChyrSxruAkXVEe)
 
 ## 相关技术栈
 
@@ -20,8 +20,21 @@
 
 ## 项目结构
 
-``` txt
+```txt
 \sast-link
+├── app // 存放主体界面
+│  ├── (turist) // 游客可访问界面
+│  │  ├── login // 存放 login 界面文件
+│  │  ├── regist // 存放 regist 界面文件
+│  │  └── layout.tsx // 布局文件
+│  ├── (user) // 用户可访问界面
+│  │  ├── home //用户主页
+│  │  └── layout.tsx 布局文件
+│  ├── favicon.ico // 网页图标
+│  ├── global.scss // 全局样式
+│  ├── login.tsx // 登陆界面
+│  ├── page.module.scss // 当前路径下组件样式
+│  └── layout.tsx // 全局布局
 ├── components // 存放自定义组件
 │  ├── example1
 │  │  ├── index.module.scss // 组件的样式
@@ -30,16 +43,10 @@
 │      ├── index.module.scss
 │      └── index.tsx
 ├── lib
+│  ├── apis // 存放 api
+│  └── func // 自定义函数库
 ├── node_modules // 依赖
-├── pages // 主体功能界面
-│  ├── 404.tsx // 404 NotFound 界面
-│  ├── index.tsx // 账户选择界面
-│  ├── login.tsx // 登陆界面
-│  ├── regist.tsx // 注册界面
-│  ├── _app.tsx // 入口
-│  └── _document.tsx
 ├── public // 公共文件存放处
-│  ├── favicon.ico
 │  ├── fonts // 字体文件
 │  │  └── index.ts
 │  └── svg // 各种 icon
@@ -52,9 +59,9 @@
 │  ├── Login.module.scss
 │  ├── Regist.module.scss
 │  └── types.d.ts
-├── type
-│  └── class
+├── types
 ├── next-env.d.ts
+├── .eslintrc.json
 ├── next.config.mjs
 ├── package.json
 ├── pnpm-lock.yaml
@@ -64,7 +71,7 @@
 
 ## 开发指北
 
-本项目使用 [Create Next App](https://nextjs.org/docs/api-reference/create-next-app) 构建
+本项目使用 [Create Next App](https://nextjs.org/docs/api-reference/create-next-app) 构建，路由结构采用 [App Router](https://nextjs.org/docs/app) 的形式。
 
 ### 依赖安装
 
@@ -72,13 +79,13 @@
 
 ### 实时预览
 
-``` shell
+```shell
 pnpm dev
 ```
 
 ### 项目打包
 
-``` shell
+```shell
 pnpm build
 ```
 
@@ -93,12 +100,8 @@ pnpm build
 
 ## TODO
 
-- [X] 首页 account 可选中与聚焦高亮
-- [X] 首页 accountList 滚动高度调整与关闭按钮的聚焦高亮
-- [X] 首页 逻辑
-- [ ] Button => focus 等样式
-- [X] register 图标
-- [X] message 组件，预计使用单例模式
-- [ ] notify 组件，预计使用单例模式
-- [ ] setupProxy 文件
-- [ ] 联调（不急，接口没写完）
+- [ ] Home 界面
+- [ ] 添加请求的错误处理
+- [ ] 添加 error、loading 界面
+- [ ] message 组件，预计使用单例模式, 用于登录、注册等界面的交互反馈
+- [ ] 优化文件结构
