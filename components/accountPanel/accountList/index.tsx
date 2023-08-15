@@ -1,10 +1,10 @@
 "use client";
-import { use, useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { MemorizedAccountItem } from "../accountItem";
 import styles from "./index.module.scss";
 import { useAppSelector } from "@/redux";
-import { useState } from "react";
 import { useAppDispatch } from "@/redux";
+import { useState } from "react";
 import { removeAccount } from "@/redux/features/userList";
 import { useRouter } from "next/navigation";
 
@@ -39,9 +39,9 @@ const AccountList = () => {
               <MemorizedAccountItem
                 index={index}
                 selected={index === selected}
-                key={`${value.mail}_${value.nickName}`}
+                key={`${value.email}_${value.nickName}`}
                 nickName={`${value.nickName}`}
-                mail={`${value.mail}`}
+                mail={`${value.email}`}
                 onFocus={() => {
                   changeFocus(index);
                   scroll(index);

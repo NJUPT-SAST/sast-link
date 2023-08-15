@@ -9,10 +9,15 @@ import { Footer } from "@/components/footer";
 import { handleError } from "@/lib/func";
 import { LoginContext } from "./page";
 import { useRouter } from "next/navigation";
+import { login } from "@/redux/features/userProfile";
+import { addAccount } from "@/redux/features/userList";
+
+import { useAppDispatch } from "@/redux";
 
 import styles from "./page.module.scss";
 
 const LoginStep2 = () => {
+  const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
@@ -41,7 +46,12 @@ const LoginStep2 = () => {
                 (res) => {
                   console.log(res);
                   const token = res.data.Data.token;
-                  localStorage.setItem("Token", JSON.stringify(token));
+                  localStorage.setItem("TOKEN", JSON.stringify(token));
+                  // TODO 根据返回值设置账户信息
+                  dispatch(login({ username: "ming", email: "ming@xyz.com" }));
+                  dispatch(
+                    addAccount({ nickName: "ming", email: "ming@xyz.com" })
+                  );
                   router.replace("/home");
                 },
                 (err) => {}
