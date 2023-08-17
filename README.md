@@ -8,6 +8,42 @@
 
 [SAST-Link 文档](https://njuptsast.feishu.cn/wiki/wikcnH1EW60rsChyrSxruAkXVEe)
 
+### 界面相关
+
+该项目最开始时设计为 page router，但在 Next.js 更新后变更为 app router，变更仓促，目录结构可能存在些许问题。
+
+根目录(`./`)设计为展示已通过验证的用户列表，可通过点击卡片的方式，实现快速登录。若认证过期，则跳转至登录界面 2(./login | step=2)。若认证在时效内，则正常登录，并通过调用 Redux 函数 `login` 更新当前已登陆用户的数据。若不存在已登陆的账户，则重定向至 `./login` 界面。
+
+Login 界面(`./login`)设计为两步登录，首先在步骤 1 界面输入账户信息，判断账户存在性，若存在则跳转至步骤 2，在步骤 2 输入密码实现登录。登录成功时调用 React 函数 `login` 与 `addAccount` 更新信息的添加已认证账户。
+
+Regist 界面(`./regist`)设计为四步，首先在步骤 1 输入学校统一学校，判断用户存在性，若不辞你在，则进入下一个界面。步骤 2 为发送验证码，验证码通过则跳转下个界面。步骤 3 为设计密码。步骤 4 为提示注册成功的界面。
+
+主页`./home`界面还未设计，关于主页 UI 以及路由设计，还有待商榷。
+
+Auth`./auth`界面正在制作中。
+
+### 功能相关
+
+#### Redux
+
+关于 Redux 的具体用法可以去查看官网。
+
+默认数据被设计在 `./redux/index.ts` 文件内，全局 `Provider` 在 `./redux/reduxProvider.tsx` 文件内。
+
+关于 feature 的部分:
+
+- userList : 存储当前已认证(指已在当前设备登陆过)的账户列表，从 localStorage 获取
+  - addAccount : 用于添加已认证账户
+  - removeAccount : 用于删除已认证账户
+- userProfile : 存储当前已登陆账户的信息，随页面访问时更新。
+  - logout : 用于退出登录，清楚当前账户信息
+  - login : 用于登录，添加账户信息
+  - update : 用于更新账户信息(未编写)
+
+### 改进
+
+详见 TODO List。
+
 ## 相关技术栈
 
 - 框架：[Next.js](https://nextjs.org/)
@@ -95,8 +131,6 @@ pnpm build
 - 使用 `pnpm css-fix` 来对 css 进行修复。
 
 ### 代码提交
-
-待补充
 
 ## TODO
 

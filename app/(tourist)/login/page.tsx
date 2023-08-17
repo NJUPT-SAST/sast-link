@@ -3,6 +3,7 @@
 import React, { ReactNode, useCallback, useState } from "react";
 import { LoginStep1 } from "./loginStep1";
 import { LoginStep2 } from "./loginStep2";
+import { useSearchParams } from "next/navigation";
 import axios from "axios";
 
 export const metadata = {
@@ -11,6 +12,7 @@ export const metadata = {
 };
 
 export interface LoginContextProps {
+  redirect: null | string;
   loginTicket?: string;
   handleTitle: (title: string) => void;
   handleStep: (step: 1 | -1) => void;
@@ -18,12 +20,16 @@ export interface LoginContextProps {
 }
 
 export const LoginContext = React.createContext<LoginContextProps>({
+  redirect: null,
   handleTitle: (title: string) => void 0,
   handleStep: (step: 1 | -1) => void 0,
   handleTicket: () => void 0,
 });
 
 const Login = () => {
+  const searchParams = useSearchParams();
+  // redirect 表示登陆后应重定向的位置若为 null 则重定向至首页
+  const redirect = searchParams.get("redirect");
   const [step, setStep] = useState<number>(1);
   const [loginTicket, setLoginTicket] = useState<string>();
   const [title, setTitle] = useState<string>("<sast link>");
@@ -39,6 +45,7 @@ const Login = () => {
   );
 
   const providerValue = {
+    redirect,
     loginTicket: loginTicket,
     handleStep: handleStep,
     handleTitle: handleTitle,

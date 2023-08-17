@@ -47,6 +47,9 @@ const LoginStep1 = () => {
     return false;
   }, []);
 
+  /**
+   * 输入账号，点击登录后进入判断，验证账号存在性，存储返回信息
+   */
   return (
     <>
       <Form
@@ -58,7 +61,6 @@ const LoginStep1 = () => {
           veriLoginAccount(username)
             .then(
               (res) => {
-                console.log(res);
                 const ticket = res.data.Data.login_ticket;
                 handleTicket(ticket);
                 handleStep(1);
@@ -97,10 +99,13 @@ const LoginStep1 = () => {
           className={[styles.formButton]}
           type={"submit"}
         >
-          登录
+          下一步
         </Button>
       </Form>
-      <Anchor href="a" className={[styles.anchor]}>
+      {
+        // TODO 第三方认证登录
+      }
+      <Anchor href="./" className={[styles.anchor]}>
         SAST 飞书登录
       </Anchor>
       <OtherLoginList list={list} />

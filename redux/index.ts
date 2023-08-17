@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { configureStore } from "@reduxjs/toolkit";
 import userProfileReducer from "./features/userProfile";
 import userListReducer from "./features/userList";
@@ -12,7 +12,7 @@ export const useAppDispatch: DispatchFunc = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export const defaultStore: RootState = {
-  currentUserProfile: { username: "" },
+  currentUserProfile: { username: "", email: "" },
   localUserList: [],
 };
 

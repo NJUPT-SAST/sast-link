@@ -5,8 +5,10 @@ import { RegistStep1 } from "./registStep1";
 import { RegistStep2 } from "./registStep2";
 import { RegistStep3 } from "./registStep3";
 import { RegistStep4 } from "./registStep4";
+import { useSearchParams } from "next/navigation";
 
 interface RegistContextProps {
+  redirect: null | string;
   username?: string;
   registTicket?: string;
   currentStep: number;
@@ -16,6 +18,7 @@ interface RegistContextProps {
 }
 
 export const RegistContext = React.createContext<RegistContextProps>({
+  redirect: null,
   currentStep: 1,
   handleStep: (step: 1 | -1) => void 0,
   handleTicket: (ticket: string) => void 0,
@@ -30,16 +33,20 @@ const Regist = () => {
     setStep((pre) => pre + step);
   }, []);
 
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect");
+
   const handleTicket = useCallback((ticket: string) => {
-    console.log(ticket)
+    console.log(ticket);
     setRegistTicket(ticket);
   }, []);
   const handleUsername = useCallback((username: string) => {
-    console.log(username)
+    console.log(username);
     setUsername(username);
   }, []);
   const providerValue = {
-    username:username,
+    redirect,
+    username: username,
     registTicket: registTicket,
     currentStep: step,
     handleStep: handleStep,

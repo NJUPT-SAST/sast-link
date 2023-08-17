@@ -4,31 +4,27 @@ import { MemorizedAccountItem } from "../accountItem";
 import styles from "./index.module.scss";
 import { useAppSelector } from "@/redux";
 import { useAppDispatch } from "@/redux";
-import { useState } from "react";
 import { removeAccount } from "@/redux/features/userList";
 import { useRouter } from "next/navigation";
+import { useContext } from "react";
+import { SelectedAccountContext } from "@/app/page";
 
+/**
+ *
+ * @param props
+ * @param props.redirect 表示未存在已验证用户时，重定向至 login 时携带的需要重定向的链接
+ * @returns
+ */
 const AccountList = () => {
+  const { selected, setSelected } = useContext(SelectedAccountContext);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
   const localUserList = useAppSelector((state) => state.localUserList);
-  const [selected, setSelected] = useState<number>(0);
   const dispatch = useAppDispatch();
-  const changeFocus = useCallback((index: number) => {
-    setSelected(index);
-  }, []);
 
   const scroll = useCallback((index: number) => {
     scrollRef.current!.scroll({ top: index * 80, behavior: "smooth" });
   }, []);
 
-  useEffect(() => {
-    if (
-      !localStorage.getItem("userList") ||
-      localStorage.getItem("userList") === "[]"
-    )
-      router.replace("/login");
-  }, [localUserList, router]);
   return (
     <>
       <div className={styles.accountList}>
@@ -43,7 +39,7 @@ const AccountList = () => {
                 nickName={`${value.nickName}`}
                 mail={`${value.email}`}
                 onFocus={() => {
-                  changeFocus(index);
+                 setSelected(index);
                   scroll(index);
                 }}
                 onClose={() => {

@@ -21,7 +21,7 @@ const LoginStep2 = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
-  const { loginTicket = "", handleStep } = useContext(LoginContext);
+  const { loginTicket = "", handleStep, redirect } = useContext(LoginContext);
   const [error, setError] = useState<
     { error: false } | { error: true; errMsg: string }
   >({ error: false });
@@ -32,6 +32,11 @@ const LoginStep2 = () => {
     return false;
   }, []);
 
+  /**
+   * 点击登陆后，存储返回信息，
+   * 如必要，根据返回信息获取用户信息，并存储。
+   * 并根据 searchParams 判断登录后重定向的位置
+   */
   return (
     <>
       <Form
@@ -44,15 +49,22 @@ const LoginStep2 = () => {
             userLogin(password, loginTicket)
               .then(
                 (res) => {
-                  console.log(res);
+                  // console.log(res);
                   const token = res.data.Data.token;
                   localStorage.setItem("TOKEN", JSON.stringify(token));
                   // TODO 根据返回值设置账户信息
                   dispatch(login({ username: "ming", email: "ming@xyz.com" }));
                   dispatch(
-                    addAccount({ nickName: "ming", email: "ming@xyz.com" })
+                    addAccount({
+                      nickName: "ming",
+                      email: "ming@xyz.com",
+                      Token: "123",
+                    })
                   );
-                  router.replace("/home");
+                  // 若存在重定向链接，则跳转至重定向链接，不存在则跳转至 /home
+                  redirect
+                    ? router.replace(`${redirect}`)
+                    : router.replace("/home");
                 },
                 (err) => {}
               )
@@ -87,7 +99,7 @@ const LoginStep2 = () => {
             }}
             type="submit"
           >
-            登录 SAST Link
+            {redirect ? "登录并授权" : "登录 SAST Link"}
           </Button>
           <Button onClick={() => handleStep(-1)} type="button" white>
             使用其他账号

@@ -3,11 +3,11 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 const isServer = typeof window === "undefined";
 
 interface UserList {
+  Token: string;
   avator?: string;
   nickName: string;
   email: string;
 }
-export const runtime = "edge";
 
 const initialState: UserList[] = isServer
   ? []

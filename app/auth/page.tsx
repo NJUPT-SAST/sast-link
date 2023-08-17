@@ -8,6 +8,7 @@ import { Footer } from "@/components/footer";
 import { useSearchParams } from "next/navigation";
 
 export default function Auth() {
+  // 获取参数
   const searchParams = useSearchParams();
   const querys: {
     client_id: null | string;
@@ -27,10 +28,13 @@ export default function Auth() {
     state: null,
   };
 
-  Object.keys(querys).forEach((key) => {
+  const querysArray = Object.keys(querys).map((key) => {
     (querys as any)[key] = searchParams.get(key);
+    return `${key}=${searchParams.get(key)}`;
   });
-
+  const redirect = `/auth?${querysArray.join("&")}`;
+  // TODO
+  // 若当前未登录，则直接跳转至login。
   return (
     <>
       <BackLayout type="green" />
@@ -39,8 +43,8 @@ export default function Auth() {
         <div className={"globalContainer"}>
           <AccountPanel />
           <Footer>
-            <Button>登录</Button>
-            <Anchor href="/login">使用其他账号</Anchor>
+            <Button>授权</Button>
+            <Anchor href={`/login?redirect=${redirect}`}>使用其他账号</Anchor>
           </Footer>
         </div>
       </Layout>
