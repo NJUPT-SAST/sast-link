@@ -10,6 +10,7 @@ import { createContext, useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux";
 import { useRouter } from "next/navigation";
 import { login } from "@/redux/features/userProfile";
+import { getUserInfo } from "@/lib/apis/user";
 
 export const SelectedAccountContext = createContext({
   selected: 0,
@@ -48,9 +49,18 @@ export default function Home() {
           <Footer>
             <Button
               onClick={(e) => {
-                // 此处应该为根据已知信息发送请求，获取账号信息，若账号通过验证，则登录，若未通过
-                // 则跳转至输入密码界面
-                console.log(123);
+                localStorage.setItem(
+                  "Token",
+                  JSON.stringify(localUserList[selected].Token)
+                );
+                getUserInfo().then((res) => {
+                  console.log(res);
+                  if (res.data.Success) {
+                    const { email } = res.data.Data;
+                    dispatch(login({ email, username: "test" + selected }));
+                    router.replace("/home")
+                  }
+                });
               }}
             >
               登录

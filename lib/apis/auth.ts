@@ -27,3 +27,41 @@ export function oAuth(data: oAuthType) {
   const query = queryArray.join("&");
   return apis.get(`/oauth/authorize?${query}`);
 }
+
+interface AccessTokenType {
+  code: string;
+  code_verify: string;
+  grant_type: string;
+  redirect_uri: string;
+  client_id: string;
+  client_secret: string;
+}
+
+export function getAccessToken(data: AccessTokenType) {
+  const formData = new FormData();
+  Object.keys(data).forEach((key) => {
+    formData.append(key, (data as any)[key]);
+  });
+
+  return apis.post("/oauth2/token", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+}
+
+interface RefreshTokenType {
+  grant_type: string;
+  refresh_token: string;
+}
+
+export function refreshToken(data: RefreshTokenType) {
+  const formData = new FormData();
+  Object.keys(data).forEach((key) => {
+    formData.append(key, (data as any)[key]);
+  });
+  return apis.post("/oauth2/refresh", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+}
+
