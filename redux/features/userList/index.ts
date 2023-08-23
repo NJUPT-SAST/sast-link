@@ -34,8 +34,14 @@ const UserListSlice = createSlice({
   reducers: {
     addAccount: (state, action: PayloadAction<UserList>) => {
       // 添加账户，更新localStorage
-      state.push(action.payload);
-      localStorage.setItem("userList", JSON.stringify(state));
+      let veri = true;
+      state.forEach((value) => {
+        if (value.email === action.payload.email) veri = false;
+      });
+      if (veri) {
+        state.push(action.payload);
+        localStorage.setItem("userList", JSON.stringify(state));
+      }
     },
     removeAccount: (state, action: PayloadAction<number>) => {
       // 删除账户 更新localStorage

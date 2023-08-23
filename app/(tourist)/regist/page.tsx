@@ -34,14 +34,20 @@ const Regist = () => {
   }, []);
 
   const searchParams = useSearchParams();
+  // TODO 错误处理
   const redirect = searchParams.get("redirect");
+  // const redirect =
+  //   redirectParams?.split("?")[0] +
+  //   "?" +
+  //   JSON.parse(redirectParams?.split("?")[1] ?? "[]").join("&");
+
 
   const handleTicket = useCallback((ticket: string) => {
-    console.log(ticket);
+
     setRegistTicket(ticket);
   }, []);
   const handleUsername = useCallback((username: string) => {
-    console.log(username);
+
     setUsername(username);
   }, []);
   const providerValue = {

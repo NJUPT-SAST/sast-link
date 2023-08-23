@@ -27,7 +27,7 @@ const RegistStep4 = () => {
         </div>
         <Footer>
           <Anchor black href={`/login${href}`}>
-            返回登录
+            前往登录界面
             <CenterArrow />
           </Anchor>
         </Footer>

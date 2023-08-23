@@ -35,7 +35,8 @@ const list = [
 const LoginStep1 = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { handleTitle, handleStep, handleTicket } = useContext(LoginContext);
+  const { redirectParams, handleTitle, handleStep, handleTicket } =
+    useContext(LoginContext);
   const [error, setError] = useState<
     { error: false } | { error: true; errMsg: string }
   >({ error: false });
@@ -110,7 +111,12 @@ const LoginStep1 = () => {
       </Anchor>
       <OtherLoginList list={list} />
       <div className={`${styles.toRegist}`}>
-        没有账号？<Link href={"/regist"}>注册</Link>
+        没有账号？
+        <Link
+          href={`/regist${redirectParams ? `?redirect=${redirectParams}` : ""}`}
+        >
+          注册
+        </Link>
       </div>
     </>
   );

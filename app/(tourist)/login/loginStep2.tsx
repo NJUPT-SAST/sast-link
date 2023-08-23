@@ -47,6 +47,7 @@ const LoginStep2 = () => {
           setLoading(true);
           if (typeof args.password === "string") {
             const password = args.password;
+            // TODO 当从授权界面跳转时 不执行覆盖当前用户的登录操作
             userLogin(password, loginTicket)
               .then((res) => {
                 // console.log(res);
@@ -104,7 +105,7 @@ const LoginStep2 = () => {
             }}
             type="submit"
           >
-            {redirect ? "登录并授权" : "登录 SAST Link"}
+            {redirect ? "登录并前往授权" : "登录 SAST Link"}
           </Button>
           <Button onClick={() => handleStep(-1)} type="button" white>
             使用其他账号
