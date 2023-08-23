@@ -32,10 +32,11 @@ const Login = () => {
   // redirect 表示登陆后应重定向的位置若为 null 则重定向至首页
   // TODO 错误处理
   const redirectParams = searchParams.get("redirect");
-  const redirect =
-    redirectParams?.split("?")[0] +
-    "?" +
-    JSON.parse(redirectParams?.split("?")[1] ?? "[]").join("&");
+  const redirect = redirectParams
+    ? redirectParams?.split("?")[0] +
+      "?" +
+      JSON.parse(redirectParams?.split("?")[1] ?? "[]").join("&")
+    : null;
   const [step, setStep] = useState<number>(1);
   const [loginTicket, setLoginTicket] = useState<string>();
   const [title, setTitle] = useState<string>("<sast link>");

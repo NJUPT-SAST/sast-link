@@ -118,9 +118,13 @@ export default function Auth() {
             </div>
           </div>
           <Footer>
-            <Button onClick={()=> {
-              oAuth(querys)
-            }}>授权</Button>
+            <Button
+              onClick={() => {
+                oAuth(querys);
+              }}
+            >
+              授权
+            </Button>
             <Anchor href={`/login?redirect=${redirect}`}>使用其他账号</Anchor>
           </Footer>
         </div>
