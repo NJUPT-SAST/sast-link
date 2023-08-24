@@ -31,7 +31,7 @@ export function veriLoginAccount(username: string) {
 export function sendMail(registTicket: string) {
   return apis.get("/apis/sendEmail", {
     headers: {
-      REGISTER_TICKET: registTicket,
+      "REGISTER-TICKET": registTicket,
     },
   });
 }
@@ -45,7 +45,7 @@ export function sendMail(registTicket: string) {
 export function veriCaptcha(registTicket: string, captcha: string) {
   return apis.post("/apis/verify/captcha", qs.stringify({ captcha: captcha }), {
     headers: {
-      REGISTER_TICKET: registTicket,
+      "REGISTER-TICKET": registTicket,
       "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
     },
   });
@@ -65,7 +65,7 @@ export function userRegist(password: string, registTicket: string) {
     }),
     {
       headers: {
-        REGISTER_TICKET: registTicket,
+        "REGISTER-TICKET": registTicket,
       },
     }
   );

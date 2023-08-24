@@ -71,9 +71,10 @@ const LoginStep2 = () => {
                 );
                 dispatch(login({ username: "ming", email: data.email }));
                 // 若存在重定向链接，则跳转至重定向链接，不存在则跳转至 /home
-                redirect
-                  ? router.replace(`${redirect}`)
-                  : router.replace("/home");
+                redirect? null: router.push("/home");
+              })
+              .catch((err) => {
+                setError({ error: true, errMsg: err.response.data.ErrMsg });
               })
               .finally(() => {
                 setLoading(false);
