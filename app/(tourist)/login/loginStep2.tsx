@@ -48,7 +48,6 @@ const LoginStep2 = () => {
           if (typeof args.password === "string") {
             const password = args.password;
             // TODO 当从授权界面跳转时 不执行覆盖当前用户的登录操作
-            console.log(loginTicket)
             userLogin(password, loginTicket)
               .then((res) => {
                 // console.log(res);
@@ -70,8 +69,10 @@ const LoginStep2 = () => {
                   })
                 );
                 dispatch(login({ username: "ming", email: data.email }));
+              })
+              .then(() => {
                 // 若存在重定向链接，则跳转至重定向链接，不存在则跳转至 /home
-                redirect? null: router.push("/home");
+                redirect ? router.replace(redirect) : router.push("/home");
               })
               .catch((err) => {
                 setError({ error: true, errMsg: err.response.data.ErrMsg });
