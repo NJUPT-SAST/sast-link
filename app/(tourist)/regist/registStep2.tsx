@@ -9,7 +9,7 @@ import { handleError } from "@/lib/func";
 import { VeriCode } from "@/components/veriCode";
 import { Footer } from "@/components/footer";
 import { veriCaptcha } from "@/lib/apis/global";
-import { RegistContext } from "./page";
+import { RegistContext } from "@/lib/context";
 import styles from "./page.module.scss";
 
 const RegistStep2 = () => {

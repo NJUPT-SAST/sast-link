@@ -7,7 +7,7 @@ import { Button } from "@/components/button";
 import { InputWithLabel } from "@/components/input/inputWithLabel";
 import { Footer } from "@/components/footer";
 import { handleError } from "@/lib/func";
-import { LoginContext } from "./page";
+import { LoginContext } from "@/lib/context";
 import { useRouter } from "next/navigation";
 import { login } from "@/redux/features/userProfile";
 import { addAccount } from "@/redux/features/userList";

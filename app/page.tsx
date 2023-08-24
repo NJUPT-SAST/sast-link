@@ -11,11 +11,7 @@ import { useAppDispatch, useAppSelector } from "@/redux";
 import { useRouter } from "next/navigation";
 import { login } from "@/redux/features/userProfile";
 import { getUserInfo } from "@/lib/apis/user";
-
-export const SelectedAccountContext = createContext({
-  selected: 0,
-  setSelected: (index: number) => {},
-});
+import { SelectedAccountContext } from "@/lib/context";
 
 export default function Home() {
   const dispatch = useAppDispatch();

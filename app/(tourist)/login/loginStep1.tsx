@@ -2,7 +2,7 @@
 
 import { Form } from "@/components/form";
 import { useContext, useRef, useState, useCallback } from "react";
-import { LoginContext } from "./page";
+import { LoginContext } from "@/lib/context";
 import { veriLoginAccount } from "@/lib/apis/global";
 import { Button } from "@/components/button";
 import { InputWithLabel } from "@/components/input/inputWithLabel";

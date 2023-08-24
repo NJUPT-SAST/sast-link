@@ -7,7 +7,7 @@ import { Footer } from "@/components/footer";
 import { NextButton } from "@/components/button";
 import { InputWithLabel } from "@/components/input/inputWithLabel";
 import { handleError } from "@/lib/func";
-import { RegistContext } from "./page";
+import { RegistContext } from "@/lib/context";
 import styles from "./page.module.scss";
 
 const RegistStep1 = () => {

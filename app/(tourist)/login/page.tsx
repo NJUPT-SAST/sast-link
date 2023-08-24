@@ -5,27 +5,12 @@ import { LoginStep1 } from "./loginStep1";
 import { LoginStep2 } from "./loginStep2";
 import { useSearchParams } from "next/navigation";
 
+import { LoginContext } from "@/lib/context";
+
 export const metadata = {
   title: "SAST Link Login",
   description: "OAuth of SAST",
 };
-
-export interface LoginContextProps {
-  redirectParams: null | string;
-  redirect: null | string;
-  loginTicket?: string;
-  handleTitle: (title: string) => void;
-  handleStep: (step: 1 | -1) => void;
-  handleTicket: (ticket: string) => void;
-}
-
-export const LoginContext = React.createContext<LoginContextProps>({
-  redirectParams: null,
-  redirect: null,
-  handleTitle: (title: string) => void 0,
-  handleStep: (step: 1 | -1) => void 0,
-  handleTicket: () => void 0,
-});
 
 const Login = () => {
   const searchParams = useSearchParams();
