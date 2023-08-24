@@ -35,7 +35,7 @@ const list = [
 const LoginStep1 = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { redirectParams, handleTitle, handleStep, handleTicket } =
+  const { redirectParams, handleStep, handleTicket } =
     useContext(LoginContext);
   const [error, setError] = useState<
     { error: false } | { error: true; errMsg: string }
@@ -63,6 +63,7 @@ const LoginStep1 = () => {
             .then(
               (res) => {
                 const ticket = res.data.Data.login_ticket;
+                console.log(ticket)
                 handleTicket(ticket);
                 handleStep(1);
               },

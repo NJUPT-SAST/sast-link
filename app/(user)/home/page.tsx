@@ -7,6 +7,7 @@ import { login, logout } from "@/redux/features/userProfile";
 import useSWR from "swr";
 import { getUserInfo } from "@/lib/apis/user";
 import { useEffect } from "react";
+import { removeAccount } from "@/redux/features/userList";
 
 const getMessage = async () => {
   if (!localStorage.getItem("Token"))
@@ -18,7 +19,7 @@ const getMessage = async () => {
 
 const Home = () => {
   const {
-    data: { Success, Data }
+    data: { Success, Data },
   } = useSWR("infoUpdate", getMessage, { suspense: true });
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -36,6 +37,7 @@ const Home = () => {
           onClick={() => {
             router.replace("/");
             dispatch(logout());
+            dispatch(removeAccount(Data.email));
           }}
         >
           退出登錄

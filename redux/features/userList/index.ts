@@ -43,9 +43,14 @@ const UserListSlice = createSlice({
         localStorage.setItem("userList", JSON.stringify(state));
       }
     },
-    removeAccount: (state, action: PayloadAction<number>) => {
+    removeAccount: (state, action: PayloadAction<number | string>) => {
       // 删除账户 更新localStorage
-      state.splice(action.payload, 1);
+      if (typeof action.payload === "number") state.splice(action.payload, 1);
+      else
+        state = state.filter((value) => {
+          value.email !== action.payload;
+        });
+      console.log(state);
       localStorage.setItem("userList", JSON.stringify(state));
     },
   },

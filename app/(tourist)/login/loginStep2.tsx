@@ -48,6 +48,7 @@ const LoginStep2 = () => {
           if (typeof args.password === "string") {
             const password = args.password;
             // TODO 当从授权界面跳转时 不执行覆盖当前用户的登录操作
+            console.log(loginTicket)
             userLogin(password, loginTicket)
               .then((res) => {
                 // console.log(res);
