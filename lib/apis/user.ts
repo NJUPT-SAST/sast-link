@@ -12,7 +12,7 @@ export function userLogin(password: string, loginTicket: string) {
     qs.stringify({ password: password }),
     {
       headers: {
-        LOGIN_TICKET: loginTicket,
+        "LOGIN-TICKET": loginTicket,
       },
     }
   );
