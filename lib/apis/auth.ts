@@ -25,5 +25,5 @@ export function oAuth(data: oAuthType) {
     if ((data as any)[key]) queryArray.push(`${key}=${(data as any)[key]}`);
   });
   const query = queryArray.join("&");
-  return apis.get(`/apis/oauth/authorize?${query}`);
+  return apis.post(`/apis/oauth2/authorize?${query}`);
 }
