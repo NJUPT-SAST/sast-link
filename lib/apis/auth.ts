@@ -1,4 +1,7 @@
+import { use } from "react";
 import { apis } from "./index";
+import { RootState } from "@/redux";
+import { useSelector } from "react-redux";
 
 interface oAuthType {
   /**
@@ -24,6 +27,7 @@ export function oAuth(data: oAuthType) {
   Object.keys(data).forEach((key) => {
     if ((data as any)[key]) queryArray.push(`${key}=${(data as any)[key]}`);
   });
+  const token = localStorage.getItem("Token")?.toString();
   const query = queryArray.join("&");
-  return apis.post(`/apis/oauth2/authorize?${query}`, {token:localStorage.getItem("Token")});
+  return apis.post(`/apis/oauth2/authorize?${query}`, {token:token});
 }
