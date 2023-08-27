@@ -35,8 +35,7 @@ const list = [
 const LoginStep1 = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { redirectParams, handleStep, handleTicket } =
-    useContext(LoginContext);
+  const { redirectParams, handleStep, handleTicket } = useContext(LoginContext);
   const [error, setError] = useState<
     { error: false } | { error: true; errMsg: string }
   >({ error: false });
@@ -62,14 +61,15 @@ const LoginStep1 = () => {
           veriLoginAccount(username)
             .then(
               (res) => {
-                const ticket = res.data.Data.login_ticket;
-                console.log(ticket)
-                handleTicket(ticket);
-                handleStep(1);
+                if (res.data.Success) {
+                  const ticket = res.data.Data.login_ticket;
+                  console.log(ticket);
+                  handleTicket(ticket);
+                  handleStep(1);
+                  return;
+                }
+                setError({ error: true, errMsg: res.data.ErrMsg });
               },
-              (err) => {
-                setError({ error: true, errMsg: err.response.data.ErrMsg });
-              }
             )
             .finally(() => {
               setLoading(false);

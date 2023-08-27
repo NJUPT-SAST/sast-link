@@ -15,6 +15,7 @@ import { addAccount } from "@/redux/features/userList";
 import { useAppDispatch } from "@/redux";
 
 import styles from "./page.module.scss";
+import { Success } from "@/components/message/messageItem/icons";
 
 const LoginStep2 = () => {
   const tokenRef = useRef<string>("");
@@ -51,24 +52,30 @@ const LoginStep2 = () => {
             userLogin(password, loginTicket)
               .then((res) => {
                 // console.log(res);
-                const token = res.data.Data.token;
-                console.log(token);
+                if (res.data.Success) {
+                  const token = res.data.Data.token;
+                  console.log(token);
 
-                localStorage.setItem("Token", JSON.stringify(token));
-                tokenRef.current = token;
+                  localStorage.setItem("Token", JSON.stringify(token));
+                  tokenRef.current = token;
+                }
                 return getUserInfo();
               })
               .then((res) => {
                 // TODO 根据返回值设置账户信息
-                const data = res.data.Data;
-                dispatch(
-                  addAccount({
-                    nickName: "ming",
-                    email: data.email,
-                    Token: tokenRef.current,
-                  })
-                );
-                dispatch(login({ username: "ming", email: data.email }));
+                if (res.data.Success) {
+                  const data = res.data.Data;
+                  dispatch(
+                    addAccount({
+                      nickName: "ming",
+                      email: data.email,
+                      Token: tokenRef.current,
+                    })
+                  );
+                  dispatch(login({ username: "ming", email: data.email }));
+                  return;
+                }
+                setError({ error: true, errMsg: res.data.ErrMsg });
               })
               .then(() => {
                 // 若存在重定向链接，则跳转至重定向链接，不存在则跳转至 /home

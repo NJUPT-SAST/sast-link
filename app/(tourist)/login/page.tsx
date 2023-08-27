@@ -9,7 +9,7 @@ import { LoginContext } from "@/lib/context";
 
 const Login = () => {
   const searchParams = useSearchParams();
-  // redirect 表示登陆后应重定向的位置若为 null 则重定向至首页
+  // redirect 表示登陆后应重定向的位置，若为 null 则重定向至首页
   // 前端不用redirect，后端接口会自动301重定向
   // TODO 错误处理
   const redirectParams = searchParams.get("redirect");

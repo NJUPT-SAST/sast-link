@@ -37,19 +37,13 @@ const RegistStep2 = () => {
           const captcha = args.veriCode as string;
           console.log(captcha, registTicket);
           veriCaptcha(registTicket, captcha)
-            .then(
-              (res) => {
-                handleStep(1);
-              },
-              (err) => {
-                console.log(err);
-              }
-            )
+            .then((res) => {
+              if (res.data.Success) handleStep(1);
+              else setError({ error: true, errMsg: res.data.ErrMsg });
+            })
             .finally(() => {
               setLoading(false);
             });
-
-          console.log(args);
         }}
         names={["veriCode"]}
       >

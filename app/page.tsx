@@ -54,8 +54,10 @@ export default function Home() {
                   if (res.data.Success) {
                     const { email } = res.data.Data;
                     dispatch(login({ email, username: "test" + selected }));
-                    router.replace("/home")
+                    router.replace("/home");
+                    return;
                   }
+                  // TODO error
                 });
               }}
             >

@@ -48,7 +48,11 @@ const RegistStep3 = () => {
           setLoading(true);
           userRegist(password, registTicket)
             .then((res) => {
-              console.log(res), handleStep(1);
+              if (res.data.Success) {
+                handleStep(1);
+                return;
+              }
+              setPassError({ error: true, errMsg: res.data.ErrMsg });
             })
             .finally(() => setLoading(false));
         }}
