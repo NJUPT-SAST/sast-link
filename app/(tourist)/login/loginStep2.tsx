@@ -11,13 +11,14 @@ import { LoginContext } from "@/lib/context";
 import { useRouter } from "next/navigation";
 import { login } from "@/redux/features/userProfile";
 import { addAccount } from "@/redux/features/userList";
-
+import { useSWRConfig } from "swr";
 import { useAppDispatch } from "@/redux";
 
 import styles from "./page.module.scss";
 import { Success } from "@/components/message/messageItem/icons";
 
 const LoginStep2 = () => {
+  const { mutate } = useSWRConfig();
   const tokenRef = useRef<string>("");
   const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -79,7 +80,10 @@ const LoginStep2 = () => {
               })
               .then(() => {
                 // 若存在重定向链接，则跳转至重定向链接，不存在则跳转至 /home
-                redirect ? router.replace(redirect) : router.push("/home");
+                if (redirect) {
+                  mutate("infoUpdate");
+                  router.replace(redirect);
+                } else router.replace("/home");
               })
               .catch((err) => {
                 setError({ error: true, errMsg: err.response.data.ErrMsg });
