@@ -58,7 +58,7 @@ const LoginStep1 = () => {
         onSubmit={(args) => {
           setLoading(true);
           const username = args.username as string;
-          veriLoginAccount(username)
+          veriLoginAccount(username+'@njupt.edu.cn')
             .then(
               (res) => {
                 if (res.data.Success) {
