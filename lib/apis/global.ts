@@ -1,12 +1,13 @@
 import { apis } from ".";
 import qs from "querystring";
+import { ResType } from "./type";
 /**
  * 验证账户有效性
  * @param username 用户名
  * @returns
  */
 export function veriRegistAccount(username: string) {
-  return apis.get<{ Data: { register_ticket: string } }>(
+  return apis.get<ResType<{ register_ticket: string }>>(
     "/apis/verify/account",
     {
       params: { username: username, flag: 0 },
@@ -15,12 +16,9 @@ export function veriRegistAccount(username: string) {
 }
 
 export function veriLoginAccount(username: string) {
-  return apis.get<{ Data: { login_ticket: string } }>(
-    "/apis/verify/account",
-    {
-      params: { username: username, flag: 1 },
-    }
-  );
+  return apis.get<ResType<{ login_ticket: string }>>("/apis/verify/account", {
+    params: { username: username, flag: 1 },
+  });
 }
 
 /**
@@ -29,9 +27,9 @@ export function veriLoginAccount(username: string) {
  * @returns
  */
 export function sendMail(registTicket: string) {
-  return apis.get("/apis/sendEmail", {
+  return apis.get<ResType<null>>("/apis/sendEmail", {
     headers: {
-      REGISTER_TICKET: registTicket,
+      "REGISTER-TICKET": registTicket,
     },
   });
 }
@@ -43,12 +41,16 @@ export function sendMail(registTicket: string) {
  * @returns
  */
 export function veriCaptcha(registTicket: string, captcha: string) {
-  return apis.post("/apis/verify/captcha", qs.stringify({ captcha: captcha }), {
-    headers: {
-      REGISTER_TICKET: registTicket,
-      "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-    },
-  });
+  return apis.post<ResType<null>>(
+    "/apis/verify/captcha",
+    qs.stringify({ captcha: captcha }),
+    {
+      headers: {
+        "REGISTER-TICKET": registTicket,
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      },
+    }
+  );
 }
 
 /**
@@ -58,14 +60,14 @@ export function veriCaptcha(registTicket: string, captcha: string) {
  * @returns 返回用户 Token
  */
 export function userRegist(password: string, registTicket: string) {
-  return apis.post<{ Token: string }>(
+  return apis.post<ResType<null>>(
     "/apis/user/register",
     qs.stringify({
       password: password,
     }),
     {
       headers: {
-        REGISTER_TICKET: registTicket,
+        "REGISTER-TICKET": registTicket,
       },
     }
   );

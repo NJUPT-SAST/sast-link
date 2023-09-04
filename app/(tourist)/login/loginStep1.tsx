@@ -2,7 +2,7 @@
 
 import { Form } from "@/components/form";
 import { useContext, useRef, useState, useCallback } from "react";
-import { LoginContext } from "./page";
+import { LoginContext } from "@/lib/context";
 import { veriLoginAccount } from "@/lib/apis/global";
 import { Button } from "@/components/button";
 import { InputWithLabel } from "@/components/input/inputWithLabel";
@@ -35,7 +35,7 @@ const list = [
 const LoginStep1 = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { handleTitle, handleStep, handleTicket } = useContext(LoginContext);
+  const { redirectParams, handleStep, handleTicket } = useContext(LoginContext);
   const [error, setError] = useState<
     { error: false } | { error: true; errMsg: string }
   >({ error: false });
@@ -47,6 +47,9 @@ const LoginStep1 = () => {
     return false;
   }, []);
 
+  /**
+   * 输入账号，点击登录后进入判断，验证账号存在性，存储返回信息
+   */
   return (
     <>
       <Form
@@ -55,18 +58,18 @@ const LoginStep1 = () => {
         onSubmit={(args) => {
           setLoading(true);
           const username = args.username as string;
-          veriLoginAccount(username)
-            .then(
-              (res) => {
-                console.log(res);
+          // TODO 关于是否加后缀，若仅支持学号登录，则添加，否则删除，目前保留
+          veriLoginAccount(username + "@njupt.edu.cn")
+            .then((res) => {
+              if (res.data.Success) {
                 const ticket = res.data.Data.login_ticket;
+                console.log(ticket);
                 handleTicket(ticket);
                 handleStep(1);
-              },
-              (err) => {
-                setError({ error: true, errMsg: err.response.data.ErrMsg });
+                return;
               }
-            )
+              setError({ error: true, errMsg: res.data.ErrMsg });
+            })
             .finally(() => {
               setLoading(false);
             });
@@ -97,15 +100,23 @@ const LoginStep1 = () => {
           className={[styles.formButton]}
           type={"submit"}
         >
-          登录
+          下一步
         </Button>
       </Form>
-      <Anchor href="a" className={[styles.anchor]}>
+      {
+        // TODO 第三方认证登录
+      }
+      <Anchor href="./" className={[styles.anchor]}>
         SAST 飞书登录
       </Anchor>
       <OtherLoginList list={list} />
       <div className={`${styles.toRegist}`}>
-        没有账号？<Link href={"/regist"}>注册</Link>
+        没有账号？
+        <Link
+          href={`/regist${redirectParams ? `?redirect=${redirectParams}` : ""}`}
+        >
+          注册
+        </Link>
       </div>
     </>
   );

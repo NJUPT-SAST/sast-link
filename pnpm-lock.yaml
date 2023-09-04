@@ -56,6 +56,9 @@ dependencies:
   stylelint-config-rational-order:
     specifier: ^0.1.2
     version: 0.1.2
+  swr:
+    specifier: ^2.2.1
+    version: 2.2.1(react@18.2.0)
   typescript:
     specifier: 5.1.6
     version: 5.1.6
@@ -5142,6 +5145,16 @@ packages:
 
   /svg-tags@1.0.0:
     resolution: {integrity: sha512-ovssysQTa+luh7A5Weu3Rta6FJlFBBbInjOh722LIt6klpU2/HtdUbszju/G4devcvk8PGt7FCLv5wftu3THUA==}
+    dev: false
+
+  /swr@2.2.1(react@18.2.0):
+    resolution: {integrity: sha512-KJVA7dGtOBeZ+2sycEuzUfVIP5lZ/cd0xjevv85n2YG0x1uHJQicjAtahVZL6xG3+TjqhbBqimwYzVo3saeVXQ==}
+    peerDependencies:
+      react: ^16.11.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      client-only: 0.0.1
+      react: 18.2.0
+      use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 
   /synckit@0.8.5:

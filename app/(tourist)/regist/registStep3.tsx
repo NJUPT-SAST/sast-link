@@ -6,7 +6,7 @@ import { useContext, useCallback, useRef, useState } from "react";
 import { InputWithLabel } from "@/components/input/inputWithLabel";
 import { handleError } from "@/lib/func";
 import { Footer } from "@/components/footer";
-import { RegistContext } from "./page";
+import { RegistContext } from "@/lib/context";
 import styles from "./page.module.scss";
 import { userRegist } from "@/lib/apis/global";
 
@@ -48,7 +48,11 @@ const RegistStep3 = () => {
           setLoading(true);
           userRegist(password, registTicket)
             .then((res) => {
-              console.log(res), handleStep(1);
+              if (res.data.Success) {
+                handleStep(1);
+                return;
+              }
+              setPassError({ error: true, errMsg: res.data.ErrMsg });
             })
             .finally(() => setLoading(false));
         }}

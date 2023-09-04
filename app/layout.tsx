@@ -1,4 +1,4 @@
-"use client";
+import { Metadata } from "next";
 
 import { ReduxProvider } from "@/redux/reduxProvider";
 import "./globals.scss";

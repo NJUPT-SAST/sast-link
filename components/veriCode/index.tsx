@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import classNames from "classnames";
 import styles from "./index.module.scss";
-import { RegistContext } from "@/app/(tourist)/regist/page";
+import { RegistContext } from "@/lib/context";
 import { sendMail, veriRegistAccount } from "@/lib/apis/global";
 
 const VeriCode = () => {

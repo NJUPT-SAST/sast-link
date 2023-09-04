@@ -1,29 +1,23 @@
 "use client";
 
-import React, { ReactNode, useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { LoginStep1 } from "./loginStep1";
 import { LoginStep2 } from "./loginStep2";
-import axios from "axios";
+import { useSearchParams } from "next/navigation";
 
-export const metadata = {
-  title: "SAST Link Login",
-  description: "OAuth of SAST",
-};
-
-export interface LoginContextProps {
-  loginTicket?: string;
-  handleTitle: (title: string) => void;
-  handleStep: (step: 1 | -1) => void;
-  handleTicket: (ticket: string) => void;
-}
-
-export const LoginContext = React.createContext<LoginContextProps>({
-  handleTitle: (title: string) => void 0,
-  handleStep: (step: 1 | -1) => void 0,
-  handleTicket: () => void 0,
-});
+import { LoginContext } from "@/lib/context";
 
 const Login = () => {
+  const searchParams = useSearchParams();
+  // redirect 表示登陆后应重定向的位置，若为 null 则重定向至首页
+  // 前端不用redirect，后端接口会自动301重定向
+  // TODO 错误处理
+  const redirectParams = searchParams.get("redirect");
+  const redirect = redirectParams
+    ? redirectParams?.split("?")[0] +
+      "?" +
+      JSON.parse(redirectParams?.split("?")[1] ?? "[]").join("&")
+    : null;
   const [step, setStep] = useState<number>(1);
   const [loginTicket, setLoginTicket] = useState<string>();
   const [title, setTitle] = useState<string>("<sast link>");
@@ -31,6 +25,7 @@ const Login = () => {
     setStep((pre) => pre + step);
   }, []);
 
+  // 设置标题
   const handleTitle = useCallback((title: string) => setTitle(title), []);
   const handleTicket = useCallback(
     (ticket: string) => setLoginTicket(ticket),
@@ -38,6 +33,8 @@ const Login = () => {
   );
 
   const providerValue = {
+    redirectParams,
+    redirect,
     loginTicket: loginTicket,
     handleStep: handleStep,
     handleTitle: handleTitle,

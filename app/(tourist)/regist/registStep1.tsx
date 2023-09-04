@@ -7,7 +7,7 @@ import { Footer } from "@/components/footer";
 import { NextButton } from "@/components/button";
 import { InputWithLabel } from "@/components/input/inputWithLabel";
 import { handleError } from "@/lib/func";
-import { RegistContext } from "./page";
+import { RegistContext } from "@/lib/context";
 import styles from "./page.module.scss";
 
 const RegistStep1 = () => {
@@ -35,19 +35,18 @@ const RegistStep1 = () => {
             const mail = args.mail + "@njupt.edu.cn";
             handleUsername(mail);
             veriRegistAccount(mail)
-              .then(
-                (res) => {
-                  const ticket = res.data.Data.register_ticket;
-                  handleTicket(ticket);
-                  return sendMail(ticket);
-                },
-                (err) => {
-                  console.log(err);
-                }
-              )
               .then((res) => {
-                console.log(res);
-                handleStep(1);
+                let ticket = "";
+                if (res.data.Success) {
+                  ticket = res.data.Data.register_ticket;
+                  handleTicket(ticket);
+                } else {
+                  setError({ error: true, errMsg: res.data.ErrMsg });
+                }
+                return sendMail(ticket);
+              })
+              .then((res) => {
+                if (res.data.Success) handleStep(1);
               })
               .finally(() => {
                 setLoading(false);
