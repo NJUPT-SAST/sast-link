@@ -58,9 +58,9 @@ const LoginStep1 = () => {
         onSubmit={(args) => {
           setLoading(true);
           const username = args.username as string;
-          // TODO 关于是否加后缀，若仅支持学号登录，则添加，否则删除，目前保留
-          veriLoginAccount(username + "@njupt.edu.cn")
+          veriLoginAccount(username)
             .then((res) => {
+              console.log("res", res);
               if (res.data.Success) {
                 const ticket = res.data.Data.login_ticket;
                 console.log(ticket);
@@ -70,6 +70,7 @@ const LoginStep1 = () => {
               }
               setError({ error: true, errMsg: res.data.ErrMsg });
             })
+            .catch((err) => console.log(err))
             .finally(() => {
               setLoading(false);
             });

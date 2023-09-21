@@ -40,20 +40,19 @@ const RegistStep1 = () => {
                 if (res.data.Success) {
                   ticket = res.data.Data.register_ticket;
                   handleTicket(ticket);
-                } else {
-                  setError({ error: true, errMsg: res.data.ErrMsg });
+                  return sendMail(ticket).then((res) => {
+                    if (res.data.Success) handleStep(1);
+                    else setError(handleError(res.data.ErrMsg));
+                  });
                 }
-                return sendMail(ticket);
+                setError(handleError(res.data.ErrMsg));
               })
-              .then((res) => {
-                if (res.data.Success) handleStep(1);
-              })
+              .catch((err) => console.log(err))
               .finally(() => {
                 setLoading(false);
               });
             return;
           }
-          setError({ errMsg: "发生了未知错误", error: true });
         }}
         names={["mail"]}
       >

@@ -74,20 +74,15 @@ const LoginStep2 = () => {
                     })
                   );
                   dispatch(login({ username: "ming", email: data.email }));
+                  if (redirect) {
+                    mutate("infoUpdate");
+                    router.replace(redirect);
+                  } else router.replace("/home");
                   return;
                 }
-                setError({ error: true, errMsg: res.data.ErrMsg });
+                setError(handleError(res.data.ErrMsg));
               })
-              .then(() => {
-                // 若存在重定向链接，则跳转至重定向链接，不存在则跳转至 /home
-                if (redirect) {
-                  mutate("infoUpdate");
-                  router.replace(redirect);
-                } else router.replace("/home");
-              })
-              .catch((err) => {
-                setError({ error: true, errMsg: err.response.data.ErrMsg });
-              })
+              .catch()
               .finally(() => {
                 setLoading(false);
               });

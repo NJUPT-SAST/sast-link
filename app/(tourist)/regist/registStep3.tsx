@@ -52,8 +52,9 @@ const RegistStep3 = () => {
                 handleStep(1);
                 return;
               }
-              setPassError({ error: true, errMsg: res.data.ErrMsg });
+              setPassError(handleError(res.data.ErrMsg));
             })
+            .catch()
             .finally(() => setLoading(false));
         }}
         names={["password", "veriPassword"]}
