@@ -2,15 +2,15 @@
 
 import { useRef, useState, useCallback, useContext } from "react";
 import { Form } from "@/components/form";
-import { sendMail, veriRegistAccount } from "@/lib/apis/global";
+import { sendMail, veriResetAccount } from "@/lib/apis/global";
 import { Footer } from "@/components/footer";
 import { NextButton } from "@/components/button";
 import { InputWithLabel } from "@/components/input/inputWithLabel";
 import { handleError } from "@/lib/func";
-import { RegistContext } from "@/lib/context";
+import { ResetContext } from "@/lib/context";
 import styles from "./page.module.scss";
 
-const RegistStep1 = () => {
+const ResetStep1 = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<
@@ -23,7 +23,7 @@ const RegistStep1 = () => {
   }, []);
 
   const { handleStep, handleTicket, handleUsername } =
-    useContext(RegistContext);
+    useContext(ResetContext);
 
   return (
     <>
@@ -34,13 +34,13 @@ const RegistStep1 = () => {
           if (typeof args.mail === "string") {
             const mail = args.mail + "@njupt.edu.cn";
             handleUsername(mail);
-            veriRegistAccount(mail)
+            veriResetAccount(mail)
               .then((res) => {
                 let ticket = "";
                 if (res.data.Success) {
-                  ticket = res.data.Data.registerTicket;
+                  ticket = res.data.Data.resetPwdTicket;
                   handleTicket(ticket);
-                  return sendMail(ticket).then((res) => {
+                  return sendMail(ticket, "reset").then((res) => {
                     if (res.data.Success) handleStep(1);
                     else setError(handleError(res.data.ErrMsg));
                   });
@@ -70,7 +70,7 @@ const RegistStep1 = () => {
             <span>@njupt.edu.cn</span>
           </InputWithLabel>
           <div className={styles.descript}>
-            确认后，我们将会往你的邮箱发送一封验证邮件，请在验证后继续。
+            您正在进行密码重置，请输入您的学号。点击下一步后，我们将会向你的邮箱发送一封验证邮件。
           </div>
         </div>
 
@@ -91,4 +91,4 @@ const RegistStep1 = () => {
   );
 };
 
-export { RegistStep1 };
+export { ResetStep1 };

@@ -62,7 +62,7 @@ const LoginStep1 = () => {
             .then((res) => {
               console.log("res", res);
               if (res.data.Success) {
-                const ticket = res.data.Data.login_ticket;
+                const ticket = res.data.Data.loginTicket;
                 console.log(ticket);
                 handleTicket(ticket);
                 handleStep(1);
@@ -86,6 +86,11 @@ const LoginStep1 = () => {
             error={error}
             palceholder="学号或邮箱"
           />
+          <div className={styles.resetPwdContainer}>
+            <Link href={"/reset"} className={styles.resetPwd}>
+              忘记密码
+            </Link>
+          </div>
         </div>
 
         <Button

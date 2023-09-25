@@ -13,6 +13,7 @@ import { login } from "@/redux/features/userProfile";
 import { addAccount } from "@/redux/features/userList";
 import { useSWRConfig } from "swr";
 import { useAppDispatch } from "@/redux";
+import Link from "next/link";
 
 import styles from "./page.module.scss";
 import { Success } from "@/components/message/messageItem/icons";
@@ -52,33 +53,31 @@ const LoginStep2 = () => {
             // TODO 当从授权界面跳转时 不执行覆盖当前用户的登录操作
             userLogin(password, loginTicket)
               .then((res) => {
-                // console.log(res);
                 if (res.data.Success) {
-                  const token = res.data.Data.token;
+                  const token = res.data.Data.loginToken;
                   console.log(token);
 
                   localStorage.setItem("Token", JSON.stringify(token));
                   tokenRef.current = token;
-                }
-                return getUserInfo();
-              })
-              .then((res) => {
-                // TODO 根据返回值设置账户信息
-                if (res.data.Success) {
-                  const data = res.data.Data;
-                  dispatch(
-                    addAccount({
-                      nickName: "ming",
-                      email: data.email,
-                      Token: tokenRef.current,
-                    })
-                  );
-                  dispatch(login({ username: "ming", email: data.email }));
-                  if (redirect) {
-                    mutate("infoUpdate");
-                    router.replace(redirect);
-                  } else router.replace("/home");
-                  return;
+                  return getUserInfo().then((res) => {
+                    if (res.data.Success) {
+                      const data = res.data.Data;
+                      dispatch(
+                        addAccount({
+                          nickName: "ming",
+                          email: data.email,
+                          Token: tokenRef.current,
+                        })
+                      );
+                      dispatch(login({ username: "ming", email: data.email }));
+                      if (redirect) {
+                        mutate("infoUpdate");
+                        router.replace(redirect);
+                      } else router.replace("/home");
+                      return;
+                    }
+                    setError(handleError(res.data.ErrMsg));
+                  });
                 }
                 setError(handleError(res.data.ErrMsg));
               })
@@ -100,6 +99,11 @@ const LoginStep2 = () => {
             ref={inputRef}
             name="password"
           />
+          <div className={styles.resetPwdContainer}>
+            <Link href={"/reset"} className={styles.resetPwd}>
+              忘记密码
+            </Link>
+          </div>
         </div>
         <Footer>
           <Button

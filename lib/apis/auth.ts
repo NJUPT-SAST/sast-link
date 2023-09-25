@@ -1,9 +1,3 @@
-import {use} from "react";
-import {apis} from "./index";
-import {RootState} from "@/redux";
-import {useSelector} from "react-redux";
-import axios from "axios";
-
 interface oAuthType {
     /**
      * 客户端Id

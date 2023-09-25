@@ -8,9 +8,11 @@ import { ResType } from "./type";
  * @returns 返回用户Token
  */
 export function userLogin(password: string, loginTicket: string) {
-  return apis.post<ResType<{ token: string }>>(
+  const formData = new FormData();
+  formData.append("password", password)
+  return apis.post<ResType<{ loginToken: string }>>(
     "/apis/user/login",
-    qs.stringify({ password: password }),
+    formData,
     {
       headers: {
         "LOGIN-TICKET": loginTicket,
