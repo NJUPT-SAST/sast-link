@@ -15,7 +15,7 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 export const defaultStore: RootState = {
   currentUserProfile: { username: "", email: "" },
   localUserList: [],
-  message: { icon: null, content: null },
+  message: { icon: null, content: null, delay: null },
 };
 
 export const store = configureStore({

@@ -2,23 +2,31 @@
 import styles from "./index.module.scss";
 import { useAppDispatch, useAppSelector } from "@/redux";
 import { removeMessage, replaceMessage } from "@/redux/features/message";
-import { MemoMessageItem } from "./messageItem";
+import { MemoMessageItem, MessageItem } from "./messageItem";
 import { IconType } from "./type";
+import { useEffect } from "react";
 
 let GlobalMessagePanel: () => JSX.Element | null;
 
-const Message = Messagefn();
+const message = Messagefn();
 
 function Messagefn() {
   let id: NodeJS.Timeout;
-  const dispatch = useAppDispatch();
+  let dispatch: any = null;
+
   function MessagePanel() {
-    const { icon, content } = useAppSelector((state) => state.message);
-    if (icon && content) {
+    const { icon, content, delay, fresh } = useAppSelector(
+      (state) => state.message,
+    );
+    useEffect(() => {
+      console.log();
+    }, [fresh]);
+    dispatch = useAppDispatch();
+    if (icon && content && delay) {
       return (
         <>
           <div className={styles.messagePanel}>
-            <MemoMessageItem icon={icon} content={content} />
+            <MessageItem icon={icon} content={content} delay={delay} />
           </div>
         </>
       );
@@ -37,10 +45,13 @@ function Messagefn() {
     if (id) {
       clearTimeout(id);
     }
-    id = setTimeout(() => {
-      dispatch(removeMessage()), delay * 1000;
-    });
-    dispatch(replaceMessage({ icon, content }));
+    console.log(delay * 1000);
+    if (dispatch) {
+      id = setTimeout(() => {
+        dispatch(removeMessage());
+      }, delay * 1000);
+      dispatch(replaceMessage({ icon, content, delay }));
+    }
   }
 
   GlobalMessagePanel = MessagePanel;
@@ -81,4 +92,4 @@ function Messagefn() {
   };
 }
 
-export { Message, GlobalMessagePanel };
+export { message, GlobalMessagePanel };

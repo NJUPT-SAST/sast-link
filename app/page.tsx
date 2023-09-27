@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { login } from "@/redux/features/userProfile";
 import { getUserInfo } from "@/lib/apis/user";
 import { SelectedAccountContext } from "@/lib/context";
+import { message } from "@/components/message";
 
 export default function Home() {
   const dispatch = useAppDispatch();
@@ -59,6 +60,8 @@ export default function Home() {
                   }
 
                   // TODO error
+                  message.error(res.data.ErrMsg);
+                  console.log(message.error);
                 });
               }}
             >

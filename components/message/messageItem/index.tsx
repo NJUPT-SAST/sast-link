@@ -4,10 +4,13 @@ import { Success, Error, Info, Warning } from "./icons";
 import { MessageItemPropsType } from "../type";
 
 const MessageItem = (props: MessageItemPropsType) => {
-  const { icon, content } = props;
+  const { icon, content, delay } = props;
   return (
     <>
-      <div className={`${styles.messageContainer}`}>
+      <div
+        style={{ "--time-delay": delay + "s" }}
+        className={`${styles.messageContainer}`}
+      >
         {(() => {
           switch (icon) {
             case "success":
