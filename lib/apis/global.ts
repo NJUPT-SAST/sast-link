@@ -51,7 +51,7 @@ export function sendMail(ticket: string, type?: "reset") {
  * @returns
  */
 export function veriCaptcha(ticket: string, captcha: string, type?: "reset") {
-  if ((type = "reset")) {
+  if (type && type === "reset") {
     return apis.post<ResType<null>>(
       "/apis/verify/captcha",
       qs.stringify({ captcha: "S-" + captcha }),

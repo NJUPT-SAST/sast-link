@@ -36,7 +36,7 @@ const ResetStep2 = () => {
           setLoading(true);
           const captcha = args.veriCode as string;
           console.log(captcha, resetTicket);
-          veriCaptcha(resetTicket, captcha)
+          veriCaptcha(resetTicket, captcha, "reset")
             .then((res) => {
               if (res.data.Success) handleStep(1);
               else setError(handleError(res.data.ErrMsg));
@@ -61,7 +61,7 @@ const ResetStep2 = () => {
             palceholder="验证码"
             maxLength={5}
           >
-            <VeriCode reset/>
+            <VeriCode reset />
           </InputWithLabel>
           <div className={styles.descript}>
             已经往 {username} 发送一封带有验证码的邮件，请注意查收！
