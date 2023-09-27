@@ -9,7 +9,7 @@ import { ResType } from "./type";
  */
 export function userLogin(password: string, loginTicket: string) {
   const formData = new FormData();
-  formData.append("password", password)
+  formData.append("password", password);
   return apis.post<ResType<{ loginToken: string }>>(
     "/apis/user/login",
     formData,
@@ -17,7 +17,7 @@ export function userLogin(password: string, loginTicket: string) {
       headers: {
         "LOGIN-TICKET": loginTicket,
       },
-    }
+    },
   );
 }
 
@@ -41,6 +41,6 @@ export function userLogout() {
   return apis.post<ResType<null>>(
     "/apis/user/logout",
     {},
-    { headers: { Token: localStorage.getItem("Token") } }
+    { headers: { Token: localStorage.getItem("Token") } },
   );
 }

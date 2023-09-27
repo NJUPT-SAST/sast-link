@@ -60,7 +60,7 @@ export function veriCaptcha(ticket: string, captcha: string, type?: "reset") {
           "RESETPWD-TICKET": ticket,
           "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
         },
-      }
+      },
     );
   }
 
@@ -72,7 +72,7 @@ export function veriCaptcha(ticket: string, captcha: string, type?: "reset") {
         "REGISTER-TICKET": ticket,
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
       },
-    }
+    },
   );
 }
 
@@ -92,7 +92,7 @@ export function userRegist(password: string, registTicket: string) {
       headers: {
         "REGISTER-TICKET": registTicket,
       },
-    }
+    },
   );
 }
 
@@ -106,6 +106,6 @@ export function resetPassword(password: string, resetTicket: string) {
       headers: {
         "RESETPWD-TICKET": resetTicket,
       },
-    }
+    },
   );
 }

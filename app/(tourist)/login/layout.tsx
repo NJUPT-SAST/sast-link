@@ -4,8 +4,8 @@ import { ReactNode } from "react";
 
 import { Metadata } from "next";
 export const metadata: Metadata = {
-  title: 'Login',
-}
+  title: "Login",
+};
 
 export default function LoginLayout(props: { children: ReactNode }) {
   const { children } = props;

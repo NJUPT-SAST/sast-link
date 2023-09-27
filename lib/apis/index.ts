@@ -4,7 +4,7 @@ export const apis = axios.create({
   baseURL: "./",
 });
 
-apis.interceptors.request.use((config) => {;
+apis.interceptors.request.use((config) => {
   return config;
 });
 

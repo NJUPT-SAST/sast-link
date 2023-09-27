@@ -6,5 +6,9 @@ import { ReactNode } from "react";
 
 export const ReduxProvider = (props: { children: ReactNode }) => {
   const { children } = props;
-  return <Provider store={store} serverState={defaultStore}>{children}</Provider>;
+  return (
+    <Provider store={store} serverState={defaultStore}>
+      {children}
+    </Provider>
+  );
 };

@@ -48,10 +48,7 @@ const InputWithLabel = forwardRef<HTMLInputElement, InputWithLabelProps>(
               { [styles.errMsg]: error.error },
             )}
           >
-            {
-              error.error ? error.errMsg :
-               label
-            }
+            {error.error ? error.errMsg : label}
           </label>
           <Input
             type={type}

@@ -47,7 +47,7 @@ export default function Home() {
               onClick={(e) => {
                 localStorage.setItem(
                   "Token",
-                  JSON.stringify(localUserList[selected].Token)
+                  JSON.stringify(localUserList[selected].Token),
                 );
                 getUserInfo().then((res) => {
                   console.log(res);
@@ -57,6 +57,7 @@ export default function Home() {
                     router.replace("/home");
                     return;
                   }
+
                   // TODO error
                 });
               }}

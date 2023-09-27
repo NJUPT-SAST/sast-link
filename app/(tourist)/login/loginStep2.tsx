@@ -67,7 +67,7 @@ const LoginStep2 = () => {
                           nickName: "ming",
                           email: data.email,
                           Token: tokenRef.current,
-                        })
+                        }),
                       );
                       dispatch(login({ username: "ming", email: data.email }));
                       if (redirect) {

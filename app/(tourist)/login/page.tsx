@@ -29,7 +29,7 @@ const Login = () => {
   const handleTitle = useCallback((title: string) => setTitle(title), []);
   const handleTicket = useCallback(
     (ticket: string) => setLoginTicket(ticket),
-    []
+    [],
   );
 
   const providerValue = {

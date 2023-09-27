@@ -25,11 +25,15 @@
   padding: 0 25px;
   border-radius: 8px;
 
-  box-shadow: #f5f5f5 4px 3px 5px 1px, #f5f5f5 -4px 0px 5px 1px;
+  box-shadow:
+    #f5f5f5 4px 3px 5px 1px,
+    #f5f5f5 -4px 0px 5px 1px;
 
   opacity: 1;
 
-  animation: message-fade-in 0.2s ease-in-out 0s both 1, message-fade-out 0.3s ease-in-out var(--time-delay) both 1;
+  animation:
+    message-fade-in 0.2s ease-in-out 0s both 1,
+    message-fade-out 0.3s ease-in-out var(--time-delay) both 1;
   p {
     width: 120px;
 

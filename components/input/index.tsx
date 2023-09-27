@@ -18,45 +18,44 @@ interface InputProps {
   onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
-  props,
-  ref?,
-) {
-  const {
-    type,
-    error = false,
-    maxLength,
-    className = [],
-    name = "",
-    placeholder,
-    value,
-    defaultValue,
-    label,
-    onChange,
-    onFocus,
-    onBlur,
-  } = props;
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  function Input(props, ref?) {
+    const {
+      type,
+      error = false,
+      maxLength,
+      className = [],
+      name = "",
+      placeholder,
+      value,
+      defaultValue,
+      label,
+      onChange,
+      onFocus,
+      onBlur,
+    } = props;
 
-  return (
-    <>
-      <input
-        type={type}
-        onChange={onChange}
-        onBlur={onBlur}
-        onFocus={onFocus}
-        name={name}
-        aria-label={label}
-        className={`${styles.input} ${classNames(...className, {
-          [styles.error]: error,
-        })}`}
-        maxLength={maxLength}
-        placeholder={placeholder}
-        value={value}
-        defaultValue={defaultValue}
-        ref={ref}
-      />
-    </>
-  );
-});
+    return (
+      <>
+        <input
+          type={type}
+          onChange={onChange}
+          onBlur={onBlur}
+          onFocus={onFocus}
+          name={name}
+          aria-label={label}
+          className={`${styles.input} ${classNames(...className, {
+            [styles.error]: error,
+          })}`}
+          maxLength={maxLength}
+          placeholder={placeholder}
+          value={value}
+          defaultValue={defaultValue}
+          ref={ref}
+        />
+      </>
+    );
+  },
+);
 
 export { Input };

@@ -3,11 +3,10 @@
 import React, { useCallback, useState } from "react";
 import { ResetStep1 } from "./resetStep1";
 import { ResetStep2 } from "./resetStep2";
-import { ResetStep3 } from "./resetStep3"
-import { ResetStep4 } from "./resetStep4"
+import { ResetStep3 } from "./resetStep3";
+import { ResetStep4 } from "./resetStep4";
 import { useSearchParams } from "next/navigation";
 import { ResetContext } from "@/lib/context";
-
 
 const Regist = () => {
   const [resetTicket, setResetTicket] = useState<string | undefined>();
@@ -22,11 +21,9 @@ const Regist = () => {
   const redirect = searchParams.get("redirect");
 
   const handleTicket = useCallback((ticket: string) => {
-
     setResetTicket(ticket);
   }, []);
   const handleUsername = useCallback((username: string) => {
-
     setUsername(username);
   }, []);
   const providerValue = {

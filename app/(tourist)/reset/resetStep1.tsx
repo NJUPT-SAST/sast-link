@@ -22,8 +22,7 @@ const ResetStep1 = () => {
     return false;
   }, []);
 
-  const { handleStep, handleTicket, handleUsername } =
-    useContext(ResetContext);
+  const { handleStep, handleTicket, handleUsername } = useContext(ResetContext);
 
   return (
     <>

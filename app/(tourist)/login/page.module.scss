@@ -39,12 +39,13 @@
 
 .resetPwdContainer {
   display: block;
-  text-align: end;
   padding: 0.25rem 0.5rem;
+
+  text-align: end;
   .resetPwd {
-    line-height: 1.5rem;
-    font-size: 0.875rem;
     color: #199af8;
+    font-size: 0.875rem;
+    line-height: 1.5rem;
     text-decoration: none;
   }
 }

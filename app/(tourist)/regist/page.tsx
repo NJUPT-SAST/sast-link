@@ -8,7 +8,6 @@ import { RegistStep4 } from "./registStep4";
 import { useSearchParams } from "next/navigation";
 import { RegistContext } from "@/lib/context";
 
-
 const Regist = () => {
   const [registTicket, setRegistTicket] = useState<string | undefined>();
   const [username, setUsername] = useState<string | undefined>();
@@ -25,13 +24,10 @@ const Regist = () => {
   //   "?" +
   //   JSON.parse(redirectParams?.split("?")[1] ?? "[]").join("&");
 
-
   const handleTicket = useCallback((ticket: string) => {
-
     setRegistTicket(ticket);
   }, []);
   const handleUsername = useCallback((username: string) => {
-
     setUsername(username);
   }, []);
   const providerValue = {

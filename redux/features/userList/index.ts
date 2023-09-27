@@ -13,7 +13,7 @@ const initialState: UserList[] = isServer
   ? []
   : (() => {
       const localUserList = JSON.parse(
-        localStorage.getItem("userList") ?? "[]"
+        localStorage.getItem("userList") ?? "[]",
       ) as UserList[];
       if (localUserList.length && typeof localUserList.length === "number") {
         if (
