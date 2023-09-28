@@ -35,7 +35,7 @@ const LoginStep2 = () => {
   }, []);
 
   useEffect(() => {
-    if (!!loginTicket) {
+    if (!!!loginTicket) {
       router.replace("/login");
     }
   }, [router, loginTicket]);
