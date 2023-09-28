@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback, useContext } from "react";
+import { useState, useRef, useCallback, useContext, useEffect } from "react";
 import { getUserInfo, userLogin } from "@/lib/apis/user";
 import { Form } from "@/components/form";
 import { Button } from "@/components/button";
@@ -12,7 +12,7 @@ import { login } from "@/redux/features/userProfile";
 import { addAccount } from "@/redux/features/userList";
 import { useAppDispatch, useAppSelector } from "@/redux";
 import Link from "next/link";
-import { mutate } from "swr"
+import { mutate } from "swr";
 import styles from "../page.module.scss";
 
 const LoginStep2 = () => {
@@ -34,10 +34,11 @@ const LoginStep2 = () => {
     return false;
   }, []);
 
-  if (loginTicket === null) {
-    router.replace("../");
-    return null;
-  }
+  useEffect(() => {
+    if (!!loginTicket) {
+      router.replace("/login");
+    }
+  }, [router, loginTicket]);
   /**
    * 点击登陆后，存储返回信息，
    * 如必要，根据返回信息获取用户信息，并存储。
@@ -54,7 +55,7 @@ const LoginStep2 = () => {
           if (typeof args.password === "string") {
             const password = args.password;
             console.log(loginTicket);
-            userLogin(password, loginTicket)
+            userLogin(password, loginTicket ?? "")
               .then((res) => {
                 if (res.data.Success) {
                   const token = res.data.Data.loginToken;
@@ -74,8 +75,8 @@ const LoginStep2 = () => {
                         }),
                       );
                       dispatch(login({ username: "ming", email: data.email }));
-                       mutate("infoUpdate").then((res) => {
-                        console.log(res)
+                      mutate("infoUpdate").then((res) => {
+                        console.log(res);
                         router.replace(redirect ?? "/home");
                       });
                       return;
