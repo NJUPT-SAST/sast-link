@@ -20,11 +20,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18.17.1
-      - name: install pnpm
-        run: npm i -g pnpm
-      - name: setup pnpm
-        run: pnpm setup
-      - name: package install
-        run: pnpm i
-      - name: package build
-        run: pnpm build
+      - name: build
+        run: | 
+         export SHELL=$(which bash)
+         npm i -g pnpm
+         pnpm setup
+         pnpm i
+         pnpm build
