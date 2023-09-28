@@ -8,7 +8,7 @@ import { useSearchParams } from "next/navigation";
 import styles from "./page.module.scss";
 import Image from "next/image";
 import defaultAvatar from "@/public/defaultAvator.png";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import { getUserInfo } from "@/lib/apis/user";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -27,7 +27,10 @@ export default function Auth() {
   const appName = "SAST Evento";
   const {
     data: { Success, Data },
-  } = useSWR("infoUpdate", getMessage, { suspense: true });
+  } = useSWR("infoUpdate", getMessage, {
+    suspense: true,
+    revalidateOnFocus: true,
+  });
   // 获取参数
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -54,12 +57,20 @@ export default function Auth() {
     return `${key}=${searchParams.get(key)}`;
   });
   const redirect = `/auth?${JSON.stringify(querysArray)}`;
+  useEffect(
+    () => {
+      if (!localStorage.getItem("Token")) {
+        router.push(`./login?redirect=${redirect}`);
+      }
+      mutate("infoUpdate").then((res) => {
+        console.log(res);
+      });
+    },
 
-  useEffect(() => {
-    if (!Success) router.push(`./login?redirect=${redirect}`);
     // TODO
     // 检验， 若参数不合法，则抛出错误
-  }, [Success, router, redirect]);
+    [Success, router, redirect, Data],
+  );
   return (
     <>
       <BackLayout type="green" />

@@ -6,19 +6,19 @@ import { useContext, useCallback, useRef, useState } from "react";
 import { InputWithLabel } from "@/components/input/inputWithLabel";
 import { handleError } from "@/lib/func";
 import { Footer } from "@/components/footer";
-import { RegistContext } from "@/lib/context";
+import { ResetContext } from "@/lib/context";
 import styles from "./page.module.scss";
-import { userRegist } from "@/lib/apis/global";
+import { resetPassword } from "@/lib/apis/global";
 
-const RegistStep3 = () => {
+const ResetStep3 = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const passInputRef = useRef<HTMLInputElement>(null);
   const veriInputRef = useRef<HTMLInputElement>(null);
   const {
-    registTicket = "",
+    resetTicket = "",
     handleStep,
     username = "",
-  } = useContext(RegistContext);
+  } = useContext(ResetContext);
   const [passError, setPassError] = useState<
     { error: false } | { error: true; errMsg: string }
   >({ error: false });
@@ -46,7 +46,7 @@ const RegistStep3 = () => {
         onSubmit={(args) => {
           const password = args.password as string;
           setLoading(true);
-          userRegist(password, registTicket)
+          resetPassword(password, resetTicket)
             .then((res) => {
               if (res.data.Success) {
                 handleStep(1);
@@ -105,4 +105,4 @@ const RegistStep3 = () => {
   );
 };
 
-export { RegistStep3 };
+export { ResetStep3 };

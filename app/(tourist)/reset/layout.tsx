@@ -4,7 +4,7 @@ import BackLayout from "@/components/Layout/BackLayout";
 
 import { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Regist",
+  title: "Reset",
 };
 
 const RegistLayout = (props: { children: ReactNode }) => {

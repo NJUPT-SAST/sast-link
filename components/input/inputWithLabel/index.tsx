@@ -9,6 +9,7 @@ interface InputWithLabelProps {
   type?: "password";
   children?: ReactNode;
   maxLength?: number;
+  className?: string[];
   label: string;
   name: string;
   defaultValue?: string;
@@ -25,6 +26,7 @@ const InputWithLabel = forwardRef<HTMLInputElement, InputWithLabelProps>(
   function InputWithlabel(props: InputWithLabelProps, ref?) {
     const {
       type,
+      className = [],
       withBlur,
       children = false,
       veridate = () => false,
@@ -46,10 +48,7 @@ const InputWithLabel = forwardRef<HTMLInputElement, InputWithLabelProps>(
               { [styles.errMsg]: error.error },
             )}
           >
-            {
-              error.error ? error.errMsg :
-               label
-            }
+            {error.error ? error.errMsg : label}
           </label>
           <Input
             type={type}
@@ -71,6 +70,7 @@ const InputWithLabel = forwardRef<HTMLInputElement, InputWithLabelProps>(
             name={name}
             defaultValue={defaultValue}
             ref={ref}
+            className={[...className]}
           />
           {children && <div className={styles.afterContent}>{children}</div>}
         </div>

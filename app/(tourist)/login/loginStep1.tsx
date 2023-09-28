@@ -2,7 +2,8 @@
 
 import { Form } from "@/components/form";
 import { useContext, useRef, useState, useCallback } from "react";
-import { LoginContext } from "@/lib/context";
+import { useAppDispatch, useAppSelector } from "@/redux";
+import { addLoginTicket } from "@/redux/features/login";
 import { veriLoginAccount } from "@/lib/apis/global";
 import { Button } from "@/components/button";
 import { InputWithLabel } from "@/components/input/inputWithLabel";
@@ -11,6 +12,7 @@ import Link from "next/link";
 import { Anchor } from "@/components/anchor";
 import { OtherLoginList } from "@/components/list/otherLoginList";
 import { GithubIcon, QqIcon, MsIcon } from "@/components/icon";
+import { useRouter } from "next/navigation";
 
 import styles from "./page.module.scss";
 
@@ -35,7 +37,9 @@ const list = [
 const LoginStep1 = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { redirectParams, handleStep, handleTicket } = useContext(LoginContext);
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { redirect } = useAppSelector((state) => state.loginMessage);
   const [error, setError] = useState<
     { error: false } | { error: true; errMsg: string }
   >({ error: false });
@@ -58,18 +62,19 @@ const LoginStep1 = () => {
         onSubmit={(args) => {
           setLoading(true);
           const username = args.username as string;
-          // TODO 关于是否加后缀，若仅支持学号登录，则添加，否则删除，目前保留
-          veriLoginAccount(username + "@njupt.edu.cn")
+          veriLoginAccount(username)
             .then((res) => {
+              console.log("res", res);
               if (res.data.Success) {
-                const ticket = res.data.Data.login_ticket;
+                const ticket = res.data.Data.loginTicket;
                 console.log(ticket);
-                handleTicket(ticket);
-                handleStep(1);
+                dispatch(addLoginTicket(ticket));
+                router.replace("/login/2");
                 return;
               }
               setError({ error: true, errMsg: res.data.ErrMsg });
             })
+            .catch()
             .finally(() => {
               setLoading(false);
             });
@@ -85,6 +90,11 @@ const LoginStep1 = () => {
             error={error}
             palceholder="学号或邮箱"
           />
+          <div className={styles.resetPwdContainer}>
+            <Link href={"/reset"} className={styles.resetPwd}>
+              忘记密码
+            </Link>
+          </div>
         </div>
 
         <Button
@@ -112,9 +122,7 @@ const LoginStep1 = () => {
       <OtherLoginList list={list} />
       <div className={`${styles.toRegist}`}>
         没有账号？
-        <Link
-          href={`/regist${redirectParams ? `?redirect=${redirectParams}` : ""}`}
-        >
+        <Link href={`/regist${!!redirect ? `?redirect=${redirect}` : ""}`}>
           注册
         </Link>
       </div>

@@ -1,8 +1,9 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface UserProfileType {
-  username: string ;
+  username: string;
   email: string;
+  userId?: string;
   avatar?: string;
   orgnization?: string;
   description?: string;
@@ -16,7 +17,7 @@ const initialState: UserProfileType = isServer
   ? { username: "", email: "" }
   : JSON.parse(
       localStorage.getItem("userProfile") ??
-        JSON.stringify({ username: "", email: "" })
+        JSON.stringify({ username: "", email: "" }),
     );
 
 const userProfileSlice = createSlice({

@@ -8,14 +8,16 @@ import { ResType } from "./type";
  * @returns 返回用户Token
  */
 export function userLogin(password: string, loginTicket: string) {
-  return apis.post<ResType<{ token: string }>>(
+  const formData = new FormData();
+  formData.append("password", password);
+  return apis.post<ResType<{ loginToken: string }>>(
     "/apis/user/login",
-    qs.stringify({ password: password }),
+    formData,
     {
       headers: {
         "LOGIN-TICKET": loginTicket,
       },
-    }
+    },
   );
 }
 
@@ -24,11 +26,14 @@ export function userLogin(password: string, loginTicket: string) {
  * @returns 返回用户 Token
  */
 export function getUserInfo() {
-  return apis.get<ResType<{ email: string }>>("/apis/user/info", {
-    headers: {
-      Token: JSON.parse(localStorage.getItem("Token") ?? ""),
+  return apis.get<ResType<{ email: string; userId: string }>>(
+    "/apis/user/info",
+    {
+      headers: {
+        Token: JSON.parse(localStorage.getItem("Token") ?? ""),
+      },
     },
-  });
+  );
 }
 
 /**
@@ -39,6 +44,6 @@ export function userLogout() {
   return apis.post<ResType<null>>(
     "/apis/user/logout",
     {},
-    { headers: { Token: localStorage.getItem("Token") } }
+    { headers: { Token: JSON.parse(localStorage.getItem("Token") ?? "") } },
   );
 }

@@ -39,7 +39,7 @@ const AccountList = () => {
                 nickName={`${value.nickName}`}
                 mail={`${value.email}`}
                 onFocus={() => {
-                 setSelected(index);
+                  setSelected(index);
                   scroll(index);
                 }}
                 onClose={() => {

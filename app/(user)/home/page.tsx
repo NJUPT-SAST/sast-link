@@ -1,12 +1,11 @@
 "use client";
 
-import { useAppSelector } from "@/redux";
 import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/redux";
-import { login, logout } from "@/redux/features/userProfile";
+import { logout } from "@/redux/features/userProfile";
 import useSWR from "swr";
 import { getUserInfo } from "@/lib/apis/user";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { removeAccount } from "@/redux/features/userList";
 
 const getMessage = async () => {
@@ -23,27 +22,31 @@ const Home = () => {
   } = useSWR("infoUpdate", getMessage, { suspense: true });
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const userProfile = useAppSelector((state) => state.currentUserProfile);
+  // const userProfile = useAppSelector((state) => state.currentUserProfile);
   useEffect(() => {
     if (!Success) {
       router.replace("./");
     }
   }, [Success, router]);
   return (
-    <>
-      Hello, {Data.email}, You have logged!
-      <div>
-        <button
-          onClick={() => {
-            router.replace("/");
-            dispatch(logout());
-            dispatch(removeAccount(Data.email));
-          }}
-        >
-          退出登錄
-        </button>
-      </div>
-    </>
+    <Suspense fallback={<h1>数据加载中...</h1>}>
+      <>
+        Hello, {Data?.email}, You have logged!
+        <div>
+          <button
+            onClick={() => {
+              if (Data !== null) {
+                router.replace("/");
+                dispatch(logout());
+                dispatch(removeAccount(Data.email));
+              }
+            }}
+          >
+            退出登錄
+          </button>
+        </div>
+      </>
+    </Suspense>
   );
 };
 

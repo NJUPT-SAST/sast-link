@@ -9,17 +9,17 @@ import { handleError } from "@/lib/func";
 import { VeriCode } from "@/components/veriCode";
 import { Footer } from "@/components/footer";
 import { veriCaptcha } from "@/lib/apis/global";
-import { RegistContext } from "@/lib/context";
+import { ResetContext } from "@/lib/context";
 import styles from "./page.module.scss";
 
-const RegistStep2 = () => {
+const ResetStep2 = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<
     { error: false } | { error: true; errMsg: string }
   >({ error: false });
 
-  const { username, registTicket = "", handleStep } = useContext(RegistContext);
+  const { username, resetTicket = "", handleStep } = useContext(ResetContext);
 
   const veridate = useCallback((value: string) => {
     if (value === "") {
@@ -35,8 +35,8 @@ const RegistStep2 = () => {
         onSubmit={(args) => {
           setLoading(true);
           const captcha = args.veriCode as string;
-          console.log(captcha, registTicket);
-          veriCaptcha(registTicket, captcha)
+          console.log(captcha, resetTicket);
+          veriCaptcha(resetTicket, captcha, "reset")
             .then((res) => {
               if (res.data.Success) handleStep(1);
               else setError(handleError(res.data.ErrMsg));
@@ -49,7 +49,7 @@ const RegistStep2 = () => {
         names={["veriCode"]}
       >
         <div className={`${styles.inputDiv} ${styles.veriCodeInput}`}>
-          <div className={styles.defaultHead}>{"S- "}</div>
+          <div className={styles.defaultHead}>{"S-"}</div>
           <InputWithLabel
             className={[styles.vericodeInput]}
             setErrorState={setError}
@@ -61,7 +61,7 @@ const RegistStep2 = () => {
             palceholder="验证码"
             maxLength={5}
           >
-            <VeriCode />
+            <VeriCode reset />
           </InputWithLabel>
           <div className={styles.descript}>
             已经往 {username} 发送一封带有验证码的邮件，请注意查收！
@@ -85,4 +85,4 @@ const RegistStep2 = () => {
   );
 };
 
-export { RegistStep2 };
+export { ResetStep2 };

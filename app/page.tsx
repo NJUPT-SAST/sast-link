@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { login } from "@/redux/features/userProfile";
 import { getUserInfo } from "@/lib/apis/user";
 import { SelectedAccountContext } from "@/lib/context";
+import { message } from "@/components/message";
 
 export default function Home() {
   const dispatch = useAppDispatch();
@@ -47,7 +48,7 @@ export default function Home() {
               onClick={(e) => {
                 localStorage.setItem(
                   "Token",
-                  JSON.stringify(localUserList[selected].Token)
+                  JSON.stringify(localUserList[selected].Token),
                 );
                 getUserInfo().then((res) => {
                   console.log(res);
@@ -57,7 +58,9 @@ export default function Home() {
                     router.replace("/home");
                     return;
                   }
+
                   // TODO error
+                  message.error("验证消息已过期，请重新登录!");
                 });
               }}
             >

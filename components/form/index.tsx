@@ -35,7 +35,7 @@ const Form = forwardRef<HTMLFormElement, FormProps>(function Form(props, ref?) {
 
   return (
     <form
-    onSubmit={handleSubmit}
+      onSubmit={handleSubmit}
       ref={ref}
       className={`${styles.form} ${classNames(...className)}`}
     >

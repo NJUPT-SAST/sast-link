@@ -1,0 +1,29 @@
+# This is the worlflow for sast-link, a next.js app
+#
+# To get started with Next.js see: https://nextjs.org/docs/getting-started
+#
+name: sast link pages
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  # Build job
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.17.1
+      - name: build
+        run: | 
+         export SHELL=$(which bash)
+         npm i -g pnpm
+         pnpm setup
+         pnpm i
+         pnpm build

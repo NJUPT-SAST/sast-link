@@ -1,8 +1,3 @@
-import { use } from "react";
-import { apis } from "./index";
-import { RootState } from "@/redux";
-import { useSelector } from "react-redux";
-
 interface oAuthType {
   /**
    * 客户端Id
@@ -28,8 +23,14 @@ export function oAuth(data: oAuthType) {
     if ((data as any)[key]) queryArray.push(`${key}=${(data as any)[key]}`);
   });
   const formData = new FormData();
-  const token = localStorage.getItem('Token')?.split('"')[1];
-  formData.append("token", token??'')
-  const query = queryArray.join("&");
-  return apis.post(`/apis/oauth2/authorize?${query}`, formData);
+  const token = localStorage.getItem("Token");
+  formData.append("token", token ?? "");
+  const query =
+    queryArray.join("&") +
+    "&" +
+    "part=" +
+    JSON.parse(localStorage.getItem("Token") ?? "");
+  console.log(query);
+  // TODO 更改为部署后地址
+  return (window.location.href = `http://81.68.225.220:8080/api/v1/oauth2/authorize?${query}`);
 }
