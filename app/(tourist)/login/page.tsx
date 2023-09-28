@@ -1,16 +1,13 @@
 "use client";
 
-import React, { useCallback, useState } from "react";
-import { LoginStep1 } from "./loginStep1";
-import { LoginStep2 } from "./loginStep2";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-
-import { LoginContext } from "@/lib/context";
+import { LoginStep1 } from "./loginStep1";
+import { useAppDispatch, useAppSelector } from "@/redux";
+import { addRedirect } from "@/redux/features/login";
 
 const Login = () => {
   const searchParams = useSearchParams();
-  // redirect 表示登陆后应重定向的位置，若为 null 则重定向至首页
-  // 前端不用redirect，后端接口会自动301重定向
   // TODO 错误处理
   const redirectParams = searchParams.get("redirect");
   const redirect = redirectParams
@@ -18,36 +15,15 @@ const Login = () => {
       "?" +
       JSON.parse(redirectParams?.split("?")[1] ?? "[]").join("&")
     : null;
-  const [step, setStep] = useState<number>(1);
-  const [loginTicket, setLoginTicket] = useState<string>();
-  const [title, setTitle] = useState<string>("<sast link>");
-  const handleStep = useCallback((step: -1 | 1) => {
-    setStep((pre) => pre + step);
-  }, []);
-
-  // 设置标题
-  const handleTitle = useCallback((title: string) => setTitle(title), []);
-  const handleTicket = useCallback(
-    (ticket: string) => setLoginTicket(ticket),
-    [],
-  );
-
-  const providerValue = {
-    redirectParams,
-    redirect,
-    loginTicket: loginTicket,
-    handleStep: handleStep,
-    handleTitle: handleTitle,
-    handleTicket: handleTicket,
-  };
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (!!redirect) {
+      dispatch(addRedirect(redirect));
+    }
+  }, [redirect, dispatch]);
   return (
     <>
-      <div className={"pageTitle"}>{title}</div>
-      <div className={"globalContainer"}>
-        <LoginContext.Provider value={providerValue}>
-          {step === 1 ? <LoginStep1 /> : <LoginStep2 />}
-        </LoginContext.Provider>
-      </div>
+      <LoginStep1 />
     </>
   );
 };

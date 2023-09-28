@@ -7,25 +7,23 @@ import { Button } from "@/components/button";
 import { InputWithLabel } from "@/components/input/inputWithLabel";
 import { Footer } from "@/components/footer";
 import { handleError } from "@/lib/func";
-import { LoginContext } from "@/lib/context";
 import { useRouter } from "next/navigation";
 import { login } from "@/redux/features/userProfile";
 import { addAccount } from "@/redux/features/userList";
-import { useSWRConfig } from "swr";
-import { useAppDispatch } from "@/redux";
+import { useAppDispatch, useAppSelector } from "@/redux";
 import Link from "next/link";
-
-import styles from "./page.module.scss";
-import { Success } from "@/components/message/messageItem/icons";
+import { mutate } from "swr"
+import styles from "../page.module.scss";
 
 const LoginStep2 = () => {
-  const { mutate } = useSWRConfig();
   const tokenRef = useRef<string>("");
   const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
-  const { loginTicket = "", handleStep, redirect } = useContext(LoginContext);
+  const { redirect, loginTicket } = useAppSelector(
+    (state) => state.loginMessage,
+  );
   const [error, setError] = useState<
     { error: false } | { error: true; errMsg: string }
   >({ error: false });
@@ -36,11 +34,16 @@ const LoginStep2 = () => {
     return false;
   }, []);
 
+  if (loginTicket === null) {
+    router.replace("../");
+    return null;
+  }
   /**
    * 点击登陆后，存储返回信息，
    * 如必要，根据返回信息获取用户信息，并存储。
    * 并根据 searchParams 判断登录后重定向的位置
    */
+
   return (
     <>
       <Form
@@ -50,7 +53,7 @@ const LoginStep2 = () => {
           setLoading(true);
           if (typeof args.password === "string") {
             const password = args.password;
-            // TODO 当从授权界面跳转时 不执行覆盖当前用户的登录操作
+            console.log(loginTicket);
             userLogin(password, loginTicket)
               .then((res) => {
                 if (res.data.Success) {
@@ -67,13 +70,14 @@ const LoginStep2 = () => {
                           nickName: "ming",
                           email: data.email,
                           Token: tokenRef.current,
+                          userId: data.userId,
                         }),
                       );
                       dispatch(login({ username: "ming", email: data.email }));
-                      if (redirect) {
-                        mutate("infoUpdate");
-                        router.replace(redirect);
-                      } else router.replace("/home");
+                       mutate("infoUpdate").then((res) => {
+                        console.log(res)
+                        router.replace(redirect ?? "/home");
+                      });
                       return;
                     }
                     setError(handleError(res.data.ErrMsg));
@@ -120,7 +124,7 @@ const LoginStep2 = () => {
           >
             {redirect ? "登录并前往授权" : "登录 SAST Link"}
           </Button>
-          <Button onClick={() => handleStep(-1)} type="button" white>
+          <Button onClick={() => router.replace("../")} type="button" white>
             使用其他账号
           </Button>
         </Footer>
@@ -129,4 +133,4 @@ const LoginStep2 = () => {
   );
 };
 
-export { LoginStep2 };
+export default LoginStep2;

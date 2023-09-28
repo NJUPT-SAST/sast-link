@@ -13,7 +13,11 @@ export default function LoginLayout(props: { children: ReactNode }) {
   return (
     <>
       <BackLayout type="orange" />
-      <Layout>{children}</Layout>
+      <Layout>
+        {" "}
+        <div className={"pageTitle"}>{"<sast link>"}</div>
+        <div className={"globalContainer"}>{children}</div>
+      </Layout>
     </>
   );
 }

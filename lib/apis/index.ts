@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const apis = axios.create({
-  baseURL: "./",
 });
 
 apis.interceptors.request.use((config) => {

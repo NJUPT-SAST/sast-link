@@ -3,6 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import userProfileReducer from "./features/userProfile";
 import userListReducer from "./features/userList";
 import messageReducer from "./features/message";
+import LoginReducer from "./features/login";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 export type RootState = ReturnType<typeof store.getState>;
@@ -16,6 +17,7 @@ export const defaultStore: RootState = {
   currentUserProfile: { username: "", email: "" },
   localUserList: [],
   message: { icon: null, content: null, delay: null },
+  loginMessage: { loginTicket: null, redirect: null },
 };
 
 export const store = configureStore({
@@ -23,5 +25,6 @@ export const store = configureStore({
     currentUserProfile: userProfileReducer,
     localUserList: userListReducer,
     message: messageReducer,
+    loginMessage: LoginReducer,
   },
 });
