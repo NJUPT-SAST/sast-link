@@ -15,8 +15,8 @@ const initialState: Message = {
   fresh: false,
 };
 
-const content = createSlice({
-  name: "content",
+const message = createSlice({
+  name: "message",
   initialState,
   reducers: {
     addMessage: (state, action: PayloadAction<Message>) => {
@@ -38,6 +38,6 @@ const content = createSlice({
   },
 });
 
-export const { addMessage, removeMessage, replaceMessage } = content.actions;
+export const { addMessage, removeMessage, replaceMessage } = message.actions;
 
-export default content.reducer;
+export default message.reducer;

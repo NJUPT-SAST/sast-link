@@ -15,18 +15,23 @@ function Messagefn() {
   let dispatch: any = null;
 
   function MessagePanel() {
-    const { icon, content, delay, fresh } = useAppSelector(
-      (state) => state.message,
-    );
-    useEffect(() => {
-      console.log();
-    }, [fresh]);
+    const {
+      icon,
+      content,
+      delay,
+      fresh = false,
+    } = useAppSelector((state) => state.message);
     dispatch = useAppDispatch();
     if (icon && content && delay) {
       return (
         <>
           <div className={styles.messagePanel}>
-            <MessageItem icon={icon} content={content} delay={delay} />
+            <MessageItem
+              icon={icon}
+              fresh={fresh}
+              content={content}
+              delay={delay}
+            />
           </div>
         </>
       );

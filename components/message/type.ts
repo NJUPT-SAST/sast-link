@@ -10,6 +10,7 @@ export interface MessageLinkType {
 export type IconType = "error" | "info" | "success" | "warning" | "loading";
 
 export interface MessageItemPropsType {
+  fresh: boolean;
   delay: number;
   content: string;
   icon: IconType;

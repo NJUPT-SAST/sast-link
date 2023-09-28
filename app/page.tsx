@@ -60,8 +60,7 @@ export default function Home() {
                   }
 
                   // TODO error
-                  message.error(res.data.ErrMsg);
-                  console.log(message.error);
+                  message.error("验证消息已过期，请重新登录!");
                 });
               }}
             >
