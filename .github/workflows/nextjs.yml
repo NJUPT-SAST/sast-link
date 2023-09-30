@@ -16,7 +16,7 @@ jobs:
       - name: sync to server
         uses: burnett01/rsync-deployments@6.0.0
         with:
-          switches: -rv --delete
+          switches: -rv
           path: ./
           remote_path: /home/link/${{ secrets.HOST }}/frontend/
           remote_host: ${{ secrets.HOST }}
@@ -32,6 +32,7 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd ${{ secrets.HOST }}/frontend
+            rm -r .next
             echo =====$(pwd)=====
             pnpm i
             pnpm build
