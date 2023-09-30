@@ -21,7 +21,7 @@ jobs:
          pnpm i
          pnpm build
 
-         mkdir -p tmp/link && cp -r .next tmp/link/ && cd /tmp/link
+         mkdir -p tmp/link && cp -r .next tmp/link/ && cd tmp/link
          cat >package.json <<"EOF"
            {
             "name": "sast-link",
