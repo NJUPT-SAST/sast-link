@@ -13,35 +13,11 @@ jobs:
         with:
           node-version: 18.17.1
 
-      - name: build
-        run: | 
-         export SHELL=$(which bash)
-         npm i -g pnpm
-         pnpm setup
-         pnpm i
-         pnpm build
-
-         mkdir -p tmp/link && cp -r .next tmp/link/ && cd tmp/link
-         cat >package.json <<"EOF"
-           {
-            "name": "sast-link",
-            "version": "0.1.0",
-            "private": true,
-            "scripts": {
-              "start": "next start"
-            },
-            "dependencies": {
-              "next": "13.4.8"
-            }
-          }
-         EOF
-         pnpm i
-
       - name: sync to server
         uses: burnett01/rsync-deployments@6.0.0
         with:
           switches: -rv --delete
-          path: tmp/link/
+          path: ./
           remote_path: /home/link/${{ secrets.HOST }}/frontend/
           remote_host: ${{ secrets.HOST }}
           remote_user: ${{ secrets.USERNAME }}
@@ -56,4 +32,6 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd ${{ secrets.HOST }}/frontend
+            pnpm i
+            pnpm build
             pm2 list | grep -q "link" && pm2 restart "sast-link" || pm2 start pnpm --name "sast-link" -- start
