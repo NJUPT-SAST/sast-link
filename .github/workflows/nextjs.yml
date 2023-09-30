@@ -23,7 +23,7 @@ jobs:
           remote_user: ${{ secrets.USERNAME }}
           remote_key: ${{ secrets.DEPLOY_KEY }}
 
-      - name: restart pm2
+      - name: restart service
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.HOST }}
@@ -32,6 +32,7 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd ${{ secrets.HOST }}/frontend
+            echo =====$(pwd)=====
             pnpm i
             pnpm build
             pm2 list | grep -q "link" && pm2 restart "sast-link" || pm2 start pnpm --name "sast-link" -- start
