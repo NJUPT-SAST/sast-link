@@ -1,0 +1,138 @@
+.musk {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+
+  visibility: visible;
+  opacity: 1;
+
+  transition:
+    opacity 0.3s,
+    visibility 0s 0s;
+
+  &.muskHidden {
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.3s,
+      visibility 0s 0.3s;
+  }
+}
+
+.messagePanel {
+  position: fixed;
+  top: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  width: calc(100vw - 40px);
+  height: calc(100vh - 190px);
+  border-radius: 10px 10px 0 0;
+  padding: 20px;
+  background-color: #fff;
+
+  visibility: visible;
+
+  transition:
+    top 0.3s,
+    visibility 0s 0s;
+
+  &.messagePanelHidden {
+    visibility: hidden;
+    top: 120vh;
+    transition:
+      top 0.3s,
+      visibility 0s 0.3s;
+  }
+  .userBasicMessage {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    padding: 8px 15px 14px;
+    img {
+      border-radius: 50%;
+    }
+    .userProfile {
+      padding: 5px 0 0;
+      .userNickname {
+        font-size: 1.25rem;
+        font-weight: 600;
+        line-height: normal;
+      }
+      .userEmail {
+        font-size: 0.875rem;
+        color: #808080;
+        line-height: normal;
+      }
+    }
+    .userPosition {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+    }
+  }
+
+  .userBasicInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: calc(100% - 30px);
+    padding: 0px 15px 0px;
+
+    .infoTitle {
+      font-size: 1.25rem;
+      font-weight: 600;
+      line-height: normal;
+    }
+
+    .userEmail,
+    .userNickname,
+    .userIntro,
+    .socialLink {
+      width: 100%;
+      display: inline-flex;
+      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+      .infoLabel {
+        flex: none;
+        font-size: 1rem;
+      }
+      .content {
+        max-width: calc(100% - 10px - 4rem);
+        font-size: 0.875rem;
+        text-align: end;
+        .socialLinkItem {
+          display: block;
+          line-height: normal;
+          overflow: hidden;
+          white-space: unset;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+  }
+
+  .anchorList {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+    width: 100%;
+    .anchor,
+    .button {
+      width: min(338px, calc(100% - 15px));
+    }
+    .button {
+      border-radius: 10px;
+      border: 3px solid #ff584d;
+      color: #ff584d;
+    }
+  }
+}
