@@ -12,10 +12,8 @@ import qq from "@public/svg/qq.svg";
 import feishu from "@public/svg/feishu.svg";
 import github from "@public/svg/github.svg";
 import { useAppDispatch } from "@/redux";
-import {
-  handleHomeAppPanel,
-  handleHomeInfoPanel,
-} from "@/redux/features/panelState";
+
+import { TopBar } from "@/components/topbar";
 
 const Layout = (props: {
   children: ReactNode;
@@ -27,28 +25,7 @@ const Layout = (props: {
   return (
     <>
       <BackLayout type="yellow" />
-      <div className={classNames(styles.topbar)}>
-        <div
-          onClick={() => {
-            dispatch(handleHomeAppPanel(true));
-          }}
-        >
-          <MenuIcon />
-        </div>
-        <Logo />
-        <div className={classNames(styles.avatar)}>
-          <Image
-            onClick={() => {
-              dispatch(handleHomeInfoPanel(true));
-            }}
-            src={avatar}
-            alt="avatar"
-            width={36}
-            height={36}
-          />
-        </div>
-      </div>
-      <div className={classNames(styles.placeholder)} />
+      <TopBar />
 
       <div className={classNames(styles.profileCard)}>
         <div className={classNames(styles.messageSide)}>
