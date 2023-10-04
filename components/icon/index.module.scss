@@ -13,3 +13,14 @@
 
   user-select: none;
 }
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  cursor: pointer;
+
+  user-select: none;
+}
