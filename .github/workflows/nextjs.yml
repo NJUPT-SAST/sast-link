@@ -1,18 +1,10 @@
-# This is the worlflow for sast-link, a next.js app
-#
-# To get started with Next.js see: https://nextjs.org/docs/getting-started
-#
-name: sast link pages
+name: sast link frontend
 
 on:
-  # Runs on pushes targeting the default branch
   push:
-    branches: ["master"]
-  pull_request:
-    branches: ["master"]
+    branches: [ "master" ]
 
 jobs:
-  # Build job
   build:
     runs-on: ubuntu-latest
     steps:
@@ -20,10 +12,28 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18.17.1
-      - name: build
-        run: | 
-         export SHELL=$(which bash)
-         npm i -g pnpm
-         pnpm setup
-         pnpm i
-         pnpm build
+
+      - name: sync to server
+        uses: burnett01/rsync-deployments@6.0.0
+        with:
+          switches: -rv
+          path: ./
+          remote_path: /home/link/${{ secrets.HOST }}/frontend/
+          remote_host: ${{ secrets.HOST }}
+          remote_user: ${{ secrets.USERNAME }}
+          remote_key: ${{ secrets.DEPLOY_KEY }}
+
+      - name: restart service
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd ${{ secrets.HOST }}/frontend
+            rm -r .next
+            echo =====$(pwd)=====
+            pnpm i
+            pnpm build
+            pm2 list | grep -q "link" && pm2 restart "sast-link" || pm2 start pnpm --name "sast-link" -- start
