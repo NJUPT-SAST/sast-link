@@ -1,0 +1,15 @@
+.bindApp {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  .appMessage {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .binded {
+    color: #4caf50;
+  }
+}
