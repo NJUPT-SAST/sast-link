@@ -15,6 +15,7 @@ import { GithubIcon, QqIcon, MsIcon } from "@/components/icon";
 import { useRouter } from "next/navigation";
 
 import styles from "./page.module.scss";
+import classNames from "classnames";
 
 const list = [
   {
@@ -107,7 +108,7 @@ const LoginStep1 = () => {
               return;
             }
           }}
-          className={[styles.formButton]}
+          className={classNames(styles.formButton)}
           type={"submit"}
         >
           下一步

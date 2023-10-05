@@ -5,7 +5,7 @@ import classNames from "classnames";
 import { CenterArrow } from "@/components/icon/ArrowIcon";
 
 interface NextButtonProps {
-  className?: (string | { [key: string]: boolean })[];
+  className?: string;
   children?: string;
   type?: "submit" | "button";
   onClick?: MouseEventHandler<HTMLButtonElement>;
@@ -17,7 +17,7 @@ const NextButton = forwardRef<HTMLButtonElement, NextButtonProps>(
     const {
       loading = false,
       disabled = false,
-      className = [],
+      className = "",
       children,
       type = "button",
       onClick,
@@ -27,7 +27,7 @@ const NextButton = forwardRef<HTMLButtonElement, NextButtonProps>(
       <Button
         loading={loading}
         disabled={disabled}
-        className={className}
+        className={classNames(className)}
         title="文字图标对不齐是你的问题，不是我们的问题"
         type={type}
         onClick={onClick}

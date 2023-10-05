@@ -11,6 +11,7 @@ import { Footer } from "@/components/footer";
 import { veriCaptcha } from "@/lib/apis/global";
 import { ResetContext } from "@/lib/context";
 import styles from "./page.module.scss";
+import classNames from "classnames";
 
 const ResetStep2 = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -51,7 +52,7 @@ const ResetStep2 = () => {
         <div className={`${styles.inputDiv} ${styles.veriCodeInput}`}>
           <div className={styles.defaultHead}>{"S-"}</div>
           <InputWithLabel
-            className={[styles.vericodeInput]}
+            className={classNames(styles.vericodeInput)}
             setErrorState={setError}
             veridate={veridate}
             ref={inputRef}
