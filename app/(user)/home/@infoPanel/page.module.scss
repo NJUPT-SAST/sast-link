@@ -1,20 +1,23 @@
 .musk {
   position: fixed;
   top: 0;
+
   width: 100vw;
   height: 100vh;
+
   background-color: rgba(0, 0, 0, 0.3);
 
   visibility: visible;
   opacity: 1;
 
   transition:
-    opacity 0.3s,
+    opacity 0.5s,
     visibility 0s 0s;
 
   &.muskHidden {
-    opacity: 0;
     visibility: hidden;
+    opacity: 0;
+
     transition:
       opacity 0.3s,
       visibility 0s 0.3s;
@@ -24,25 +27,29 @@
 .messagePanel {
   position: fixed;
   top: 150px;
+
   display: flex;
   flex-direction: column;
+  gap: 8px;
   align-items: flex-start;
-  gap: 18px;
   width: calc(100vw - 40px);
-  height: calc(100vh - 190px);
-  border-radius: 10px 10px 0 0;
+  height: calc(150vh - 190px);
   padding: 20px;
+  border-radius: 10px 10px 0 0;
+
   background-color: #fff;
 
   visibility: visible;
 
   transition:
-    top 0.3s,
+    top 0.5s cubic-bezier(0.2, 1.06, 0.46, 1.15),
     visibility 0s 0s;
 
   &.messagePanelHidden {
-    visibility: hidden;
     top: 100vh;
+
+    visibility: hidden;
+
     transition:
       top 0.3s,
       visibility 0s 0.3s;
@@ -50,29 +57,38 @@
   .userBasicMessage {
     display: flex;
     flex-direction: column;
-    gap: 13px;
-    padding: 8px 15px 14px;
+    gap: 18px;
+    width: calc(100% - 30px);
+    height: 100%;
+    padding: 16px 15px 14px;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 0;
+    }
     img {
       border-radius: 50%;
     }
     .userProfile {
       padding: 5px 0 0;
       .userNickname {
-        font-size: 1.25rem;
         font-weight: 600;
+        font-size: 1.25rem;
         line-height: normal;
       }
       .userEmail {
-        font-size: 0.875rem;
         color: #808080;
+        font-size: 0.875rem;
         line-height: normal;
       }
     }
     .userPosition {
       display: flex;
+      gap: 0.5rem;
       align-items: center;
       justify-content: flex-start;
-      gap: 0.5rem;
+      margin: 13px 0;
+
       font-size: 0.75rem;
     }
   }
@@ -80,14 +96,13 @@
   .userBasicInfo {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     gap: 10px;
-    width: calc(100% - 30px);
-    padding: 0px 15px 0px;
+    align-items: flex-start;
+    width: 100%;
 
     .infoTitle {
-      font-size: 1.25rem;
       font-weight: 600;
+      font-size: 1.25rem;
       line-height: normal;
     }
 
@@ -95,23 +110,27 @@
     .userNickname,
     .userIntro,
     .socialLink {
-      width: 100%;
       display: inline-flex;
       gap: 10px;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      width: 100%;
       .infoLabel {
         flex: none;
+        height: 100%;
+
         font-size: 1rem;
       }
       .content {
         max-width: calc(100% - 10px - 4rem);
+
         font-size: 0.875rem;
         text-align: end;
         .socialLinkItem {
           display: block;
-          line-height: normal;
           overflow: hidden;
+
+          line-height: normal;
           white-space: unset;
           text-overflow: ellipsis;
         }
@@ -130,9 +149,16 @@
       width: min(338px, calc(100% - 15px));
     }
     .button {
-      border-radius: 10px;
       border: 3px solid #ff584d;
+      border-radius: 10px;
+
       color: #ff584d;
     }
   }
+}
+
+.closeIcon {
+  cursor: pointer;
+
+  user-select: none;
 }
