@@ -30,6 +30,7 @@ const AppPanel = () => {
         })}
       >
         <Image
+          className={styles.closeIcon}
           onClick={() => dipatch(handleHomeAppPanel(false))}
           src={vector}
           alt="close icon"
