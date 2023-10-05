@@ -7,8 +7,16 @@ import { Suspense } from "react";
 import classNames from "classnames";
 import styles from "./page.module.scss";
 import avatar from "@public/defaultAvator.png";
-import { qqIcon, githubIcon, msIcon, feishuIcon } from "@/components/icon";
-import { Icon24, Icon } from "@/components/icon";
+import {
+  qqIcon,
+  githubIcon,
+  msIcon,
+  feishuIcon,
+  blackArrowheadIcon,
+} from "@/components/icon";
+import { Icon } from "@/components/icon";
+import { BindAppItem } from "@/components/bindItem";
+import Link from "next/link";
 
 const getMessage = async () => {
   if (!localStorage.getItem("Token"))
@@ -39,40 +47,38 @@ const Home = () => {
             软件研发中心 老东西
           </div>
         </div>
-        <div className={classNames(styles.linkSide)}>个人界面</div>
+        <div className={classNames(styles.linkSide)}>
+          <Link className={classNames(styles.toProfile)} href={"./home"}>
+            <span>个人主页</span>
+            <Icon {...blackArrowheadIcon} />
+          </Link>
+        </div>
       </div>
 
       <div className={classNames(styles.bindPanel)}>
-        <div className={classNames(styles.bindApp)}>
-          <div className={classNames(styles.appMessage)}>
-            <Icon24 {...qqIcon} />
-            <span>QQ</span>
-          </div>
-          <div className={classNames(styles.bindState)}>已绑定</div>
-        </div>
+        <BindAppItem
+          bindAppIconProps={qqIcon}
+          bindAppTitle={"QQ"}
+          binded={false}
+        />
 
-        <div className={classNames(styles.bindApp)}>
-          <div className={classNames(styles.appMessage)}>
-            <Icon24 {...feishuIcon} />
-            <span>SAST 飞书</span>
-          </div>
-          <div className={classNames(styles.bindState)}>已绑定</div>
-        </div>
+        <BindAppItem
+          bindAppIconProps={feishuIcon}
+          bindAppTitle={"SAST 飞书"}
+          binded={false}
+        />
 
-        <div className={classNames(styles.bindApp)}>
-          <div className={classNames(styles.appMessage)}>
-            <Icon24 {...githubIcon} />
-            <span>Github</span>
-          </div>
-          <div className={classNames(styles.bindState)}>已绑定</div>
-        </div>
-        <div className={classNames(styles.bindApp)}>
-          <div className={classNames(styles.appMessage)}>
-            <Icon24 {...msIcon} />
-            <span>Microsoft</span>
-          </div>
-          <div className={classNames(styles.bindState)}>已绑定</div>
-        </div>
+        <BindAppItem
+          bindAppIconProps={msIcon}
+          bindAppTitle={"Microsoft"}
+          binded={false}
+        />
+
+        <BindAppItem
+          bindAppIconProps={githubIcon}
+          bindAppTitle={"GutHub"}
+          binded={false}
+        />
       </div>
     </Suspense>
   );

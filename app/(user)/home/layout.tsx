@@ -11,7 +11,6 @@ const Layout = (props: {
     <>
       <BackLayout type="yellow" />
       <TopBar />
-
       {children}
       {appPanel}
       {infoPanel}
