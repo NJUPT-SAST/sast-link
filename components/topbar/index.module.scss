@@ -1,10 +1,11 @@
 .topbar {
   position: fixed;
+
   display: flex;
   flex-direction: row;
+  gap: 20px;
   align-items: center;
   justify-content: flex-start;
-  gap: 20px;
   width: calc(100vw - 40px);
   height: 55px;
   padding: 0 20px;
@@ -16,15 +17,24 @@
 }
 
 .placeholder {
-  height: 55px;
   width: 100vw;
+  height: 55px;
+}
+
+.menuIcon {
+  cursor: pointer;
+
+  user-select: none;
 }
 
 .avatar {
   position: absolute;
   right: 20px;
+
+  cursor: pointer;
+
+  user-select: none;
   img {
     border-radius: 50%;
   }
-  justify-self: flex-end;
 }

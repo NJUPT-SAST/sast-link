@@ -1,7 +1,6 @@
 import axios from "axios";
 
-export const apis = axios.create({
-});
+export const apis = axios.create({});
 
 apis.interceptors.request.use((config) => {
   return config;

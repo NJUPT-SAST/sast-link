@@ -19,6 +19,7 @@ const TopBar = () => {
           onClick={() => {
             dispatch(handleHomeAppPanel(true));
           }}
+          className={classNames(styles.menuIcon)}
         >
           <MenuIcon />
         </div>

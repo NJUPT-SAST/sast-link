@@ -5,7 +5,8 @@ import { FocusEventHandler, ChangeEventHandler } from "react";
 interface InputProps {
   // veridate?: (value: string) => boolean;
   type?: "password";
-  className?: (string | { [key: string]: boolean })[];
+  disabled?: boolean;
+  className?: string;
   name?: string;
   placeholder?: string;
   value?: string;
@@ -21,10 +22,11 @@ interface InputProps {
 const Input = forwardRef<HTMLInputElement, InputProps>(
   function Input(props, ref?) {
     const {
+      disabled = false,
       type,
       error = false,
       maxLength,
-      className = [],
+      className = "",
       name = "",
       placeholder,
       value,
@@ -38,13 +40,14 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <>
         <input
+          disabled={disabled}
           type={type}
           onChange={onChange}
           onBlur={onBlur}
           onFocus={onFocus}
           name={name}
           aria-label={label}
-          className={`${styles.input} ${classNames(...className, {
+          className={`${styles.input} ${classNames(className, {
             [styles.error]: error,
           })}`}
           maxLength={maxLength}

@@ -11,7 +11,7 @@ interface ButtonProps {
   white?: boolean;
   children: ReactNode;
   onClick?: MouseEventHandler<HTMLButtonElement>;
-  className?: (string | { [key: string]: boolean })[];
+  className?: string;
   disabled?: boolean;
   loading?: boolean;
 }
@@ -21,7 +21,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const {
       loading = false,
       disabled = false,
-      className = [],
+      className = "",
       title,
       type,
       children,
@@ -38,7 +38,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             {
               [styles.colorReverse]: white,
             },
-            ...className,
+            className,
           )}`}
           onClick={onClick}
           type={type ?? "button"}
