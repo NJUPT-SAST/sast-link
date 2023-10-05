@@ -62,11 +62,9 @@ export default function Auth() {
       if (!localStorage.getItem("Token")) {
         router.push(`./login?redirect=${redirect}`);
       }
-      mutate("infoUpdate").then((res) => {
-        console.log(res);
-      });
     },
-
+    // TODO
+    // token 校验出错时 重定向
     // TODO
     // 检验， 若参数不合法，则抛出错误
     [Success, router, redirect, Data],
