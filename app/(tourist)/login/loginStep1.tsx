@@ -2,7 +2,8 @@
 
 import { Form } from "@/components/form";
 import { useContext, useRef, useState, useCallback } from "react";
-import { LoginContext } from "./page";
+import { useAppDispatch, useAppSelector } from "@/redux";
+import { addLoginTicket } from "@/redux/features/login";
 import { veriLoginAccount } from "@/lib/apis/global";
 import { Button } from "@/components/button";
 import { InputWithLabel } from "@/components/input/inputWithLabel";
@@ -11,8 +12,10 @@ import Link from "next/link";
 import { Anchor } from "@/components/anchor";
 import { OtherLoginList } from "@/components/list/otherLoginList";
 import { GithubIcon, QqIcon, MsIcon } from "@/components/icon";
+import { useRouter } from "next/navigation";
 
 import styles from "./page.module.scss";
+import classNames from "classnames";
 
 const list = [
   {
@@ -35,8 +38,9 @@ const list = [
 const LoginStep1 = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { redirectParams, handleTitle, handleStep, handleTicket } =
-    useContext(LoginContext);
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { redirect } = useAppSelector((state) => state.loginMessage);
   const [error, setError] = useState<
     { error: false } | { error: true; errMsg: string }
   >({ error: false });
@@ -60,16 +64,18 @@ const LoginStep1 = () => {
           setLoading(true);
           const username = args.username as string;
           veriLoginAccount(username)
-            .then(
-              (res) => {
-                const ticket = res.data.Data.login_ticket;
-                handleTicket(ticket);
-                handleStep(1);
-              },
-              (err) => {
-                setError({ error: true, errMsg: err.response.data.ErrMsg });
+            .then((res) => {
+              console.log("res", res);
+              if (res.data.Success) {
+                const ticket = res.data.Data.loginTicket;
+                console.log(ticket);
+                dispatch(addLoginTicket(ticket));
+                router.replace("/login/2");
+                return;
               }
-            )
+              setError({ error: true, errMsg: res.data.ErrMsg });
+            })
+            .catch()
             .finally(() => {
               setLoading(false);
             });
@@ -85,6 +91,11 @@ const LoginStep1 = () => {
             error={error}
             palceholder="学号或邮箱"
           />
+          <div className={styles.resetPwdContainer}>
+            <Link href={"/reset"} className={styles.resetPwd}>
+              忘记密码
+            </Link>
+          </div>
         </div>
 
         <Button
@@ -97,7 +108,7 @@ const LoginStep1 = () => {
               return;
             }
           }}
-          className={[styles.formButton]}
+          className={classNames(styles.formButton)}
           type={"submit"}
         >
           下一步
@@ -112,9 +123,7 @@ const LoginStep1 = () => {
       <OtherLoginList list={list} />
       <div className={`${styles.toRegist}`}>
         没有账号？
-        <Link
-          href={`/regist${redirectParams ? `?redirect=${redirectParams}` : ""}`}
-        >
+        <Link href={`/regist${!!redirect ? `?redirect=${redirect}` : ""}`}>
           注册
         </Link>
       </div>

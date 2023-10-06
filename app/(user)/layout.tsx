@@ -1,5 +1,3 @@
-import { SWRConfig } from "swr";
-import { getUserInfo } from "@/lib/apis/user";
 import { ReactNode } from "react";
 import { SWRProvider } from "@/components/swrProvider";
 

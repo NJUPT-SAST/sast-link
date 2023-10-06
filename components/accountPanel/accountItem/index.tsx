@@ -15,46 +15,45 @@ interface AccountItemProps {
   onClose: () => void;
 }
 
-const AccountItem = forwardRef<any, AccountItemProps>(function Account(
-  props,
-  ref?,
-) {
-  const { onClose, index, selected, onFocus, nickName, mail, avator } = props;
+const AccountItem = forwardRef<any, AccountItemProps>(
+  function Account(props, ref?) {
+    const { onClose, index, selected, onFocus, nickName, mail, avator } = props;
 
-  return (
-    <div
-      onClick={onFocus}
-      tabIndex={0}
-      className={`${styles.itemContainer} ${classNames({
-        [styles.selected]: selected,
-      })}`}
-    >
-      <div className={`${styles.avator}`}>
-        <Image
-          src={avator ?? defaultAvator}
-          alt={`avator`}
-          height={44}
-          width={44}
-        />
-      </div>
-      <div className={`${styles.accountMsg}`}>
-        <div className={`${styles.accountName}`}>{nickName ?? "Ming"}</div>
-        <div className={`${styles.accountMail}`}>
-          {mail ?? "B2100000@njupt.edu.cn"}
+    return (
+      <div
+        onClick={onFocus}
+        tabIndex={0}
+        className={`${styles.itemContainer} ${classNames({
+          [styles.selected]: selected,
+        })}`}
+      >
+        <div className={`${styles.avator}`}>
+          <Image
+            src={avator ?? defaultAvator}
+            alt={`avator`}
+            height={44}
+            width={44}
+          />
+        </div>
+        <div className={`${styles.accountMsg}`}>
+          <div className={`${styles.accountName}`}>{nickName ?? "Ming"}</div>
+          <div className={`${styles.accountMail}`}>
+            {mail ?? "B2100000@njupt.edu.cn"}
+          </div>
+        </div>
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+            onClose();
+          }}
+          className={`${styles.closeIcon}`}
+        >
+          <Image src={closeSVG} alt={`close`} width={11} height={11} />
         </div>
       </div>
-      <div
-        onClick={(e) => {
-          e.stopPropagation();
-          onClose();
-        }}
-        className={`${styles.closeIcon}`}
-      >
-        <Image src={closeSVG} alt={`close`} width={11} height={11} />
-      </div>
-    </div>
-  );
-});
+    );
+  },
+);
 
 const MemorizedAccountItem = memo(AccountItem, (prevProps, nextProps) => {
   return (

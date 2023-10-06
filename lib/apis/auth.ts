@@ -1,5 +1,3 @@
-import { apis } from "./index";
-
 interface oAuthType {
   /**
    * 客户端Id
@@ -24,6 +22,15 @@ export function oAuth(data: oAuthType) {
   Object.keys(data).forEach((key) => {
     if ((data as any)[key]) queryArray.push(`${key}=${(data as any)[key]}`);
   });
-  const query = queryArray.join("&");
-  return apis.get(`/apis/oauth/authorize?${query}`);
+  const formData = new FormData();
+  const token = localStorage.getItem("Token");
+  formData.append("token", token ?? "");
+  const query =
+    queryArray.join("&") +
+    "&" +
+    "part=" +
+    JSON.parse(localStorage.getItem("Token") ?? "");
+  console.log(query);
+  // TODO 更改为部署后地址
+  return (window.location.href = `http://81.68.225.220:8080/api/v1/oauth2/authorize?${query}`);
 }

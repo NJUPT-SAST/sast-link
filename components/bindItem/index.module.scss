@@ -1,0 +1,22 @@
+.bindApp {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  .appMessage {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .binded {
+    color: #4caf50;
+  }
+  .unbinded {
+    display: flex;
+    gap: 0.875rem;
+    align-items: center;
+
+    color: #808080;
+  }
+}

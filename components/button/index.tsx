@@ -11,50 +11,49 @@ interface ButtonProps {
   white?: boolean;
   children: ReactNode;
   onClick?: MouseEventHandler<HTMLButtonElement>;
-  className?: (string | { [key: string]: boolean })[];
+  className?: string;
   disabled?: boolean;
   loading?: boolean;
 }
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  props,
-  ref?,
-) {
-  const {
-    loading = false,
-    disabled = false,
-    className = [],
-    title,
-    type,
-    children,
-    onClick,
-    white = false,
-  } = props;
-  return (
-    <>
-      <button
-        disabled={disabled || loading}
-        title={title}
-        ref={ref}
-        className={`${styles.button} ${classNames(
-          {
-            [styles.colorReverse]: white,
-          },
-          ...className,
-        )}`}
-        onClick={onClick}
-        type={type ?? "button"}
-      >
-        {loading ? (
-          <>
-            <DotLoading />
-          </>
-        ) : (
-          children
-        )}
-      </button>
-    </>
-  );
-});
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  function Button(props, ref?) {
+    const {
+      loading = false,
+      disabled = false,
+      className = "",
+      title,
+      type,
+      children,
+      onClick,
+      white = false,
+    } = props;
+    return (
+      <>
+        <button
+          disabled={disabled || loading}
+          title={title}
+          ref={ref}
+          className={`${styles.button} ${classNames(
+            {
+              [styles.colorReverse]: white,
+            },
+            className,
+          )}`}
+          onClick={onClick}
+          type={type ?? "button"}
+        >
+          {loading ? (
+            <>
+              <DotLoading />
+            </>
+          ) : (
+            children
+          )}
+        </button>
+      </>
+    );
+  },
+);
 
 export { Button, NextButton };

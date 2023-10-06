@@ -11,11 +11,8 @@ import { useAppDispatch, useAppSelector } from "@/redux";
 import { useRouter } from "next/navigation";
 import { login } from "@/redux/features/userProfile";
 import { getUserInfo } from "@/lib/apis/user";
-
-export const SelectedAccountContext = createContext({
-  selected: 0,
-  setSelected: (index: number) => {},
-});
+import { SelectedAccountContext } from "@/lib/context";
+import { message } from "@/components/message";
 
 export default function Home() {
   const dispatch = useAppDispatch();
@@ -51,15 +48,19 @@ export default function Home() {
               onClick={(e) => {
                 localStorage.setItem(
                   "Token",
-                  JSON.stringify(localUserList[selected].Token)
+                  JSON.stringify(localUserList[selected].Token),
                 );
                 getUserInfo().then((res) => {
                   console.log(res);
                   if (res.data.Success) {
                     const { email } = res.data.Data;
                     dispatch(login({ email, username: "test" + selected }));
-                    router.replace("/home")
+                    router.replace("/home");
+                    return;
                   }
+
+                  // TODO error
+                  message.error("验证消息已过期，请重新登录!");
                 });
               }}
             >

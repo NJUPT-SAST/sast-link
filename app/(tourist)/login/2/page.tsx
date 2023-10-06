@@ -1,20 +1,19 @@
 "use client";
 
-import { useState, useRef, useCallback, useContext } from "react";
+import { useState, useRef, useCallback, useContext, useEffect } from "react";
 import { getUserInfo, userLogin } from "@/lib/apis/user";
 import { Form } from "@/components/form";
 import { Button } from "@/components/button";
 import { InputWithLabel } from "@/components/input/inputWithLabel";
 import { Footer } from "@/components/footer";
 import { handleError } from "@/lib/func";
-import { LoginContext } from "./page";
 import { useRouter } from "next/navigation";
 import { login } from "@/redux/features/userProfile";
 import { addAccount } from "@/redux/features/userList";
-
-import { useAppDispatch } from "@/redux";
-
-import styles from "./page.module.scss";
+import { useAppDispatch, useAppSelector } from "@/redux";
+import Link from "next/link";
+import { mutate } from "swr";
+import styles from "../page.module.scss";
 
 const LoginStep2 = () => {
   const tokenRef = useRef<string>("");
@@ -22,7 +21,9 @@ const LoginStep2 = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
-  const { loginTicket = "", handleStep, redirect } = useContext(LoginContext);
+  const { redirect, loginTicket } = useAppSelector(
+    (state) => state.loginMessage,
+  );
   const [error, setError] = useState<
     { error: false } | { error: true; errMsg: string }
   >({ error: false });
@@ -33,11 +34,17 @@ const LoginStep2 = () => {
     return false;
   }, []);
 
+  useEffect(() => {
+    if (!!!loginTicket) {
+      router.replace("/login");
+    }
+  }, [router, loginTicket]);
   /**
    * 点击登陆后，存储返回信息，
    * 如必要，根据返回信息获取用户信息，并存储。
    * 并根据 searchParams 判断登录后重定向的位置
    */
+
   return (
     <>
       <Form
@@ -47,33 +54,39 @@ const LoginStep2 = () => {
           setLoading(true);
           if (typeof args.password === "string") {
             const password = args.password;
-            // TODO 当从授权界面跳转时 不执行覆盖当前用户的登录操作
-            userLogin(password, loginTicket)
+            console.log(loginTicket);
+            userLogin(password, loginTicket ?? "")
               .then((res) => {
-                // console.log(res);
-                const token = res.data.Data.token;
-                console.log(token);
+                if (res.data.Success) {
+                  const token = res.data.Data.loginToken;
+                  console.log(token);
 
-                localStorage.setItem("Token", JSON.stringify(token));
-                tokenRef.current = token;
-                return getUserInfo();
+                  localStorage.setItem("Token", JSON.stringify(token));
+                  tokenRef.current = token;
+                  return getUserInfo().then((res) => {
+                    if (res.data.Success) {
+                      const data = res.data.Data;
+                      dispatch(
+                        addAccount({
+                          nickName: "ming",
+                          email: data.email,
+                          Token: tokenRef.current,
+                          userId: data.userId,
+                        }),
+                      );
+                      dispatch(login({ username: "ming", email: data.email }));
+                      mutate("infoUpdate").then((res) => {
+                        console.log(res);
+                        router.replace(redirect ?? "/home");
+                      });
+                      return;
+                    }
+                    setError(handleError(res.data.ErrMsg));
+                  });
+                }
+                setError(handleError(res.data.ErrMsg));
               })
-              .then((res) => {
-                // TODO 根据返回值设置账户信息
-                const data = res.data.Data;
-                dispatch(
-                  addAccount({
-                    nickName: "ming",
-                    email: data.email,
-                    Token: tokenRef.current,
-                  })
-                );
-                dispatch(login({ username: "ming", email: data.email }));
-                // 若存在重定向链接，则跳转至重定向链接，不存在则跳转至 /home
-                redirect
-                  ? router.replace(`${redirect}`)
-                  : router.replace("/home");
-              })
+              .catch()
               .finally(() => {
                 setLoading(false);
               });
@@ -91,6 +104,11 @@ const LoginStep2 = () => {
             ref={inputRef}
             name="password"
           />
+          <div className={styles.resetPwdContainer}>
+            <Link href={"/reset"} className={styles.resetPwd}>
+              忘记密码
+            </Link>
+          </div>
         </div>
         <Footer>
           <Button
@@ -107,7 +125,7 @@ const LoginStep2 = () => {
           >
             {redirect ? "登录并前往授权" : "登录 SAST Link"}
           </Button>
-          <Button onClick={() => handleStep(-1)} type="button" white>
+          <Button onClick={() => router.replace("../")} type="button" white>
             使用其他账号
           </Button>
         </Footer>
@@ -116,4 +134,4 @@ const LoginStep2 = () => {
   );
 };
 
-export { LoginStep2 };
+export default LoginStep2;

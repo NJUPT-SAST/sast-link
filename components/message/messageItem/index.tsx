@@ -1,15 +1,32 @@
 import styles from "../index.module.scss";
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 import { Success, Error, Info, Warning } from "./icons";
 import { MessageItemPropsType } from "../type";
+import classNames from "classnames";
 
 const MessageItem = (props: MessageItemPropsType) => {
-  const { icon, delay, content } = props;
+  const { icon, content, delay, fresh } = props;
+  const [animationInState, setAnimationInState] = useState<boolean>(false);
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    setAnimationInState(true);
+    timer = setTimeout(
+      () => {
+        setAnimationInState(false);
+      },
+      (delay - 0.5) * 1000,
+    );
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [delay, fresh]);
   return (
     <>
       <div
-        style={{ "--time-delay": `${delay - 0.3}s` }}
-        className={`${styles.messageContainer}`}
+        style={{ "--time-delay": delay + "s" }}
+        className={classNames(styles.messageContainer, {
+          [styles.messageContainerIn]: animationInState,
+        })}
       >
         {(() => {
           switch (icon) {
@@ -21,7 +38,6 @@ const MessageItem = (props: MessageItemPropsType) => {
               return <Warning />;
             case "error":
               return <Error />;
-
             case "loading":
               return "loading";
             default:
@@ -37,9 +53,9 @@ const MessageItem = (props: MessageItemPropsType) => {
 const MemoMessageItem = memo(MessageItem, (pre, next) => {
   return (
     pre.content === next.content &&
-    pre.id === next.id &&
     pre.delay === next.delay &&
-    pre.icon === next.icon
+    pre.icon === next.icon &&
+    pre.fresh === next.fresh
   );
 });
 

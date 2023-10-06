@@ -6,7 +6,7 @@ import { Footer } from "@/components/footer";
 import { Anchor } from "@/components/anchor";
 import styles from "./page.module.scss";
 import { useContext } from "react";
-import { RegistContext } from "./page";
+import { RegistContext } from "@/lib/context";
 
 const RegistStep4 = () => {
   const { redirect } = useContext(RegistContext);

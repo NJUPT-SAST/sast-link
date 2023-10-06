@@ -1,5 +1,5 @@
 import Image from "next/image";
-import arrow from "@/public/svg/Arrow.svg"
+import arrow from "@/public/svg/Arrow.svg";
 
 const CenterArrow = () => {
   return (

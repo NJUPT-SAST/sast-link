@@ -1,54 +1,79 @@
 import { apis } from ".";
 import qs from "querystring";
+import { ResType } from "./type";
 /**
  * 验证账户有效性
  * @param username 用户名
  * @returns
  */
 export function veriRegistAccount(username: string) {
-  return apis.get<{ Data: { register_ticket: string } }>(
-    "/apis/verify/account",
-    {
-      params: { username: username, flag: 0 },
-    }
-  );
+  return apis.get<ResType<{ registerTicket: string }>>("/apis/verify/account", {
+    params: { username: username, flag: 0 },
+  });
 }
 
 export function veriLoginAccount(username: string) {
-  return apis.get<{ Data: { login_ticket: string } }>(
-    "/apis/verify/account",
-    {
-      params: { username: username, flag: 1 },
-    }
-  );
+  return apis.get<ResType<{ loginTicket: string }>>("/apis/verify/account", {
+    params: { username: username, flag: 1 },
+  });
+}
+
+export function veriResetAccount(username: string) {
+  return apis.get<ResType<{ resetPwdTicket: string }>>("/apis/verify/account", {
+    params: { username: username, flag: 2 },
+  });
 }
 
 /**
  * 发送验证邮件
- * @param registTicket 验证账号存在性后返回的 Ticket
+ * @param ticket 验证账号存在性后返回的 Ticket
+ * @param type 当 type 为 reset 时，为重置账号，其他时为注册账号用。
  * @returns
  */
-export function sendMail(registTicket: string) {
-  return apis.get("/apis/sendEmail", {
+export function sendMail(ticket: string, type?: "reset") {
+  if (type === "reset")
+    return apis.get<ResType<null>>("/apis/sendEmail", {
+      headers: {
+        "RESETPWD-TICKET": ticket,
+      },
+    });
+  return apis.get<ResType<null>>("/apis/sendEmail", {
     headers: {
-      REGISTER_TICKET: registTicket,
+      "REGISTER-TICKET": ticket,
     },
   });
 }
 
 /**
  * 校验验证码
- * @param registTicket 验证账号存在性后返回的 Ticket
+ * @param ticket 验证账号存在性后返回的 Ticket
  * @param captcha 验证码
  * @returns
  */
-export function veriCaptcha(registTicket: string, captcha: string) {
-  return apis.post("/apis/verify/captcha", qs.stringify({ captcha: captcha }), {
-    headers: {
-      REGISTER_TICKET: registTicket,
-      "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+export function veriCaptcha(ticket: string, captcha: string, type?: "reset") {
+  if (type && type === "reset") {
+    return apis.post<ResType<null>>(
+      "/apis/verify/captcha",
+      qs.stringify({ captcha: "S-" + captcha }),
+      {
+        headers: {
+          "RESETPWD-TICKET": ticket,
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+        },
+      },
+    );
+  }
+
+  return apis.post<ResType<null>>(
+    "/apis/verify/captcha",
+    qs.stringify({ captcha: "S-" + captcha }),
+    {
+      headers: {
+        "REGISTER-TICKET": ticket,
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      },
     },
-  });
+  );
 }
 
 /**
@@ -58,15 +83,29 @@ export function veriCaptcha(registTicket: string, captcha: string) {
  * @returns 返回用户 Token
  */
 export function userRegist(password: string, registTicket: string) {
-  return apis.post<{ Token: string }>(
+  return apis.post<ResType<null>>(
     "/apis/user/register",
     qs.stringify({
       password: password,
     }),
     {
       headers: {
-        REGISTER_TICKET: registTicket,
+        "REGISTER-TICKET": registTicket,
       },
-    }
+    },
+  );
+}
+
+export function resetPassword(password: string, resetTicket: string) {
+  return apis.post<ResType<null>>(
+    "/apis/user/resetPassword",
+    qs.stringify({
+      newPassword: password,
+    }),
+    {
+      headers: {
+        "RESETPWD-TICKET": resetTicket,
+      },
+    },
   );
 }

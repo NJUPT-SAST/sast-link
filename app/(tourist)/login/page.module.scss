@@ -37,6 +37,19 @@
   }
 }
 
+.resetPwdContainer {
+  display: block;
+  padding: 0.25rem 0.5rem;
+
+  text-align: end;
+  .resetPwd {
+    color: #199af8;
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    text-decoration: none;
+  }
+}
+
 .passForm {
   display: flex;
   flex-direction: column;
@@ -48,9 +61,6 @@
   max-height: 590px;
 
   .inputDiv {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     width: 330px;
     height: calc(36vh);
     min-height: 220px;

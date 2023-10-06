@@ -7,7 +7,7 @@ import { useAppDispatch } from "@/redux";
 import { removeAccount } from "@/redux/features/userList";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
-import { SelectedAccountContext } from "@/app/page";
+import { SelectedAccountContext } from "@/lib/context";
 
 /**
  *
@@ -39,7 +39,7 @@ const AccountList = () => {
                 nickName={`${value.nickName}`}
                 mail={`${value.email}`}
                 onFocus={() => {
-                 setSelected(index);
+                  setSelected(index);
                   scroll(index);
                 }}
                 onClose={() => {

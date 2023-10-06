@@ -6,24 +6,7 @@ import { RegistStep2 } from "./registStep2";
 import { RegistStep3 } from "./registStep3";
 import { RegistStep4 } from "./registStep4";
 import { useSearchParams } from "next/navigation";
-
-interface RegistContextProps {
-  redirect: null | string;
-  username?: string;
-  registTicket?: string;
-  currentStep: number;
-  handleStep: (step: -1 | 1) => void;
-  handleTicket: (ticket: string) => void;
-  handleUsername: (username: string) => void;
-}
-
-export const RegistContext = React.createContext<RegistContextProps>({
-  redirect: null,
-  currentStep: 1,
-  handleStep: (step: 1 | -1) => void 0,
-  handleTicket: (ticket: string) => void 0,
-  handleUsername: (username: string) => void 0,
-});
+import { RegistContext } from "@/lib/context";
 
 const Regist = () => {
   const [registTicket, setRegistTicket] = useState<string | undefined>();
@@ -41,13 +24,10 @@ const Regist = () => {
   //   "?" +
   //   JSON.parse(redirectParams?.split("?")[1] ?? "[]").join("&");
 
-
   const handleTicket = useCallback((ticket: string) => {
-
     setRegistTicket(ticket);
   }, []);
   const handleUsername = useCallback((username: string) => {
-
     setUsername(username);
   }, []);
   const providerValue = {

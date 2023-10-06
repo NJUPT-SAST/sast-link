@@ -15,7 +15,7 @@ const Layout = (props: LayoutProps) => {
     <>
       <div
         className={`${styles.layout} ${SFMono.variable} ${classNames(
-          ...className
+          ...className,
         )}`}
       >
         {children}

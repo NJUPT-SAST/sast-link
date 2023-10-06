@@ -1,5 +1,6 @@
-"use client";
+import { Metadata } from "next";
 
+import { GlobalMessagePanel } from "@/components/message";
 import { ReduxProvider } from "@/redux/reduxProvider";
 import "./globals.scss";
 
@@ -16,7 +17,10 @@ export default function RootLayout({
   return (
     <html lang="zh">
       <body>
-        <ReduxProvider>{children}</ReduxProvider>
+        <ReduxProvider>
+          {children}
+          <GlobalMessagePanel />
+        </ReduxProvider>
       </body>
     </html>
   );

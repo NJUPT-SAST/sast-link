@@ -1,12 +1,8 @@
 import axios from "axios";
 
-export const apis = axios.create({
-  baseURL: "./",
-});
+export const apis = axios.create({});
 
 apis.interceptors.request.use((config) => {
-  const accessToken = localStorage.getItem("Token");
-  if (accessToken) config.headers["Authorization"] = `Bearer ${accessToken}`;
   return config;
 });
 

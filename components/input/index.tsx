@@ -5,7 +5,8 @@ import { FocusEventHandler, ChangeEventHandler } from "react";
 interface InputProps {
   // veridate?: (value: string) => boolean;
   type?: "password";
-  className?: (string | { [key: string]: boolean })[];
+  disabled?: boolean;
+  className?: string;
   name?: string;
   placeholder?: string;
   value?: string;
@@ -18,45 +19,46 @@ interface InputProps {
   onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
-  props,
-  ref?,
-) {
-  const {
-    type,
-    error = false,
-    maxLength,
-    className = [],
-    name = "",
-    placeholder,
-    value,
-    defaultValue,
-    label,
-    onChange,
-    onFocus,
-    onBlur,
-  } = props;
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  function Input(props, ref?) {
+    const {
+      disabled = false,
+      type,
+      error = false,
+      maxLength,
+      className = "",
+      name = "",
+      placeholder,
+      value,
+      defaultValue,
+      label,
+      onChange,
+      onFocus,
+      onBlur,
+    } = props;
 
-  return (
-    <>
-      <input
-        type={type}
-        onChange={onChange}
-        onBlur={onBlur}
-        onFocus={onFocus}
-        name={name}
-        aria-label={label}
-        className={`${styles.input} ${classNames(...className, {
-          [styles.error]: error,
-        })}`}
-        maxLength={maxLength}
-        placeholder={placeholder}
-        value={value}
-        defaultValue={defaultValue}
-        ref={ref}
-      />
-    </>
-  );
-});
+    return (
+      <>
+        <input
+          disabled={disabled}
+          type={type}
+          onChange={onChange}
+          onBlur={onBlur}
+          onFocus={onFocus}
+          name={name}
+          aria-label={label}
+          className={`${styles.input} ${classNames(className, {
+            [styles.error]: error,
+          })}`}
+          maxLength={maxLength}
+          placeholder={placeholder}
+          value={value}
+          defaultValue={defaultValue}
+          ref={ref}
+        />
+      </>
+    );
+  },
+);
 
 export { Input };

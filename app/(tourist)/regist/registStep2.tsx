@@ -9,8 +9,9 @@ import { handleError } from "@/lib/func";
 import { VeriCode } from "@/components/veriCode";
 import { Footer } from "@/components/footer";
 import { veriCaptcha } from "@/lib/apis/global";
-import { RegistContext } from "./page";
+import { RegistContext } from "@/lib/context";
 import styles from "./page.module.scss";
+import classNames from "classnames";
 
 const RegistStep2 = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -37,24 +38,21 @@ const RegistStep2 = () => {
           const captcha = args.veriCode as string;
           console.log(captcha, registTicket);
           veriCaptcha(registTicket, captcha)
-            .then(
-              (res) => {
-                handleStep(1);
-              },
-              (err) => {
-                console.log(err);
-              }
-            )
+            .then((res) => {
+              if (res.data.Success) handleStep(1);
+              else setError(handleError(res.data.ErrMsg));
+            })
+            .catch()
             .finally(() => {
               setLoading(false);
             });
-
-          console.log(args);
         }}
         names={["veriCode"]}
       >
         <div className={`${styles.inputDiv} ${styles.veriCodeInput}`}>
+          <div className={styles.defaultHead}>{"S- "}</div>
           <InputWithLabel
+            className={classNames(styles.vericodeInput)}
             setErrorState={setError}
             veridate={veridate}
             ref={inputRef}
@@ -62,6 +60,7 @@ const RegistStep2 = () => {
             name="veriCode"
             label="验证码"
             palceholder="验证码"
+            maxLength={5}
           >
             <VeriCode />
           </InputWithLabel>
