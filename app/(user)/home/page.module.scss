@@ -2,8 +2,8 @@
   display: flex;
   align-items: self-start;
   justify-content: space-between;
-  width: calc(100vw - 90px);
-  margin: 25px 15px;
+  width: calc(100% - 60px);
+  margin: 0px;
   padding: 20px 20px 20px 40px;
 
   border-radius: 10px;
@@ -49,8 +49,8 @@
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  width: calc(100vw - 90px);
-  margin: 25px 15px;
+  width: calc(100% - 60px);
+  margin: 0px;
   padding: 30px;
 
   border-radius: 10px;
@@ -90,4 +90,23 @@
     font-size: 0.875rem;
     text-decoration: none;
   }
+}
+
+.homeContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: calc(100vw - 40px);
+  max-width: 1260px;
+  margin: 20px auto;
+
+  @media screen and (min-width: 760px) {
+    grid-template-columns: 360px 1fr;
+  }
+}
+
+.leftPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
 }

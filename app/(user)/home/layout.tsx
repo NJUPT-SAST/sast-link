@@ -1,6 +1,9 @@
 import { ReactNode } from "react";
 import BackLayout from "@/components/Layout/BackLayout";
 import { TopBar } from "@/components/topbar";
+import classNames from "classnames";
+import styles from "./page.module.scss"
+
 const Layout = (props: {
   children: ReactNode;
   infoPanel: ReactNode;
@@ -11,9 +14,11 @@ const Layout = (props: {
     <>
       <BackLayout type="yellow" />
       <TopBar />
+      <div className={classNames(styles.homeContainer)}>
       {children}
-      {appPanel}
       {infoPanel}
+      </div>
+      {appPanel}
     </>
   );
 };

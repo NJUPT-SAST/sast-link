@@ -42,7 +42,7 @@ const Messagepanel = () => {
           height={16}
         />
         <div className={styles.userBasicMessage}>
-          <Image src={avatar} alt="avatar" width={64} height={64} />
+          <Image className={styles.avatar} src={avatar} alt="avatar" width={64} height={64} />
           <div className={styles.userProfile}>
             <div className={styles.userNickname}>Ming</div>
             <div className={styles.userEmail}>Ming123@456.com</div>
@@ -91,6 +91,10 @@ const Messagepanel = () => {
             </Button>
           </div>
         </div>
+      </div>
+
+      <div className={classNames(styles.homeRightPanel)}>
+
       </div>
     </>
   );

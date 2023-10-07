@@ -44,6 +44,18 @@
     top 0.5s cubic-bezier(0.2, 1.06, 0.46, 1.15),
     visibility 0s 0s;
 
+  @media screen and (min-width: 760px) {
+    top: 0;
+    left: -80px;
+    width: 374px;
+    height: 100vh;
+    padding: 20px 20px 20px 100px;
+    border-radius: 0 10px 10px 0;
+    transition:
+      left 0.5s cubic-bezier(0.2, 1.06, 0.19, 1.08),
+      visibility 0s 0s;
+  }
+
   &.appPanelHidden {
     top: 100vh;
 
@@ -52,6 +64,14 @@
     transition:
       top 0.3s,
       visibility 0s 0.3s;
+    @media screen and (min-width: 760px) {
+      top: 0;
+      left: -600px;
+      transition:
+        top 0.3s,
+        left 0.3s,
+        visibility 0s 0.3s;
+    }
   }
 }
 
@@ -78,6 +98,10 @@
   }
   @media screen and (min-width: 740px) {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+  @media screen and (min-width: 760px) {
+    grid-template-columns: 1fr 1fr 1fr;
+    min-height: calc(100% - 80px);
   }
   &::-webkit-scrollbar {
     width: 0;

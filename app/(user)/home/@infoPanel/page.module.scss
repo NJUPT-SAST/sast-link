@@ -1,6 +1,7 @@
 .musk {
   position: fixed;
   top: 0;
+  left: 0;
 
   width: 100vw;
   height: 100vh;
@@ -14,6 +15,9 @@
     opacity 0.5s,
     visibility 0s 0s;
 
+  @media screen and (min-width: 760px) {
+    background-color: transparent;
+  }
   &.muskHidden {
     visibility: hidden;
     opacity: 0;
@@ -27,6 +31,7 @@
 .messagePanel {
   position: fixed;
   top: 150px;
+  right: 0;
 
   display: flex;
   flex-direction: column;
@@ -37,6 +42,7 @@
   padding: 20px;
   border-radius: 10px 10px 0 0;
 
+  opacity: 1;
   background-color: #fff;
 
   visibility: visible;
@@ -44,6 +50,18 @@
   transition:
     top 0.5s cubic-bezier(0.2, 1.06, 0.46, 1.15),
     visibility 0s 0s;
+
+  @media screen and (min-width: 760px) {
+    top: 55px;
+    right: 20px;
+    width: fit-content;
+    height: fit-content;
+    padding:10px;
+    border-radius: 10px;
+    transition:
+      opacity 0.3s,
+      visibility 0s 0s;
+  }
 
   &.messagePanelHidden {
     top: 100vh;
@@ -53,6 +71,12 @@
     transition:
       top 0.3s,
       visibility 0s 0.3s;
+    @media screen and (min-width: 760px) {
+      opacity: 0;
+      transition:
+        opacity 0.3s,
+        visibility 0s 0.3s;
+    }
   }
   .userBasicMessage {
     display: flex;
@@ -63,11 +87,20 @@
     padding: 16px 15px 14px;
     overflow-y: auto;
 
+    @media screen and (min-width: 760px) {
+      gap: 8px;
+      padding: 5px 15px;
+    }
     &::-webkit-scrollbar {
       width: 0;
     }
     img {
       border-radius: 50%;
+      &.avatar {
+        @media screen and (min-width: 760px) {
+          display: none;
+        }
+      }
     }
     .userProfile {
       padding: 5px 0 0;
@@ -99,6 +132,9 @@
     gap: 10px;
     align-items: flex-start;
     width: 100%;
+    @media screen and (min-width: 760px) {
+      display: none;
+    }
 
     .infoTitle {
       font-weight: 600;
@@ -148,7 +184,14 @@
     .button {
       width: min(338px, calc(100% - 15px));
     }
+    .anchor {
+      @media screen and (min-width:760px) {
+        display: none;
+      }
+    }
     .button {
+      height: 2.25rem;
+      width: 8rem;
       border: 3px solid #ff584d;
       border-radius: 10px;
 
@@ -161,4 +204,8 @@
   cursor: pointer;
 
   user-select: none;
+
+  @media screen and (min-width: 760px) {
+    display: none;
+  }
 }
