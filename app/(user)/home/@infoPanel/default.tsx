@@ -42,7 +42,13 @@ const Messagepanel = () => {
           height={16}
         />
         <div className={styles.userBasicMessage}>
-          <Image className={styles.avatar} src={avatar} alt="avatar" width={64} height={64} />
+          <Image
+            className={styles.avatar}
+            src={avatar}
+            alt="avatar"
+            width={64}
+            height={64}
+          />
           <div className={styles.userProfile}>
             <div className={styles.userNickname}>Ming</div>
             <div className={styles.userEmail}>Ming123@456.com</div>
@@ -83,7 +89,11 @@ const Messagepanel = () => {
             </div>
           </div>
           <div className={styles.anchorList}>
-            <Anchor className={[styles.anchor]} black href={"#edit"}>
+            <Anchor
+              className={classNames(styles.anchor)}
+              black
+              href={"/home/edit"}
+            >
               编辑信息
             </Anchor>
             <Button white className={styles.button}>
@@ -93,8 +103,21 @@ const Messagepanel = () => {
         </div>
       </div>
 
-      <div className={classNames(styles.homeRightPanel)}>
-
+      <div className={classNames(styles.homeLeftInfoPanel)}>
+        <div className={styles.userIntro}>
+          <div className={styles.infoLabel}>个人简介</div>
+          <div className={styles.content}>
+            member of @NJUPT-SAST.Learning computer vision & web dev
+          </div>
+        </div>
+        <div className={styles.socialLink}>
+          <div className={styles.infoLabel}>社交链接</div>
+          <div className={styles.content}>
+            <span className={styles.socialLinkItem}>https://link.sast.fun</span>
+            <span className={styles.socialLinkItem}>https://link.sast.fun</span>
+            <span className={styles.socialLinkItem}>https://link.sast.fun</span>
+          </div>
+        </div>
       </div>
     </>
   );

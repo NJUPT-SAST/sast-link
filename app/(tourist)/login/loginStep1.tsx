@@ -117,7 +117,7 @@ const LoginStep1 = () => {
       {
         // TODO 第三方认证登录
       }
-      <Anchor href="./" className={[styles.anchor]}>
+      <Anchor href="./" className={classNames(styles.anchor)}>
         SAST 飞书登录
       </Anchor>
       <OtherLoginList list={list} />

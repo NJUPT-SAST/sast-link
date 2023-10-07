@@ -4,7 +4,7 @@ import classNames from "classnames";
 import styles from "./index.module.scss";
 
 interface AProps {
-  className?: (string | { [key: string]: boolean })[];
+  className?: string;
   children: ReactNode;
   href: string;
   outer?: boolean;
@@ -14,7 +14,7 @@ interface AProps {
 const Anchor = forwardRef<HTMLAnchorElement, AProps>(function A(props, ref?) {
   const {
     black = false,
-    className = [],
+    className = "",
     outer = false,
     children,
     href,
@@ -26,7 +26,7 @@ const Anchor = forwardRef<HTMLAnchorElement, AProps>(function A(props, ref?) {
         <Link
           className={`${styles.a}  ${classNames(
             { [styles.black]: black },
-            ...className,
+            className,
           )}`}
           href={href}
           ref={ref}
