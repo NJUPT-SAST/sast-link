@@ -23,13 +23,16 @@ interface EditableProfileType {
   hide: string[] | null;
 }
 
+// 用于临时存储用户信息
 const userBasicInfo = createSlice({
   name: "userBasicInfo",
   initialState,
   reducers: {
+    // 设置用户信息
     setUserBasicInfo: (state, action: PayloadAction<UserProfileType>) => {
       return action.payload;
     },
+    // 更新当前用户信息
     updateBasicInfo: (state, action: PayloadAction<EditableProfileType>) => {
       return { ...state, ...action };
     },

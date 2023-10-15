@@ -7,6 +7,7 @@
 ## 文档
 
 [SAST-Link 文档](https://njuptsast.feishu.cn/wiki/wikcnH1EW60rsChyrSxruAkXVEe)
+[开发文档](./开发文档.md)
 
 ### 界面相关
 

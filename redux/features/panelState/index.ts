@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface PanelState {
-  homeAppPanel: boolean;
-  homeInfoPanel: boolean;
+  homeAppPanel: boolean; // 对应 Home 界面 AppPanel
+  homeInfoPanel: boolean; // 对应 Home 界面 InfoPanel
 }
 
 const initialState: PanelState = {
@@ -10,6 +10,7 @@ const initialState: PanelState = {
   homeInfoPanel: false,
 };
 
+// 控制某些面板的开启与关闭
 const panelState = createSlice({
   name: "panelState",
   initialState,

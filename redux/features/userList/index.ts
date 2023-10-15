@@ -29,10 +29,13 @@ const initialState: UserList[] = isServer
       return [];
     })();
 
+// 存储已登陆用户
+// 该功能待完善
 const UserListSlice = createSlice({
   name: "userList",
   initialState,
   reducers: {
+    // 添加已登陆用户
     addAccount: (state, action: PayloadAction<UserList>) => {
       // 添加账户，更新localStorage
       let veri = true;
@@ -47,6 +50,7 @@ const UserListSlice = createSlice({
         localStorage.setItem("userList", JSON.stringify(state));
       }
     },
+    // 移除已登录用户
     removeAccount: (state, action: PayloadAction<number | string>) => {
       // 删除账户 更新localStorage
       if (typeof action.payload === "number") state.splice(action.payload, 1);
