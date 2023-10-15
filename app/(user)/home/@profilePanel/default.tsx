@@ -1,3 +1,5 @@
+"use client";
+
 import classNames from "classnames";
 
 import styles from "./page.module.scss";
@@ -12,22 +14,35 @@ import {
 import { Icon } from "@/components/icon";
 import { BindAppItem } from "@/components/bindItem";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useAppSelector } from "@/redux";
 
 const ProfilePanel = () => {
+  const userBasicInfo = useAppSelector((state) => state.userBasicInfo);
+  const pathname = usePathname();
   return (
     <>
-      <div className={classNames(styles.profileCard, styles.default)}>
+      <div
+        id="default"
+        className={classNames(styles.profileCard, {
+          [styles.default]: pathname !== "/home",
+        })}
+      >
         <div className={classNames(styles.messageSide)}>
           <div className={classNames(styles.avatar_large)}>
             <Icon src={avatar} alt={"user avatar"} width={140} height={140} />
           </div>
           <div className={classNames(styles.userBasicMessage)}>
-            <div className={classNames(styles.userName)}>Ming</div>
-            <div className={classNames(styles.userEmail)}>Ming123@456.com</div>
+            <div className={classNames(styles.userName)}>
+              {userBasicInfo.nickname}
+            </div>
+            <div className={classNames(styles.userEmail)}>
+              {userBasicInfo.email}
+            </div>
           </div>
 
           <div className={classNames(styles.userPosition)}>
-            软件研发中心 老东西
+            {userBasicInfo.dep} 老东西
           </div>
         </div>
         <div className={classNames(styles.linkSide)}>
@@ -42,7 +57,11 @@ const ProfilePanel = () => {
         </div>
       </div>
 
-      <div className={classNames(styles.bindPanel, styles.default)}>
+      <div
+        className={classNames(styles.bindPanel, {
+          [styles.default]: pathname !== "/home",
+        })}
+      >
         <BindAppItem
           bindAppIconProps={qqIcon}
           bindAppTitle={"QQ"}

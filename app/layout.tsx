@@ -16,7 +16,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const fallback = {
-    infoUpdate: { Success: true, Data: { email: "", username: "" } },
+    infoUpdate: {
+      Success: false,
+      Data: { email: "", username: "" },
+    },
   };
   return (
     <html lang="zh">

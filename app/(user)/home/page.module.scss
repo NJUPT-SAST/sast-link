@@ -1,8 +1,8 @@
 .homeContainer {
   display: grid;
   grid-template-columns: 1fr;
-  width: calc(100vw - 40px);
   gap: 30px;
+  width: calc(100vw - 40px);
   max-width: 1280px;
   margin: auto;
   padding: 25px 0;

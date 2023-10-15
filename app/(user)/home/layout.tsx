@@ -9,12 +9,15 @@ const Layout = (props: {
   infoPanel: ReactNode;
   appPanel: ReactNode;
   profilePanel: ReactNode;
+  getInfo: ReactNode;
 }) => {
-  const { children, infoPanel, appPanel, profilePanel } = props;
+  console.log(props);
+  const { children, infoPanel, appPanel, profilePanel, getInfo } = props;
   return (
     <>
       <BackLayout type="yellow" />
       <TopBar />
+      {getInfo}
       <div className={classNames(styles.homeContainer)}>
         <div className={styles.leftPanel}>
           {profilePanel}

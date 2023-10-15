@@ -6,11 +6,12 @@
   padding: 30px 30px 40px;
 
   @media screen and (min-width: 500px) {
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 10px;
-    backdrop-filter: blur(2px);
-    box-shadow: 0px 4px 30px 0px rgba(68, 68, 68, 0.05);
     border: 1px solid var(--card-highlight, rgba(92, 92, 92, 0.27));
+    border-radius: 10px;
+
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0px 4px 30px 0px rgba(68, 68, 68, 0.05);
+    backdrop-filter: blur(2px);
   }
 }
 
