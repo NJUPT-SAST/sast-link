@@ -26,6 +26,9 @@ dependencies:
   classnames:
     specifier: ^2.3.2
     version: 2.3.2
+  husky:
+    specifier: ^8.0.3
+    version: 8.0.3
   next:
     specifier: 13.4.8
     version: 13.4.8(@babel/core@7.22.6)(react-dom@18.2.0)(react@18.2.0)(sass@1.63.6)
@@ -3728,6 +3731,15 @@ packages:
     engines: { node: ">=14.18.0" }
     dev: true
 
+  /husky@8.0.3:
+    resolution:
+      {
+        integrity: sha512-+dQSyqPh4x1hlO1swXBiNb2HzTDN1I2IGLQx1GrBuiqFJfoMrnZWwVmatvSiO+Iz8fBUnf+lekwNo4c2LlXItg==,
+      }
+    engines: { node: ">=14" }
+    hasBin: true
+    dev: false
+
   /ignore@4.0.6:
     resolution:
       {
@@ -5617,7 +5629,7 @@ packages:
     dependencies:
       htmlparser2: 3.10.1
       postcss: 7.0.39
-      postcss-syntax: 0.36.2(postcss-html@0.36.0)(postcss-jsx@0.36.4)(postcss-less@3.1.4)(postcss-markdown@0.36.0)(postcss-scss@2.1.1)(postcss@7.0.39)
+      postcss-syntax: 0.36.2(postcss@8.4.24)
     dev: true
 
   /postcss-jsx@0.36.4(postcss-syntax@0.36.2)(postcss@7.0.39):
@@ -5631,7 +5643,7 @@ packages:
     dependencies:
       "@babel/core": 7.22.6
       postcss: 7.0.39
-      postcss-syntax: 0.36.2(postcss-html@0.36.0)(postcss-jsx@0.36.4)(postcss-less@3.1.4)(postcss-markdown@0.36.0)(postcss-scss@2.1.1)(postcss@7.0.39)
+      postcss-syntax: 0.36.2(postcss@8.4.24)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -5656,7 +5668,7 @@ packages:
       postcss-syntax: ">=0.36.0"
     dependencies:
       postcss: 7.0.39
-      postcss-syntax: 0.36.2(postcss-html@0.36.0)(postcss-jsx@0.36.4)(postcss-less@3.1.4)(postcss-markdown@0.36.0)(postcss-scss@2.1.1)(postcss@7.0.39)
+      postcss-syntax: 0.36.2(postcss@8.4.24)
       remark: 10.0.1
       unist-util-find-all-after: 1.0.5
     dev: true
@@ -5764,7 +5776,7 @@ packages:
       postcss: 7.0.39
     dev: true
 
-  /postcss-syntax@0.36.2(postcss-html@0.36.0)(postcss-jsx@0.36.4)(postcss-less@3.1.4)(postcss-markdown@0.36.0)(postcss-scss@2.1.1)(postcss@7.0.39):
+  /postcss-syntax@0.36.2(postcss@8.4.24):
     resolution:
       {
         integrity: sha512-nBRg/i7E3SOHWxF3PpF5WnJM/jQ1YpY9000OaVXlAQj6Zp/kIqJxEDWIZ67tAd7NLuk7zqN4yqe9nc0oNAOs1w==,
@@ -5788,12 +5800,7 @@ packages:
       postcss-scss:
         optional: true
     dependencies:
-      postcss: 7.0.39
-      postcss-html: 0.36.0(postcss-syntax@0.36.2)(postcss@7.0.39)
-      postcss-jsx: 0.36.4(postcss-syntax@0.36.2)(postcss@7.0.39)
-      postcss-less: 3.1.4
-      postcss-markdown: 0.36.0(postcss-syntax@0.36.2)(postcss@7.0.39)
-      postcss-scss: 2.1.1
+      postcss: 8.4.24
     dev: true
 
   /postcss-value-parser@3.3.1:
@@ -7070,7 +7077,7 @@ packages:
       postcss-sass: 0.3.5
       postcss-scss: 2.1.1
       postcss-selector-parser: 3.1.2
-      postcss-syntax: 0.36.2(postcss-html@0.36.0)(postcss-jsx@0.36.4)(postcss-less@3.1.4)(postcss-markdown@0.36.0)(postcss-scss@2.1.1)(postcss@7.0.39)
+      postcss-syntax: 0.36.2(postcss@8.4.24)
       postcss-value-parser: 3.3.1
       resolve-from: 4.0.0
       signal-exit: 3.0.7
