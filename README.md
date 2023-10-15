@@ -2,11 +2,12 @@
 
 ## 介绍
 
-本仓库是 SAST-Link 的前端部分。关于 SAST-Link，请移步: [关于 SAST-Link](https://njuptsast.feishu.cn/wiki/wikcnH1EW60rsChyrSxruAkXVEe)
+本仓库是 SAST-Link 的前端部分。关于 SAST-Link，请移步: [关于 SAST-Link](https://njuptsast.feishu.cn/wiki/wikcnH1EW60rsChyrSxruAkXVEe)。
 
 ## 文档
 
 [SAST-Link 文档](https://njuptsast.feishu.cn/wiki/wikcnH1EW60rsChyrSxruAkXVEe)
+
 [开发文档](./开发文档.md)
 
 ### 界面相关
@@ -112,7 +113,7 @@ Auth`./auth`界面正在制作中。
 
 ### 依赖安装
 
-使用 pnpm 进行包管理，混用其他包管理器可能会导致未知错误
+使用 pnpm 进行包管理，混用其他包管理器可能会导致未知错误。
 
 ### 实时预览
 
