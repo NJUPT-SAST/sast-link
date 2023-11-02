@@ -9,7 +9,8 @@ interface InputWithLabelProps {
   type?: "password";
   children?: ReactNode;
   maxLength?: number;
-  className?: string[];
+  disabled?: boolean;
+  className?: string;
   label: string;
   name: string;
   defaultValue?: string;
@@ -25,8 +26,9 @@ interface InputWithLabelProps {
 const InputWithLabel = forwardRef<HTMLInputElement, InputWithLabelProps>(
   function InputWithlabel(props: InputWithLabelProps, ref?) {
     const {
+      disabled = false,
       type,
-      className = [],
+      className = "",
       withBlur,
       children = false,
       veridate = () => false,
@@ -41,16 +43,19 @@ const InputWithLabel = forwardRef<HTMLInputElement, InputWithLabelProps>(
 
     return (
       <>
-        <div className={styles.inputWithLabel}>
-          <label
+        <label className={styles.inputWithLabel}>
+          <span
             className={classNames(
+              styles.labelDefault,
               { [styles.label]: !error.error },
               { [styles.errMsg]: error.error },
             )}
           >
             {error.error ? error.errMsg : label}
-          </label>
+          </span>
+
           <Input
+            disabled={disabled}
             type={type}
             onBlur={(e) => {
               if (withBlur) {
@@ -70,10 +75,10 @@ const InputWithLabel = forwardRef<HTMLInputElement, InputWithLabelProps>(
             name={name}
             defaultValue={defaultValue}
             ref={ref}
-            className={[...className]}
+            className={className}
           />
           {children && <div className={styles.afterContent}>{children}</div>}
-        </div>
+        </label>
       </>
     );
   },

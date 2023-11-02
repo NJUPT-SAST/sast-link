@@ -1,6 +1,6 @@
 import { apis } from ".";
 import qs from "querystring";
-import { ResType } from "./type";
+import { EditableProfileType, ResType, UserProfileType } from "./type";
 
 /**
  * 用户登录
@@ -44,6 +44,45 @@ export function userLogout() {
   return apis.post<ResType<null>>(
     "/apis/user/logout",
     {},
+    { headers: { Token: JSON.parse(localStorage.getItem("Token") ?? "") } },
+  );
+}
+
+/**
+ * 获取详尽的用户个人信息
+ * @returns
+ */
+export function getUserProfile() {
+  return apis.get<ResType<UserProfileType>>("/apis/profile/getProfile", {
+    headers: {
+      Token: JSON.parse(localStorage.getItem("Token") ?? ""),
+    },
+  });
+}
+
+/**
+ * 修改用户 profile
+ * @param data 修改的信息
+ * @returns
+ */
+export function EditProfile(data: EditableProfileType) {
+  return apis.post<ResType<null>>(
+    "/apis/profile/changeProfile",
+    { ...data },
+    { headers: { Token: JSON.parse(localStorage.getItem("Token") ?? "") } },
+  );
+}
+
+/**
+ * 修改用户头像
+ */
+
+export function uploadAvatar(file: Blob) {
+  const formData = new FormData();
+  formData.append("avatarfile", file);
+  return apis.post<ResType<{ filePath: string }>>(
+    "/apis/profile/uploadAvatar",
+    formData,
     { headers: { Token: JSON.parse(localStorage.getItem("Token") ?? "") } },
   );
 }

@@ -9,12 +9,16 @@ import { addRedirect } from "@/redux/features/login";
 const Login = () => {
   const searchParams = useSearchParams();
   // TODO 错误处理
+  function formatRedirectParams(redirectParams: string | null) {
+    if (redirectParams === null) return null;
+    const redirectArray = redirectParams.split("?");
+    if (redirectArray.length > 2) {
+      return redirectArray[0] + "?" + JSON.parse(redirectArray[1]).join("&");
+    }
+    return null;
+  }
   const redirectParams = searchParams.get("redirect");
-  const redirect = redirectParams
-    ? redirectParams?.split("?")[0] +
-      "?" +
-      JSON.parse(redirectParams?.split("?")[1] ?? "[]").join("&")
-    : null;
+  const redirect = formatRedirectParams(redirectParams);
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (!!redirect) {

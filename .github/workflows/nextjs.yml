@@ -2,7 +2,7 @@ name: sast link frontend
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
 
 jobs:
   build:

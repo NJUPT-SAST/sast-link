@@ -8,29 +8,15 @@ import { useSearchParams } from "next/navigation";
 import styles from "./page.module.scss";
 import Image from "next/image";
 import defaultAvatar from "@/public/defaultAvator.png";
-import useSWR, { mutate } from "swr";
 import { getUserInfo } from "@/lib/apis/user";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { oAuth } from "@/lib/apis/auth";
-
-const getMessage = async () => {
-  if (!localStorage.getItem("Token"))
-    return { Success: false, Data: { username: "", email: "" } };
-  const info = await getUserInfo();
-  console.log(info);
-  return info.data;
-};
 
 export default function Auth() {
   // TODO
   const appName = "SAST Evento";
-  const {
-    data: { Success, Data },
-  } = useSWR("infoUpdate", getMessage, {
-    suspense: true,
-    revalidateOnFocus: true,
-  });
+  const [userData, setUserData] = useState<{ email: string; userId: string }>();
   // 获取参数
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -59,17 +45,22 @@ export default function Auth() {
   const redirect = `/auth?${JSON.stringify(querysArray)}`;
   useEffect(
     () => {
-      if (!localStorage.getItem("Token")) {
-        router.push(`./login?redirect=${redirect}`);
+      if (localStorage.getItem("Token") === null) {
+        router.replace(`/login?redirect=${redirect}`);
+      } else {
+        getUserInfo().then((res) => {
+          if (res.data.Success === true) {
+            setUserData({ ...res.data.Data });
+          } else {
+            router.replace(`/login?redirect=${redirect}`);
+          }
+        });
       }
-      mutate("infoUpdate").then((res) => {
-        console.log(res);
-      });
     },
-
+    // TODO
+    // token 校验出错时 重定向
     // TODO
     // 检验， 若参数不合法，则抛出错误
-    [Success, router, redirect, Data],
   );
   return (
     <>

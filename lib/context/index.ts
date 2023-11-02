@@ -17,6 +17,8 @@ export const LoginContext = React.createContext<LoginContextProps>({
   handleTicket: () => void 0,
 });
 
+// 以上功能暂未使用
+
 interface RegistContextProps {
   redirect: null | string;
   username?: string;

@@ -2,6 +2,7 @@ import { StaticImageData } from "next/image";
 import { Icon24 } from "../icon";
 import classNames from "classnames";
 import styles from "./index.module.scss";
+import { Icon, arrowheadIcon } from "../icon";
 
 const BindAppItem = (props: {
   bindAppIconProps: { src: StaticImageData | string; alt: string };
@@ -18,7 +19,10 @@ const BindAppItem = (props: {
       {binded ? (
         <div className={classNames(styles.binded)}>已绑定</div>
       ) : (
-        <div className={classNames(styles.unbinded)}>未绑定</div>
+        <div className={classNames(styles.unbinded)}>
+          <span>未绑定</span>
+          <Icon {...arrowheadIcon} />
+        </div>
       )}
     </div>
   );

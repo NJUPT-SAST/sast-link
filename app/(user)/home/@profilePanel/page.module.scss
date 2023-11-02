@@ -1,0 +1,119 @@
+.profileCard {
+  display: flex;
+  align-items: self-start;
+  justify-content: space-between;
+  order: -2;
+  width: calc(100% - 60px);
+  margin: 0px;
+  padding: 20px 20px 20px 40px;
+
+  border-radius: 10px;
+  /*
+  border: 1px solid rgba(92, 92, 92, 0.27);
+ */
+  background: rgba(255, 255, 255, 0.5);
+
+  box-shadow: 0px 4px 30px 0px rgba(68, 68, 68, 0.05);
+  backdrop-filter: blur(2px);
+
+  @media screen and (min-width: 760px) {
+    padding: 20px 19px 20px 39px;
+    border: 1px solid var(--card-highlight, rgba(92, 92, 92, 0.27));
+  }
+
+  &.default {
+    @media screen and (max-width: 789px) {
+      display: none;
+    }
+  }
+}
+
+.messageSide {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 5px 0 0;
+
+  .avatar_large {
+    img {
+      border-radius: 50%;
+    }
+  }
+
+  .userBasicMessage {
+    .userName {
+      font-weight: 600;
+      font-size: 1.6rem;
+      line-height: normal;
+    }
+    .userEmail {
+      color: #808080;
+      font-size: 1rem;
+      line-height: normal;
+    }
+  }
+  .userPosition {
+    font-size: 1.125rem;
+  }
+}
+
+.bindPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: calc(100% - 60px);
+  margin: 0px;
+  padding: 30px;
+
+  border-radius: 10px;
+
+  font-size: 1rem;
+  /* border: 1px solid var(--card-highlight, rgba(92, 92, 92, 0.27)); */
+  background: var(--panel-background, rgba(255, 255, 255, 0.5));
+
+  box-shadow: 0px 4px 30px 0px rgba(68, 68, 68, 0.05);
+  backdrop-filter: blur(2px);
+
+  @media screen and (min-width: 760px) {
+    padding: 30px 29px;
+    border: 1px solid var(--card-highlight, rgba(92, 92, 92, 0.27));
+  }
+  &.default {
+    @media screen and (max-width: 789px) {
+      display: none;
+    }
+  }
+
+  .bindApp {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .appMessage {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .bindState {
+      color: #4caf50;
+    }
+  }
+}
+
+.linkSide {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  .toEdit,
+  .toProfile {
+    display: flex;
+    flex-direction: row;
+    gap: 0.625rem;
+    align-items: center;
+
+    color: black;
+    font-size: 0.875rem;
+    text-decoration: none;
+  }
+}

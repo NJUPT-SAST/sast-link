@@ -2,14 +2,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
   height: 77px;
-  label {
+  .labelDefault {
     display: flex;
     align-items: center;
     align-self: flex-start;
     width: 301px;
     height: 24px;
-    padding: 3px 0 0 17px;
+    padding: 3px 0 0 5px;
 
     font-size: 14px;
 

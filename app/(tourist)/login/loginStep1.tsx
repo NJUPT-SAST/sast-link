@@ -15,6 +15,7 @@ import { GithubIcon, QqIcon, MsIcon } from "@/components/icon";
 import { useRouter } from "next/navigation";
 
 import styles from "./page.module.scss";
+import classNames from "classnames";
 
 const list = [
   {
@@ -107,7 +108,7 @@ const LoginStep1 = () => {
               return;
             }
           }}
-          className={[styles.formButton]}
+          className={classNames(styles.formButton)}
           type={"submit"}
         >
           下一步
@@ -116,7 +117,7 @@ const LoginStep1 = () => {
       {
         // TODO 第三方认证登录
       }
-      <Anchor href="./" className={[styles.anchor]}>
+      <Anchor href="./" className={classNames(styles.anchor)}>
         SAST 飞书登录
       </Anchor>
       <OtherLoginList list={list} />

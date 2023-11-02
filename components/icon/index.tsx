@@ -70,3 +70,24 @@ export const feishuIcon = { src: feishu, alt: "feishu icon" };
 
 import ms from "@public/svg/ms.svg";
 export const msIcon = { src: ms, alt: "microsoft icon" };
+
+import arrowhead from "@public/svg/arrowhead.svg";
+export const arrowheadIcon = { src: arrowhead, alt: "arrowhead icon" };
+
+import arrowhead_black from "@public/svg/arrowhead-b.svg";
+export const blackArrowheadIcon = {
+  src: arrowhead_black,
+  alt: "black arrowhead icon",
+};
+
+import avatar from "@public/defaultAvator.png";
+export const avatarIcon = {
+  src: avatar,
+  alt: "default user avatar",
+};
+
+import camera from "@public/svg/camera.svg";
+export const cameraIcon = {
+  src: camera,
+  alt: "camera icon",
+};

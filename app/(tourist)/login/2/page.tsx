@@ -12,7 +12,6 @@ import { login } from "@/redux/features/userProfile";
 import { addAccount } from "@/redux/features/userList";
 import { useAppDispatch, useAppSelector } from "@/redux";
 import Link from "next/link";
-import { mutate } from "swr";
 import styles from "../page.module.scss";
 
 const LoginStep2 = () => {
@@ -75,10 +74,7 @@ const LoginStep2 = () => {
                         }),
                       );
                       dispatch(login({ username: "ming", email: data.email }));
-                      mutate("infoUpdate").then((res) => {
-                        console.log(res);
-                        router.replace(redirect ?? "/home");
-                      });
+                      router.replace(redirect ?? "/home");
                       return;
                     }
                     setError(handleError(res.data.ErrMsg));
