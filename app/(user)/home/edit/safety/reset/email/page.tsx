@@ -12,7 +12,7 @@ import { RegistContext } from '@/lib/context';
 import { useState, useRef, useCallback, useContext } from 'react';
 import { Form } from '@/components/form';
 import PageTransition from '@/components/pageTransition'
-const resetEmail = () => {
+const ResetEmail = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const inputRef = useRef<HTMLInputElement>(null);
     const [error, setError] = useState<
@@ -99,4 +99,4 @@ const resetEmail = () => {
     )
 }
 
-export default resetEmail
+export default ResetEmail

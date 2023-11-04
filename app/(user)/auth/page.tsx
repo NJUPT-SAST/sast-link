@@ -61,6 +61,7 @@ export default function Auth() {
     // token 校验出错时 重定向
     // TODO
     // 检验， 若参数不合法，则抛出错误
+    []
   );
   return (
     <>
