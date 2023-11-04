@@ -12,7 +12,7 @@ import Link from "next/link";
 import { Anchor } from "@/components/anchor";
 import { OtherLoginList } from "@/components/list/otherLoginList";
 import { GithubIcon, QqIcon, MsIcon } from "@/components/icon";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import styles from "./page.module.scss";
 import classNames from "classnames";
@@ -43,6 +43,7 @@ const LoginStep1 = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { redirect } = useAppSelector((state) => state.loginMessage);
+  const urlParams = useSearchParams()
   const [error, setError] = useState<
     { error: false } | { error: true; errMsg: string }
   >({ error: false });
@@ -73,7 +74,8 @@ const LoginStep1 = () => {
                   const ticket = res.data.Data.loginTicket;
                   console.log(ticket);
                   dispatch(addLoginTicket(ticket));
-                  router.replace("/login/2");
+                  console.log(urlParams.get('redirect'))
+                  router.replace(`/login/2${!!urlParams.get('redirect') ? `?redirect=${urlParams.get('redirect')}` : ""}`);
                   return;
                 }
                 setError({ error: true, errMsg: res.data.ErrMsg });

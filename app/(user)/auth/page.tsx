@@ -12,6 +12,8 @@ import { getUserInfo } from "@/lib/apis/user";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { oAuth } from "@/lib/apis/auth";
+import { useAppDispatch } from "@/redux";
+import { addRedirect } from "@/redux/features/login";
 
 export default function Auth() {
   // TODO
@@ -20,6 +22,7 @@ export default function Auth() {
   // 获取参数
   const router = useRouter();
   const searchParams = useSearchParams();
+  const dispach = useAppDispatch()
   const querys: {
     client_id: null | string;
     code_challenge: null | string;
@@ -42,17 +45,20 @@ export default function Auth() {
     (querys as any)[key] = searchParams.get(key);
     return `${key}=${searchParams.get(key)}`;
   });
-  const redirect = `/auth?${JSON.stringify(querysArray)}`;
+  const redirect = `/auth?${querysArray.join('&')}`;
   useEffect(
     () => {
       if (localStorage.getItem("Token") === null) {
+        console.log(redirect)
         router.replace(`/login?redirect=${redirect}`);
+        dispach(addRedirect(location.href))
       } else {
         getUserInfo().then((res) => {
           if (res.data.Success === true) {
             setUserData({ ...res.data.Data });
           } else {
             router.replace(`/login?redirect=${redirect}`);
+            dispach(addRedirect(location.href))
           }
         });
       }

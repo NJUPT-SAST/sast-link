@@ -7,13 +7,14 @@ import { Button } from "@/components/button";
 import { InputWithLabel } from "@/components/input/inputWithLabel";
 import { Footer } from "@/components/footer";
 import { handleError } from "@/lib/func";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { login } from "@/redux/features/userProfile";
 import { addAccount } from "@/redux/features/userList";
 import { useAppDispatch, useAppSelector } from "@/redux";
 import Link from "next/link";
 import styles from "../page.module.scss";
 import PageTransition from "@/components/pageTransition";
+import { addRedirect, clearLoginMessage } from "@/redux/features/login";
 
 const LoginStep2 = () => {
   const tokenRef = useRef<string>("");
@@ -24,6 +25,10 @@ const LoginStep2 = () => {
   const { redirect, loginTicket } = useAppSelector(
     (state) => state.loginMessage,
   );
+  const redirect_uri = useAppSelector(
+    (state) => state.loginMessage.redirect
+  )
+  const urlParams = useSearchParams();
   const [error, setError] = useState<
     { error: false } | { error: true; errMsg: string }
   >({ error: false });
@@ -76,7 +81,13 @@ const LoginStep2 = () => {
                           }),
                         );
                         dispatch(login({ username: "ming", email: data.email }));
-                        router.replace(redirect ?? "/home");
+                        if (redirect_uri) {
+                          console.log(redirect_uri)
+                          location.href = redirect_uri
+                          dispatch(clearLoginMessage())
+                        } else {
+                          router.replace(redirect ?? "/home");
+                        }
                         return;
                       }
                       setError(handleError(res.data.ErrMsg));
@@ -84,7 +95,9 @@ const LoginStep2 = () => {
                   }
                   setError(handleError(res.data.ErrMsg));
                 })
-                .catch()
+                .catch((err) => {
+                  setError(err.response.data.ErrMsg)
+                })
                 .finally(() => {
                   setLoading(false);
                 });

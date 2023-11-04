@@ -100,7 +100,7 @@ const Messagepanel = () => {
             </div>
           </div>
           <div className={styles.anchorList}>
-            <Anchor
+            {/* <Anchor
               className={classNames(styles.anchor)}
               black
               href={"/home/edit"}
@@ -115,7 +115,7 @@ const Messagepanel = () => {
               onClick={hidePanel}
             >
               安全与隐私
-            </Anchor>
+            </Anchor> */}
             {
               // TODO logout
             }
