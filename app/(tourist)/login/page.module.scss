@@ -68,3 +68,15 @@
     padding: 28px 0 85px;
   }
 }
+.formLayout{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 397px;
+  max-width: 100vw;
+
+  height: calc(73.3vh);
+  min-height: 500px;
+  max-height: 590px;
+}

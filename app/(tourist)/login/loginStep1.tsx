@@ -16,6 +16,8 @@ import { useRouter } from "next/navigation";
 
 import styles from "./page.module.scss";
 import classNames from "classnames";
+import PageTransition from "@/components/pageTransition";
+import { message } from "@/components/message";
 
 const list = [
   {
@@ -57,76 +59,80 @@ const LoginStep1 = () => {
    */
   return (
     <>
-      <Form
-        className={[`${styles.nameForm}`]}
-        names={["username"]}
-        onSubmit={(args) => {
-          setLoading(true);
-          const username = args.username as string;
-          veriLoginAccount(username)
-            .then((res) => {
-              console.log("res", res);
-              if (res.data.Success) {
-                const ticket = res.data.Data.loginTicket;
-                console.log(ticket);
-                dispatch(addLoginTicket(ticket));
-                router.replace("/login/2");
+      <PageTransition className={styles.formLayout}>
+        <Form
+          className={[`${styles.nameForm}`]}
+          names={["username"]}
+          onSubmit={(args) => {
+            setLoading(true);
+            const username = args.username as string;
+            veriLoginAccount(username)
+              .then((res) => {
+                console.log("res", res);
+                if (res.data.Success) {
+                  const ticket = res.data.Data.loginTicket;
+                  console.log(ticket);
+                  dispatch(addLoginTicket(ticket));
+                  router.replace("/login/2");
+                  return;
+                }
+                setError({ error: true, errMsg: res.data.ErrMsg });
+              })
+              .catch()
+              .finally(() => {
+                setLoading(false);
+              });
+          }}
+        >
+          <div className={`${styles.inputDiv}`}>
+            <InputWithLabel
+              setErrorState={setError}
+              veridate={veridate}
+              ref={inputRef}
+              label="账户"
+              name="username"
+              error={error}
+              palceholder="学号或邮箱"
+            />
+            <div className={styles.resetPwdContainer}>
+              <Link href={"/reset"} className={styles.resetPwd}>
+                忘记密码
+              </Link>
+            </div>
+          </div>
+
+          <Button
+            loading={loading}
+            onClick={(e) => {
+              const check = veridate(inputRef.current!.value);
+              if (check) {
+                setError(handleError(check));
+                e.preventDefault();
                 return;
               }
-              setError({ error: true, errMsg: res.data.ErrMsg });
-            })
-            .catch()
-            .finally(() => {
-              setLoading(false);
-            });
-        }}
-      >
-        <div className={`${styles.inputDiv}`}>
-          <InputWithLabel
-            setErrorState={setError}
-            veridate={veridate}
-            ref={inputRef}
-            label="账户"
-            name="username"
-            error={error}
-            palceholder="学号或邮箱"
-          />
-          <div className={styles.resetPwdContainer}>
-            <Link href={"/reset"} className={styles.resetPwd}>
-              忘记密码
-            </Link>
-          </div>
+            }}
+            className={classNames(styles.formButton)}
+            type={"submit"}
+          >
+            下一步
+          </Button>
+        </Form>
+        {
+          // TODO 第三方认证登录
+        }
+        <Anchor onClick={() => {
+          message.warning("暂未开放")
+        }} href="./" className={classNames(styles.anchor)}>
+          SAST 飞书登录
+        </Anchor>
+        <OtherLoginList list={list} />
+        <div className={`${styles.toRegist}`}>
+          没有账号？
+          <Link href={`/regist${!!redirect ? `?redirect=${redirect}` : ""}`}>
+            注册
+          </Link>
         </div>
-
-        <Button
-          loading={loading}
-          onClick={(e) => {
-            const check = veridate(inputRef.current!.value);
-            if (check) {
-              setError(handleError(check));
-              e.preventDefault();
-              return;
-            }
-          }}
-          className={classNames(styles.formButton)}
-          type={"submit"}
-        >
-          下一步
-        </Button>
-      </Form>
-      {
-        // TODO 第三方认证登录
-      }
-      <Anchor href="./" className={classNames(styles.anchor)}>
-        SAST 飞书登录
-      </Anchor>
-      <OtherLoginList list={list} />
-      <div className={`${styles.toRegist}`}>
-        没有账号？
-        <Link href={`/regist${!!redirect ? `?redirect=${redirect}` : ""}`}>
-          注册
-        </Link>
-      </div>
+      </PageTransition>
     </>
   );
 };

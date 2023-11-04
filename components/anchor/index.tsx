@@ -9,6 +9,7 @@ interface AProps {
   href: string;
   outer?: boolean;
   black?: boolean;
+  onClick?: () => void;
 }
 
 const Anchor = forwardRef<HTMLAnchorElement, AProps>(function A(props, ref?) {
@@ -18,6 +19,7 @@ const Anchor = forwardRef<HTMLAnchorElement, AProps>(function A(props, ref?) {
     outer = false,
     children,
     href,
+    onClick
   } = props;
 
   if (!outer)
@@ -30,6 +32,7 @@ const Anchor = forwardRef<HTMLAnchorElement, AProps>(function A(props, ref?) {
           )}`}
           href={href}
           ref={ref}
+          onClick={onClick}
         >
           {children}
         </Link>

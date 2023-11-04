@@ -3,7 +3,7 @@
 import classNames from "classnames";
 
 import styles from "./page.module.scss";
-import avatar from "@public/defaultAvator.png";
+import avatar from "@public/defaultAvatar.png";
 import {
   qqIcon,
   githubIcon,
@@ -19,6 +19,7 @@ import { useAppSelector } from "@/redux";
 
 const ProfilePanel = () => {
   const userBasicInfo = useAppSelector((state) => state.userBasicInfo);
+  console.log(userBasicInfo)
   const pathname = usePathname();
   return (
     <>
@@ -30,7 +31,7 @@ const ProfilePanel = () => {
       >
         <div className={classNames(styles.messageSide)}>
           <div className={classNames(styles.avatar_large)}>
-            <Icon src={avatar} alt={"user avatar"} width={140} height={140} />
+            <Icon src={userBasicInfo.avatar??avatar} style={{objectFit: 'cover'}} alt={"user avatar"} width={140} height={140} />
           </div>
           <div className={classNames(styles.userBasicMessage)}>
             <div className={classNames(styles.userName)}>
@@ -42,16 +43,20 @@ const ProfilePanel = () => {
           </div>
 
           <div className={classNames(styles.userPosition)}>
-            {userBasicInfo.dep} 老东西
+            {userBasicInfo.dep===''?'暂无认证':userBasicInfo.dep}
           </div>
         </div>
         <div className={classNames(styles.linkSide)}>
-          <Link className={classNames(styles.toProfile)} href={"./home"}>
+          {/* <Link className={classNames(styles.toProfile)} href={"./home"}>
             <span>个人主页</span>
             <Icon {...blackArrowheadIcon} />
-          </Link>
-          <Link className={classNames(styles.toEdit)} href={"./home/edit"}>
+          </Link> */}
+          <Link className={classNames(styles.toEdit)} href={"/home/edit"}>
             <span>编辑信息</span>
+            <Icon {...blackArrowheadIcon} />
+          </Link>
+          <Link className={classNames(styles.toEdit)} href={"/home/edit/safety/"}>
+            <span>安全设置</span>
             <Icon {...blackArrowheadIcon} />
           </Link>
         </div>

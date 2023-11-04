@@ -13,6 +13,7 @@ import { addAccount } from "@/redux/features/userList";
 import { useAppDispatch, useAppSelector } from "@/redux";
 import Link from "next/link";
 import styles from "../page.module.scss";
+import PageTransition from "@/components/pageTransition";
 
 const LoginStep2 = () => {
   const tokenRef = useRef<string>("");
@@ -46,86 +47,88 @@ const LoginStep2 = () => {
 
   return (
     <>
-      <Form
-        className={[`${styles.passForm} ${styles.input}`]}
-        names={["password"]}
-        onSubmit={(args) => {
-          setLoading(true);
-          if (typeof args.password === "string") {
-            const password = args.password;
-            console.log(loginTicket);
-            userLogin(password, loginTicket ?? "")
-              .then((res) => {
-                if (res.data.Success) {
-                  const token = res.data.Data.loginToken;
-                  console.log(token);
+      <PageTransition className={styles.formLayout}>
+        <Form
+          className={[`${styles.passForm} ${styles.input}`]}
+          names={["password"]}
+          onSubmit={(args) => {
+            setLoading(true);
+            if (typeof args.password === "string") {
+              const password = args.password;
+              console.log(loginTicket);
+              userLogin(password, loginTicket ?? "")
+                .then((res) => {
+                  if (res.data.Success) {
+                    const token = res.data.Data.loginToken;
+                    console.log(token);
 
-                  localStorage.setItem("Token", JSON.stringify(token));
-                  tokenRef.current = token;
-                  return getUserInfo().then((res) => {
-                    if (res.data.Success) {
-                      const data = res.data.Data;
-                      dispatch(
-                        addAccount({
-                          nickName: "ming",
-                          email: data.email,
-                          Token: tokenRef.current,
-                          userId: data.userId,
-                        }),
-                      );
-                      dispatch(login({ username: "ming", email: data.email }));
-                      router.replace(redirect ?? "/home");
-                      return;
-                    }
-                    setError(handleError(res.data.ErrMsg));
-                  });
-                }
-                setError(handleError(res.data.ErrMsg));
-              })
-              .catch()
-              .finally(() => {
-                setLoading(false);
-              });
-          }
-        }}
-      >
-        <div className={`${styles.inputDiv}`}>
-          <InputWithLabel
-            setErrorState={setError}
-            veridate={veridate}
-            label="密码"
-            type="password"
-            palceholder="密码"
-            error={error}
-            ref={inputRef}
-            name="password"
-          />
-          <div className={styles.resetPwdContainer}>
-            <Link href={"/reset"} className={styles.resetPwd}>
-              忘记密码
-            </Link>
+                    localStorage.setItem("Token", JSON.stringify(token));
+                    tokenRef.current = token;
+                    return getUserInfo().then((res) => {
+                      if (res.data.Success) {
+                        const data = res.data.Data;
+                        dispatch(
+                          addAccount({
+                            nickName: "ming",
+                            email: data.email,
+                            Token: tokenRef.current,
+                            userId: data.userId,
+                          }),
+                        );
+                        dispatch(login({ username: "ming", email: data.email }));
+                        router.replace(redirect ?? "/home");
+                        return;
+                      }
+                      setError(handleError(res.data.ErrMsg));
+                    });
+                  }
+                  setError(handleError(res.data.ErrMsg));
+                })
+                .catch()
+                .finally(() => {
+                  setLoading(false);
+                });
+            }
+          }}
+        >
+          <div className={`${styles.inputDiv}`}>
+            <InputWithLabel
+              setErrorState={setError}
+              veridate={veridate}
+              label="密码"
+              type="password"
+              palceholder="密码"
+              error={error}
+              ref={inputRef}
+              name="password"
+            />
+            <div className={styles.resetPwdContainer}>
+              <Link href={"/reset"} className={styles.resetPwd}>
+                忘记密码
+              </Link>
+            </div>
           </div>
-        </div>
-        <Footer>
-          <Button
-            loading={loading}
-            onClick={(e) => {
-              const check = veridate(inputRef.current!.value);
-              if (check) {
-                setError(handleError(check));
-                e.preventDefault();
-                return;
-              }
-            }}
-            type="submit"
-          >
-            {redirect ? "登录并前往授权" : "登录 SAST Link"}
-          </Button>
-          <Button onClick={() => router.replace("../")} type="button" white>
-            使用其他账号
-          </Button>
-        </Footer>
-      </Form>
+          <Footer>
+            <Button
+              loading={loading}
+              onClick={(e) => {
+                const check = veridate(inputRef.current!.value);
+                if (check) {
+                  setError(handleError(check));
+                  e.preventDefault();
+                  return;
+                }
+              }}
+              type="submit"
+            >
+              {redirect ? "登录并前往授权" : "登录 SAST Link"}
+            </Button>
+            <Button onClick={() => router.replace("../")} type="button" white>
+              使用其他账号
+            </Button>
+          </Footer>
+        </Form>
+      </PageTransition>
     </>
   );
 };

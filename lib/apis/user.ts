@@ -79,7 +79,7 @@ export function EditProfile(data: EditableProfileType) {
 
 export function uploadAvatar(file: Blob) {
   const formData = new FormData();
-  formData.append("avatarfile", file);
+  formData.append("avatarFile", file);
   return apis.post<ResType<{ filePath: string }>>(
     "/apis/profile/uploadAvatar",
     formData,

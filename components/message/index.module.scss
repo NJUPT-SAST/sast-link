@@ -7,7 +7,7 @@
   flex-direction: column;
   gap: 0px;
   align-items: center;
-
+  z-index: 99;
   transform: translateX(-50%);
 }
 
@@ -28,10 +28,11 @@
   border-radius: 8px;
 
   background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(5px);
 
   box-shadow:
-    #f5f5f5 4px 3px 5px 1px,
-    #f5f5f5 -4px 0px 5px 1px;
+    #6b6b6b1a 4px 3px 5px 1px,
+    #7979791d -4px 0px 5px 1px;
 
   transform: translateY(-20px);
 

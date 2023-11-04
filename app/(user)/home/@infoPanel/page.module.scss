@@ -169,15 +169,17 @@
       .infoLabel {
         flex: none;
         height: 100%;
-
+        
         font-size: 1rem;
       }
       .content {
         max-width: calc(100% - 10px - 4rem);
-
+        
         font-size: 0.875rem;
         text-align: end;
         .socialLinkItem {
+          color: #808080 !important;
+          text-decoration: none !important;
           display: block;
           overflow: hidden;
 
@@ -265,9 +267,13 @@
     .content {
       max-width: calc(100% - 10px - 4rem);
 
+      color: #808080;
       font-size: 0.875rem;
       text-align: end;
+      word-wrap: break-word;
       .socialLinkItem {
+        color: #808080 !important;
+        text-decoration: none !important;
         display: block;
         overflow: hidden;
 

@@ -7,7 +7,7 @@ import { Footer } from "@/components/footer";
 import { useSearchParams } from "next/navigation";
 import styles from "./page.module.scss";
 import Image from "next/image";
-import defaultAvatar from "@/public/defaultAvator.png";
+import defaultAvatar from "@/public/defaultAvatar.png";
 import { getUserInfo } from "@/lib/apis/user";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
