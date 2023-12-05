@@ -80,7 +80,7 @@ const LoginStep2 = () => {
                             userId: data.userId,
                           }),
                         );
-                        dispatch(login({ username: "ming", email: data.email }));
+                        //dispatch(login({ username: "ming", email: data.email }));
                         if (redirect_uri) {
                           console.log(redirect_uri)
                           location.href = redirect_uri
@@ -90,13 +90,21 @@ const LoginStep2 = () => {
                         }
                         return;
                       }
+                      
                       setError(handleError(res.data.ErrMsg));
                     });
+                  }
+                  //如果loginTicket过期就重定向到登陆页面
+                  if (res.data.ErrCode === 20007){
+                    router.replace("/login")
                   }
                   setError(handleError(res.data.ErrMsg));
                 })
                 .catch((err) => {
-                  setError(err.response.data.ErrMsg)
+                  //如果密码验证失败,会返回401错误码
+                  if (err.response.status === 401){
+                    setError({ error: true, errMsg: "密码错误，请重新输入密码" })
+                  }
                 })
                 .finally(() => {
                   setLoading(false);

@@ -38,6 +38,7 @@ const AccountList = () => {
                 key={`${value.email}_${value.nickName}`}
                 nickName={`${value.nickName}`}
                 mail={`${value.email}`}
+                avator={`${value.avator}`}
                 onFocus={() => {
                   setSelected(index);
                   scroll(index);
