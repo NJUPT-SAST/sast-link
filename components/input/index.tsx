@@ -2,6 +2,7 @@ import { forwardRef } from "react";
 import classNames from "classnames";
 import styles from "./index.module.scss";
 import { FocusEventHandler, ChangeEventHandler } from "react";
+import { UseFormRegister, UseFormRegisterReturn } from "react-hook-form";
 interface InputProps {
   // veridate?: (value: string) => boolean;
   type?: "password";
@@ -17,6 +18,7 @@ interface InputProps {
   onBlur?: FocusEventHandler<HTMLInputElement>;
   onFocus?: FocusEventHandler<HTMLInputElement>;
   onChange?: ChangeEventHandler<HTMLInputElement>;
+  inputProps?: UseFormRegisterReturn<any>;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -35,11 +37,13 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       onChange,
       onFocus,
       onBlur,
+      inputProps,
     } = props;
 
     return (
       <>
         <input
+          {...inputProps}
           disabled={disabled}
           type={type}
           onChange={onChange}

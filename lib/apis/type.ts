@@ -36,9 +36,9 @@ export interface UserProfileType {
 }
 
 export interface EditableProfileType {
-  nickname: string | null;
-  org_id: number;
-  bio: string;
-  link: string[] | null;
-  hide: string[] | null;
+  nickname?: string | null;
+  org_id?: number;
+  bio?: string;
+  link?: string[] | null;
+  hide?: string[] | null;
 }

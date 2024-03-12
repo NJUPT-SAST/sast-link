@@ -36,9 +36,12 @@ const userBasicInfo = createSlice({
     updateBasicInfo: (state, action: PayloadAction<EditableProfileType>) => {
       return { ...state, ...action };
     },
+    resetBasicInfo: () => {
+      return initialState;
+    }
   },
 });
 
-export const { setUserBasicInfo, updateBasicInfo } = userBasicInfo.actions;
+export const { setUserBasicInfo, updateBasicInfo, resetBasicInfo } = userBasicInfo.actions;
 
 export default userBasicInfo.reducer;

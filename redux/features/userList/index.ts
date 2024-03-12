@@ -4,7 +4,7 @@ const isServer = typeof window === "undefined";
 
 interface UserList {
   Token: string;
-  avator?: string;
+  avator?: string | null;
   nickName?: string;
   email: string;
   userId: string;
@@ -38,15 +38,41 @@ const UserListSlice = createSlice({
     // 添加已登陆用户
     addAccount: (state, action: PayloadAction<UserList>) => {
       // 添加账户，更新localStorage
-      let veri = true;
+      let isExisted = false;
       // 验证是否已存在
       state.forEach((value) => {
         if (value.userId === action.payload.userId) {
-          veri = false;
+          isExisted = true;
         }
       });
-      if (veri) {
+      if (!isExisted) {
         state.push(action.payload);
+        localStorage.setItem("userList", JSON.stringify(state));
+      }
+    },
+    updateAccount: (
+      state,
+      action: PayloadAction<{
+        nickname: string;
+        email: string;
+        avater: string | null;
+      }>,
+    ) => {
+      let isExisted = false;
+      // 验证是否已存在
+      state.forEach((value) => {
+        if (value.email === action.payload.email) {
+          isExisted = true;
+        }
+      });
+      if (isExisted) {
+        const { nickname, email, avater } = action.payload;
+        const user = state.find((user) => user.email === email);
+        if (user) {
+          user.nickName = nickname;
+          user.email = email;
+          user.avator = avater;
+        }
         localStorage.setItem("userList", JSON.stringify(state));
       }
     },
@@ -63,6 +89,7 @@ const UserListSlice = createSlice({
   },
 });
 
-export const { removeAccount, addAccount } = UserListSlice.actions;
+export const { removeAccount, addAccount, updateAccount } =
+  UserListSlice.actions;
 
 export default UserListSlice.reducer;

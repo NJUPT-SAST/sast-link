@@ -3,6 +3,7 @@ import { Icon24 } from "../icon";
 import classNames from "classnames";
 import styles from "./index.module.scss";
 import { Icon, arrowheadIcon } from "../icon";
+import { message } from "@/components/message";
 
 const BindAppItem = (props: {
   bindAppIconProps: { src: StaticImageData | string; alt: string };
@@ -19,7 +20,9 @@ const BindAppItem = (props: {
       {binded ? (
         <div className={classNames(styles.binded)}>已绑定</div>
       ) : (
-        <div className={classNames(styles.unbinded)}>
+        <div onClick={()=>{
+          message.warning('暂未开放')
+        }} className={classNames(styles.unbinded)}>
           <span>未绑定</span>
           <Icon {...arrowheadIcon} />
         </div>

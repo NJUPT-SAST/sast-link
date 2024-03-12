@@ -4,6 +4,7 @@ import styles from "./index.module.scss";
 import { Dispatch, SetStateAction } from "react";
 import classNames from "classnames";
 import { handleError } from "@/components/function";
+import { UseFormRegister, UseFormRegisterReturn } from "react-hook-form";
 
 interface InputWithLabelProps {
   type?: "password";
@@ -21,6 +22,7 @@ interface InputWithLabelProps {
     SetStateAction<{ error: false } | { error: true; errMsg: string }>
   >;
   withBlur?: () => void;
+  inputProps?: UseFormRegisterReturn<any>;
 }
 
 const InputWithLabel = forwardRef<HTMLInputElement, InputWithLabelProps>(
@@ -39,6 +41,7 @@ const InputWithLabel = forwardRef<HTMLInputElement, InputWithLabelProps>(
       name,
       defaultValue,
       palceholder,
+      inputProps,
     } = props;
 
     return (
@@ -55,6 +58,7 @@ const InputWithLabel = forwardRef<HTMLInputElement, InputWithLabelProps>(
           </span>
 
           <Input
+            {...inputProps}
             disabled={disabled}
             type={type}
             onBlur={(e) => {
