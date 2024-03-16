@@ -16,9 +16,12 @@ const OtherLoginList = (props: {
       <ul className={classNames([styles.icons])}>
         {list.map((item) => {
           return (
-            <li onClick={() => {
-              message.warning("暂未开放")
-            }} key={`other_login_${item.describe}`}>
+            <li
+              onClick={() => {
+                message.warning("暂未开放");
+              }}
+              key={`other_login_${item.describe}`}
+            >
               <a title={item.describe} href={item.target}>
                 {item.icon}
               </a>

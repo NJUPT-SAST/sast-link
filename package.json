@@ -6,8 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "pnpm exec prettier . --write && stylelint \"*/**/*.scss\"",
-    "format": "stylelint \"*/**/*.scss\" --fix && pnpm exec prettier . --write",
+    "lint": "pnpm exec prettier next.config.mjs package.json \"{app,components,constant,lib,public,types,redux}/**/*.{js,jsx,ts,tsx}\" --check && stylelint \"*/**/*.scss\" --custom-syntax postcss-scss",
+    "format": "pnpm exec prettier next.config.mjs package.json \"{app,components,constant,lib,public,types,redux}/**/*.{js,jsx,ts,tsx}\" --write && stylelint \"*/**/*.scss\" --fix --custom-syntax postcss-scss",
     "prepare": "husky install"
   },
   "dependencies": {

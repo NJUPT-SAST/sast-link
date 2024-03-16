@@ -41,10 +41,34 @@ const Regist = () => {
       <div className={"pageTitle"}>{"<ResetPassword>"}</div>
       <div className={"globalContainer"}>
         <ResetContext.Provider value={providerValue}>
-          {step === 1 ? <PageTransition><ResetStep1 /></PageTransition> : <></>}
-          {step === 2 ? <PageTransition><ResetStep2 /></PageTransition> : <></>}
-          {step === 3 ? <PageTransition><ResetStep3 /></PageTransition> : <></>}
-          {step === 4 ? <PageTransition><ResetStep4 /></PageTransition> : <></>}
+          {step === 1 ? (
+            <PageTransition>
+              <ResetStep1 />
+            </PageTransition>
+          ) : (
+            <></>
+          )}
+          {step === 2 ? (
+            <PageTransition>
+              <ResetStep2 />
+            </PageTransition>
+          ) : (
+            <></>
+          )}
+          {step === 3 ? (
+            <PageTransition>
+              <ResetStep3 />
+            </PageTransition>
+          ) : (
+            <></>
+          )}
+          {step === 4 ? (
+            <PageTransition>
+              <ResetStep4 />
+            </PageTransition>
+          ) : (
+            <></>
+          )}
         </ResetContext.Provider>
       </div>
     </>

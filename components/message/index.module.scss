@@ -2,12 +2,13 @@
   position: fixed;
   top: 20px;
   left: 50%;
+  z-index: 99;
 
   display: flex;
   flex-direction: column;
   gap: 0px;
   align-items: center;
-  z-index: 99;
+
   transform: translateX(-50%);
 }
 
@@ -28,7 +29,6 @@
   border-radius: 8px;
 
   background-color: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(5px);
 
   box-shadow:
     #6b6b6b1a 4px 3px 5px 1px,
@@ -37,6 +37,7 @@
   transform: translateY(-20px);
 
   opacity: 0;
+  backdrop-filter: blur(5px);
 
   transition:
     opacity 0.3s,
