@@ -45,10 +45,34 @@ const Regist = () => {
       <div className={"pageTitle"}>{"<Register>"}</div>
       <div className={"globalContainer"}>
         <RegistContext.Provider value={providerValue}>
-          {step === 1 ? <PageTransition><RegistStep1 /></PageTransition> : <></>}
-          {step === 2 ? <PageTransition><RegistStep2 /></PageTransition> : <></>}
-          {step === 3 ? <PageTransition><RegistStep3 /></PageTransition> : <></>}
-          {step === 4 ? <PageTransition><RegistStep4 /></PageTransition> : <></>}
+          {step === 1 ? (
+            <PageTransition>
+              <RegistStep1 />
+            </PageTransition>
+          ) : (
+            <></>
+          )}
+          {step === 2 ? (
+            <PageTransition>
+              <RegistStep2 />
+            </PageTransition>
+          ) : (
+            <></>
+          )}
+          {step === 3 ? (
+            <PageTransition>
+              <RegistStep3 />
+            </PageTransition>
+          ) : (
+            <></>
+          )}
+          {step === 4 ? (
+            <PageTransition>
+              <RegistStep4 />
+            </PageTransition>
+          ) : (
+            <></>
+          )}
         </RegistContext.Provider>
       </div>
     </>

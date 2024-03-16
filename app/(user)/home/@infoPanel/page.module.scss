@@ -178,13 +178,14 @@
         font-size: 0.875rem;
         text-align: end;
         .socialLinkItem {
-          color: #808080 !important;
-          text-decoration: none !important;
           display: block;
           overflow: hidden;
 
+          color: #808080 !important;
+
           line-height: normal;
           white-space: unset;
+          text-decoration: none !important;
           text-overflow: ellipsis;
         }
       }
@@ -272,13 +273,14 @@
       text-align: end;
       word-wrap: break-word;
       .socialLinkItem {
-        color: #808080 !important;
-        text-decoration: none !important;
         display: block;
         overflow: hidden;
 
+        color: #808080 !important;
+
         line-height: normal;
         white-space: unset;
+        text-decoration: none !important;
         text-overflow: ellipsis;
       }
     }

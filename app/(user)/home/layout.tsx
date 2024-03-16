@@ -19,22 +19,20 @@ const Layout = (props: {
       <BackLayout type="yellow" />
       <TopBar />
       {getInfo}
-      <PageTransition style={{
-        display: 'flex',
-        width: '100vw',
-        justifyContent: 'center',
-      }} position="bottomToTop">
+      <PageTransition
+        style={{
+          display: "flex",
+          width: "100vw",
+          justifyContent: "center",
+        }}
+        position="bottomToTop"
+      >
         <div className={classNames(styles.homeContainer)}>
           <div className={styles.leftPanel}>
             {profilePanel}
             {infoPanel}
           </div>
-          <div className={styles.rightPanel}>
-
-            {children}
-
-          </div>
-
+          <div className={styles.rightPanel}>{children}</div>
         </div>
       </PageTransition>
       {appPanel}

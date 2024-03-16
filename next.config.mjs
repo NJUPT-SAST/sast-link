@@ -9,14 +9,14 @@ const nextConfig = {
       },
     ];
   },
-  images:{
-    remotePatterns:[
+  images: {
+    remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'sast-link-1309205610.cos.ap-shanghai.myqcloud.com'
-      }
-    ]
-  }
+        protocol: "https",
+        hostname: "sast-link-1309205610.cos.ap-shanghai.myqcloud.com",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

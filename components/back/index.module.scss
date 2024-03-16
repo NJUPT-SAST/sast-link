@@ -1,12 +1,14 @@
 .backBody {
-  margin: 0px;
-  padding: 0px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: flex-start;
   width: 100%;
   height: max-content;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 20px;
+  margin: 0px;
+  padding: 0px;
+
   color: #808080;
+
   cursor: pointer;
 }

@@ -43,7 +43,7 @@ const LoginStep1 = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { redirect } = useAppSelector((state) => state.loginMessage);
-  const urlParams = useSearchParams()
+  const urlParams = useSearchParams();
   const [error, setError] = useState<
     { error: false } | { error: true; errMsg: string }
   >({ error: false });
@@ -74,8 +74,14 @@ const LoginStep1 = () => {
                   const ticket = res.data.Data.loginTicket;
                   console.log(ticket);
                   dispatch(addLoginTicket(ticket));
-                  console.log(urlParams.get('redirect'))
-                  router.replace(`/login/2${!!urlParams.get('redirect') ? `?redirect=${urlParams.get('redirect')}` : ""}`);
+                  console.log(urlParams.get("redirect"));
+                  router.replace(
+                    `/login/2${
+                      !!urlParams.get("redirect")
+                        ? `?redirect=${urlParams.get("redirect")}`
+                        : ""
+                    }`,
+                  );
                   return;
                 }
                 setError({ error: true, errMsg: res.data.ErrMsg });
@@ -122,9 +128,13 @@ const LoginStep1 = () => {
         {
           // TODO 第三方认证登录
         }
-        <Anchor onClick={() => {
-          message.warning("暂未开放")
-        }} href="./" className={classNames(styles.anchor)}>
+        <Anchor
+          onClick={() => {
+            message.warning("暂未开放");
+          }}
+          href="./"
+          className={classNames(styles.anchor)}
+        >
           SAST 飞书登录
         </Anchor>
         <OtherLoginList list={list} />

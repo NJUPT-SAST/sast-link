@@ -23,7 +23,7 @@ const Messagepanel = () => {
   const router = useRouter();
   const hidePanel = () => {
     dispatch(handleHomeInfoPanel(false));
-  }
+  };
 
   return (
     <>
@@ -119,15 +119,19 @@ const Messagepanel = () => {
             {
               // TODO logout
             }
-            <Button onClick={() => {
-              dispatch(resetBasicInfo())
-              router.replace('/login')
-              localStorage.removeItem('Token')
-              localStorage.removeItem('userList')
-              localStorage.removeItem('userProfile')
-              message.success('退出成功')
-              hidePanel()
-            }} white className={styles.button}>
+            <Button
+              onClick={() => {
+                dispatch(resetBasicInfo());
+                router.replace("/login");
+                localStorage.removeItem("Token");
+                localStorage.removeItem("userList");
+                localStorage.removeItem("userProfile");
+                message.success("退出成功");
+                hidePanel();
+              }}
+              white
+              className={styles.button}
+            >
               退出登录
             </Button>
           </div>
@@ -137,24 +141,27 @@ const Messagepanel = () => {
       <div className={classNames(styles.homeLeftInfoPanel)}>
         <div className={styles.userIntro}>
           <div className={styles.infoLabel}>个人简介</div>
-          <div className={styles.content}>{userBasicInfo.bio ?? '还没有内容哦'}</div>
+          <div className={styles.content}>
+            {userBasicInfo.bio ?? "还没有内容哦"}
+          </div>
         </div>
         <div className={styles.socialLink}>
           <div className={styles.infoLabel}>社交链接</div>
           <div className={styles.content}>
-            {!userBasicInfo.link ? '还没有链接哦' :
-              userBasicInfo.link.map((value, index) => {
-                return (
-                  <a
-                    href={value}
-                    target="_blank"
-                    key={`${userBasicInfo.email}-${value}-${index}`}
-                    className={styles.socialLinkItem}
-                  >
-                    {value}
-                  </a>
-                );
-              })}
+            {!userBasicInfo.link
+              ? "还没有链接哦"
+              : userBasicInfo.link.map((value, index) => {
+                  return (
+                    <a
+                      href={value}
+                      target="_blank"
+                      key={`${userBasicInfo.email}-${value}-${index}`}
+                      className={styles.socialLinkItem}
+                    >
+                      {value}
+                    </a>
+                  );
+                })}
           </div>
         </div>
       </div>

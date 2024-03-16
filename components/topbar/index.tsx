@@ -30,7 +30,7 @@ const TopBar = () => {
             onClick={() => {
               dispatch(handleHomeInfoPanel(true));
             }}
-            style={{objectFit: 'cover'}}
+            style={{ objectFit: "cover" }}
             src={userBasicInfo.avatar ?? avatar}
             alt="avatar"
             width={36}

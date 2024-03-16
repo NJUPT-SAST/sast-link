@@ -19,7 +19,7 @@ const Anchor = forwardRef<HTMLAnchorElement, AProps>(function A(props, ref?) {
     outer = false,
     children,
     href,
-    onClick
+    onClick,
   } = props;
 
   if (!outer)

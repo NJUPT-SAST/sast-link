@@ -22,7 +22,7 @@ export default function Auth() {
   // 获取参数
   const router = useRouter();
   const searchParams = useSearchParams();
-  const dispach = useAppDispatch()
+  const dispach = useAppDispatch();
   const querys: {
     client_id: null | string;
     code_challenge: null | string;
@@ -45,20 +45,20 @@ export default function Auth() {
     (querys as any)[key] = searchParams.get(key);
     return `${key}=${searchParams.get(key)}`;
   });
-  const redirect = `/auth?${querysArray.join('&')}`;
+  const redirect = `/auth?${querysArray.join("&")}`;
   useEffect(
     () => {
       if (localStorage.getItem("Token") === null) {
-        console.log(redirect)
+        console.log(redirect);
         router.replace(`/login?redirect=${redirect}`);
-        dispach(addRedirect(location.href))
+        dispach(addRedirect(location.href));
       } else {
         getUserInfo().then((res) => {
           if (res.data.Success === true) {
             setUserData({ ...res.data.Data });
           } else {
             router.replace(`/login?redirect=${redirect}`);
-            dispach(addRedirect(location.href))
+            dispach(addRedirect(location.href));
           }
         });
       }
@@ -67,7 +67,7 @@ export default function Auth() {
     // token 校验出错时 重定向
     // TODO
     // 检验， 若参数不合法，则抛出错误
-    []
+    [],
   );
   return (
     <>

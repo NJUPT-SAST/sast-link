@@ -25,9 +25,7 @@ const LoginStep2 = () => {
   const { redirect, loginTicket } = useAppSelector(
     (state) => state.loginMessage,
   );
-  const redirect_uri = useAppSelector(
-    (state) => state.loginMessage.redirect
-  )
+  const redirect_uri = useAppSelector((state) => state.loginMessage.redirect);
   const urlParams = useSearchParams();
   const [error, setError] = useState<
     { error: false } | { error: true; errMsg: string }
@@ -82,28 +80,31 @@ const LoginStep2 = () => {
                         );
                         //dispatch(login({ username: "ming", email: data.email }));
                         if (redirect_uri) {
-                          console.log(redirect_uri)
-                          location.href = redirect_uri
-                          dispatch(clearLoginMessage())
+                          console.log(redirect_uri);
+                          location.href = redirect_uri;
+                          dispatch(clearLoginMessage());
                         } else {
                           router.replace(redirect ?? "/home");
                         }
                         return;
                       }
-                      
+
                       setError(handleError(res.data.ErrMsg));
                     });
                   }
                   //如果loginTicket过期就重定向到登陆页面
-                  if (res.data.ErrCode === 20007){
-                    router.replace("/login")
+                  if (res.data.ErrCode === 20007) {
+                    router.replace("/login");
                   }
                   setError(handleError(res.data.ErrMsg));
                 })
                 .catch((err) => {
                   //如果密码验证失败,会返回401错误码
-                  if (err.response.status === 401){
-                    setError({ error: true, errMsg: "密码错误，请重新输入密码" })
+                  if (err.response.status === 401) {
+                    setError({
+                      error: true,
+                      errMsg: "密码错误，请重新输入密码",
+                    });
                   }
                 })
                 .finally(() => {

@@ -20,9 +20,12 @@ const BindAppItem = (props: {
       {binded ? (
         <div className={classNames(styles.binded)}>已绑定</div>
       ) : (
-        <div onClick={()=>{
-          message.warning('暂未开放')
-        }} className={classNames(styles.unbinded)}>
+        <div
+          onClick={() => {
+            message.warning("暂未开放");
+          }}
+          className={classNames(styles.unbinded)}
+        >
           <span>未绑定</span>
           <Icon {...arrowheadIcon} />
         </div>
