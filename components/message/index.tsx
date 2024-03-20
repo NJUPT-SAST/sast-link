@@ -10,6 +10,7 @@ let GlobalMessagePanel: () => JSX.Element | null;
 
 const message = Messagefn();
 
+/*million ignore*/
 function Messagefn() {
   let id: NodeJS.Timeout;
   let dispatch: any = null;

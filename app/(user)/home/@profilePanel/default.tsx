@@ -19,7 +19,7 @@ import { useAppSelector } from "@/redux";
 
 const ProfilePanel = () => {
   const userBasicInfo = useAppSelector((state) => state.userBasicInfo);
-  console.log(userBasicInfo);
+  // console.log(userBasicInfo);
   const pathname = usePathname();
   return (
     <>

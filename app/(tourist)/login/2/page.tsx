@@ -14,7 +14,6 @@ import { useAppDispatch, useAppSelector } from "@/redux";
 import Link from "next/link";
 import styles from "../page.module.scss";
 import PageTransition from "@/components/pageTransition";
-import { addRedirect, clearLoginMessage } from "@/redux/features/login";
 
 const LoginStep2 = () => {
   const tokenRef = useRef<string>("");
@@ -22,11 +21,10 @@ const LoginStep2 = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
-  const { redirect, loginTicket } = useAppSelector(
-    (state) => state.loginMessage,
-  );
-  const redirect_uri = useAppSelector((state) => state.loginMessage.redirect);
+  const { loginTicket } = useAppSelector((state) => state.loginMessage);
+  // const redirect_uri = useAppSelector((state) => state.loginMessage.redirect);
   const urlParams = useSearchParams();
+  const redirect_uri = atob(urlParams.get("redirect") ?? "");
   const [error, setError] = useState<
     { error: false } | { error: true; errMsg: string }
   >({ error: false });
@@ -79,12 +77,11 @@ const LoginStep2 = () => {
                           }),
                         );
                         //dispatch(login({ username: "ming", email: data.email }));
-                        if (redirect_uri) {
+                        if (urlParams.get("redirect") !== null) {
                           console.log(redirect_uri);
-                          location.href = redirect_uri;
-                          dispatch(clearLoginMessage());
+                          router.push(redirect_uri);
                         } else {
-                          router.replace(redirect ?? "/home");
+                          router.push(redirect_uri ?? "/home");
                         }
                         return;
                       }
@@ -143,7 +140,7 @@ const LoginStep2 = () => {
               }}
               type="submit"
             >
-              {redirect ? "登录并前往授权" : "登录 SAST Link"}
+              {redirect_uri !== "" ? "登录并前往授权" : "登录 SAST Link"}
             </Button>
             <Button onClick={() => router.replace("../")} type="button" white>
               使用其他账号

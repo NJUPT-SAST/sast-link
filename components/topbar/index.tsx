@@ -10,6 +10,7 @@ import { Logo, MenuIcon } from "../icon";
 import Image from "next/image";
 import avatar from "@public/defaultAvatar.png";
 
+// million-ignore
 const TopBar = () => {
   const dispatch = useAppDispatch();
   const userBasicInfo = useAppSelector((state) => state.userBasicInfo);
