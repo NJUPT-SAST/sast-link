@@ -12,7 +12,7 @@ const Layout = (props: {
   profilePanel: ReactNode;
   getInfo: ReactNode;
 }) => {
-  console.log(props);
+  // console.log(props);
   const { children, infoPanel, appPanel, profilePanel, getInfo } = props;
   return (
     <>

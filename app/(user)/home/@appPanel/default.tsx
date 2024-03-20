@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from "@/redux";
 import { handleHomeAppPanel } from "@/redux/features/panelState";
 import { message } from "@/components/message";
 
+// million-ignore
 const AppPanel = () => {
   const appPanelState = useAppSelector(
     (state) => state.panelState.homeAppPanel,

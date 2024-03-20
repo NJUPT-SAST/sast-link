@@ -38,7 +38,7 @@ const VeriCode = (props: { reset?: true }) => {
           aria-disabled={clickable}
           onClick={() => {
             setClickable(false);
-            console.log(resetContext.username);
+            // console.log(resetContext.username);
             veriResetAccount(resetContext.username ?? "")
               .then((res) => {
                 if (res.data.Success) {

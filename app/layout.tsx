@@ -5,7 +5,7 @@ import { ReduxProvider } from "@/redux/reduxProvider";
 import { SWRProvider } from "@/components/swrProvider";
 import "./globals.scss";
 
-export const metadata = {
+const metadata = {
   title: "SAST Link",
   description: "OAuth of SAST",
 };

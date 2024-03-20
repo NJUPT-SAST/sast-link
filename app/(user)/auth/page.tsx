@@ -16,8 +16,8 @@ import { useAppDispatch } from "@/redux";
 import { addRedirect } from "@/redux/features/login";
 
 export default function Auth() {
-  // TODO
-  const appName = "SAST Evento";
+  // TODO 应用名称
+  const appName = "应用";
   const [userData, setUserData] = useState<{ email: string; userId: string }>();
   // 获取参数
   const router = useRouter();
@@ -45,7 +45,7 @@ export default function Auth() {
     (querys as any)[key] = searchParams.get(key);
     return `${key}=${searchParams.get(key)}`;
   });
-  const redirect = `/auth?${querysArray.join("&")}`;
+  const redirect = btoa(`/auth?${querysArray.join("&")}`);
   useEffect(
     () => {
       if (localStorage.getItem("Token") === null) {
