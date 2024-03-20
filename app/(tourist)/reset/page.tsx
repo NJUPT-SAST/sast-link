@@ -7,6 +7,7 @@ import { ResetStep3 } from "./resetStep3";
 import { ResetStep4 } from "./resetStep4";
 import { useSearchParams } from "next/navigation";
 import { ResetContext } from "@/lib/context";
+import PageTransition from "@/components/pageTransition";
 
 const Regist = () => {
   const [resetTicket, setResetTicket] = useState<string | undefined>();
@@ -40,10 +41,34 @@ const Regist = () => {
       <div className={"pageTitle"}>{"<ResetPassword>"}</div>
       <div className={"globalContainer"}>
         <ResetContext.Provider value={providerValue}>
-          {step === 1 ? <ResetStep1 /> : <></>}
-          {step === 2 ? <ResetStep2 /> : <></>}
-          {step === 3 ? <ResetStep3 /> : <></>}
-          {step === 4 ? <ResetStep4 /> : <></>}
+          {step === 1 ? (
+            <PageTransition>
+              <ResetStep1 />
+            </PageTransition>
+          ) : (
+            <></>
+          )}
+          {step === 2 ? (
+            <PageTransition>
+              <ResetStep2 />
+            </PageTransition>
+          ) : (
+            <></>
+          )}
+          {step === 3 ? (
+            <PageTransition>
+              <ResetStep3 />
+            </PageTransition>
+          ) : (
+            <></>
+          )}
+          {step === 4 ? (
+            <PageTransition>
+              <ResetStep4 />
+            </PageTransition>
+          ) : (
+            <></>
+          )}
         </ResetContext.Provider>
       </div>
     </>

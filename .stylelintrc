@@ -10,5 +10,6 @@
         "empty-line-between-groups": true
       }
     ]
-  }
+  },
+  "ignoreFiles": ["/public/*.css"]
 }

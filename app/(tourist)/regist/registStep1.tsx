@@ -37,7 +37,7 @@ const RegistStep1 = () => {
             veriRegistAccount(mail)
               .then((res) => {
                 let ticket = "";
-                if (res.data.Success) {
+                if (res.data.Success === true) {
                   ticket = res.data.Data.registerTicket;
                   handleTicket(ticket);
                   return sendMail(ticket).then((res) => {

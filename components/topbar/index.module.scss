@@ -1,5 +1,8 @@
 .topbar {
   position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9;
 
   display: flex;
   flex-direction: row;
@@ -17,7 +20,7 @@
 }
 
 .placeholder {
-  width: 100vw;
+  width: 1px;
   height: 55px;
 }
 

@@ -2,7 +2,7 @@ import { MouseEventHandler, forwardRef, memo } from "react";
 import Image, { StaticImageData } from "next/image";
 import styles from "./index.module.scss";
 import classNames from "classnames";
-import defaultAvator from "@/public/defaultAvator.png";
+import defaultAvator from "@/public/defaultAvatar.png";
 import closeSVG from "@/public/svg/Vector.svg";
 
 interface AccountItemProps {

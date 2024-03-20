@@ -7,33 +7,22 @@ import { Footer } from "@/components/footer";
 import { useSearchParams } from "next/navigation";
 import styles from "./page.module.scss";
 import Image from "next/image";
-import defaultAvatar from "@/public/defaultAvator.png";
-import useSWR, { mutate } from "swr";
+import defaultAvatar from "@/public/defaultAvatar.png";
 import { getUserInfo } from "@/lib/apis/user";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { oAuth } from "@/lib/apis/auth";
-
-const getMessage = async () => {
-  if (!localStorage.getItem("Token"))
-    return { Success: false, Data: { username: "", email: "" } };
-  const info = await getUserInfo();
-  console.log(info);
-  return info.data;
-};
+import { useAppDispatch } from "@/redux";
+import { addRedirect } from "@/redux/features/login";
 
 export default function Auth() {
   // TODO
   const appName = "SAST Evento";
-  const {
-    data: { Success, Data },
-  } = useSWR("infoUpdate", getMessage, {
-    suspense: true,
-    revalidateOnFocus: true,
-  });
+  const [userData, setUserData] = useState<{ email: string; userId: string }>();
   // 获取参数
   const router = useRouter();
   const searchParams = useSearchParams();
+  const dispach = useAppDispatch();
   const querys: {
     client_id: null | string;
     code_challenge: null | string;
@@ -56,20 +45,29 @@ export default function Auth() {
     (querys as any)[key] = searchParams.get(key);
     return `${key}=${searchParams.get(key)}`;
   });
-  const redirect = `/auth?${JSON.stringify(querysArray)}`;
+  const redirect = `/auth?${querysArray.join("&")}`;
   useEffect(
     () => {
-      if (!localStorage.getItem("Token")) {
-        router.push(`./login?redirect=${redirect}`);
+      if (localStorage.getItem("Token") === null) {
+        console.log(redirect);
+        router.replace(`/login?redirect=${redirect}`);
+        dispach(addRedirect(location.href));
+      } else {
+        getUserInfo().then((res) => {
+          if (res.data.Success === true) {
+            setUserData({ ...res.data.Data });
+          } else {
+            router.replace(`/login?redirect=${redirect}`);
+            dispach(addRedirect(location.href));
+          }
+        });
       }
-      mutate("infoUpdate").then((res) => {
-        console.log(res);
-      });
     },
-
+    // TODO
+    // token 校验出错时 重定向
     // TODO
     // 检验， 若参数不合法，则抛出错误
-    [Success, router, redirect, Data],
+    [],
   );
   return (
     <>

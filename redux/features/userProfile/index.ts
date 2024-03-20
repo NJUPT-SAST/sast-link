@@ -20,6 +20,7 @@ const initialState: UserProfileType = isServer
         JSON.stringify({ username: "", email: "" }),
     );
 
+// 存储当前登录用户的基本状态，该功能待修改完善
 const userProfileSlice = createSlice({
   name: "userProfile",
   initialState,

@@ -8,10 +8,11 @@ import {
 } from "@/redux/features/panelState";
 import { Logo, MenuIcon } from "../icon";
 import Image from "next/image";
-import avatar from "@public/defaultAvator.png";
+import avatar from "@public/defaultAvatar.png";
 
 const TopBar = () => {
   const dispatch = useAppDispatch();
+  const userBasicInfo = useAppSelector((state) => state.userBasicInfo);
   return (
     <>
       <div className={classNames(styles.topbar)}>
@@ -29,7 +30,8 @@ const TopBar = () => {
             onClick={() => {
               dispatch(handleHomeInfoPanel(true));
             }}
-            src={avatar}
+            style={{ objectFit: "cover" }}
+            src={userBasicInfo.avatar ?? avatar}
             alt="avatar"
             width={36}
             height={36}

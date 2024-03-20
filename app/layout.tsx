@@ -2,6 +2,7 @@ import { Metadata } from "next";
 
 import { GlobalMessagePanel } from "@/components/message";
 import { ReduxProvider } from "@/redux/reduxProvider";
+import { SWRProvider } from "@/components/swrProvider";
 import "./globals.scss";
 
 const metadata = {
@@ -14,11 +15,17 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const fallback = {
+    infoUpdate: {
+      Success: false,
+      Data: { email: "", username: "" },
+    },
+  };
   return (
     <html lang="zh">
       <body>
         <ReduxProvider>
-          {children}
+          <SWRProvider fallback={fallback}>{children}</SWRProvider>
           <GlobalMessagePanel />
         </ReduxProvider>
       </body>

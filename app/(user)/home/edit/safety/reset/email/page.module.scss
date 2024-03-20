@@ -1,0 +1,10 @@
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    .description{
+        margin-top: 10px;
+
+        color: #808080;
+    }
+}

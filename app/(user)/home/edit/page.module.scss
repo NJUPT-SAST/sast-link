@@ -2,9 +2,23 @@
   display: flex;
   flex-direction: column;
   gap: 40px;
-  width: calc(100vw - 60px);
-  margin: auto;
-  padding: 40px 0px;
+}
+
+.settingPanelListLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: calc(100% - 60px);
+  
+  @media screen and (min-width: 500px) {
+    padding: 30px 30px 40px;
+    border: 1px solid var(--card-highlight, rgba(92, 92, 92, 0.27));
+    border-radius: 10px;
+
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0px 4px 30px 0px rgba(68, 68, 68, 0.05);
+    backdrop-filter: blur(2px);
+  }
 }
 
 .settingPanel {
@@ -13,6 +27,12 @@
   gap: 1rem;
   align-items: center;
   width: 100%;
+  @media screen and (min-width: 512px) and (max-width: 789px) {
+    align-items: flex-start;
+  }
+  @media screen and (min-width: 902px) {
+    align-items: flex-start;
+  }
   .settingPanelTitle {
     display: flex;
     justify-content: flex-start;
@@ -22,7 +42,16 @@
     font-size: 1.25rem;
     line-height: normal;
   }
-
+  .formContainer {
+    width: 100%;
+    max-width: 332px;
+    @media screen and (min-width: 512px) and (max-width: 789px) {
+      padding: 0 0 0 40px;
+    }
+    @media screen and (min-width: 902px) {
+      padding: 0 0 0 40px;
+    }
+  }
   .button {
     width: min(314px, calc(100% - 18px));
 
@@ -40,6 +69,13 @@
 }
 
 .avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @media screen and (min-width: 512px) {
+    width: 100%;
+    max-width: 412px;
+  }
   img {
     border-radius: 50%;
   }

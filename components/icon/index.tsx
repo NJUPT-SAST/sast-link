@@ -80,7 +80,7 @@ export const blackArrowheadIcon = {
   alt: "black arrowhead icon",
 };
 
-import avatar from "@public/defaultAvator.png";
+import avatar from "@public/defaultAvatar.png";
 export const avatarIcon = {
   src: avatar,
   alt: "default user avatar",

@@ -4,6 +4,7 @@ const initialState: { redirect: string | null } = {
   redirect: null,
 };
 
+// 该功能未启用
 const redirect = createSlice({
   name: "redirect",
   initialState,

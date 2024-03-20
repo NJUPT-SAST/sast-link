@@ -1,96 +1,94 @@
-# SAST-Link-Demo
+# SAST Link
 
-## 介绍
+![SAST Link Logo](https://aliyun.sastimg.mxte.cc/images/2023/07/02/footera9663bd5ff4b2bad.png)
 
-本仓库是 SAST-Link 的前端部分。关于 SAST-Link，请移步: [关于 SAST-Link](https://njuptsast.feishu.cn/wiki/wikcnH1EW60rsChyrSxruAkXVEe)
+Logo designed by [SAST](https://sast.fun/), created by [Maxtune Lee](https://github.com/MaxtuneLee).
 
-## 文档
+[![License](https://img.shields.io/badge/license-AGPLv3-blue.svg)](https://choosealicense.com/licenses/agpl-3.0/)
 
-[SAST-Link 文档](https://njuptsast.feishu.cn/wiki/wikcnH1EW60rsChyrSxruAkXVEe)
+SAST Link is a comprehensive personnel management system and OAuth designed to provide a secure and efficient way to manage and authorize access to your applications and services.
 
-### 界面相关
+Product design in Figma: [SAST Link](https://www.figma.com/file/IUIoRll3ieYFzJSfJPelDu/sast-link?node-id=0-1&t=rtc1sJfjJ0aTDAkp-0), designed by [Maxtune Lee](https://github.com/MaxtuneLee)
 
-该项目最开始时设计为 page router，但在 Next.js 更新后变更为 app router，变更仓促，目录结构可能存在些许问题。
+This repository contains the frontend code for SAST Link. If you're interested in the backend, please visit [SAST Link backend](https://github.com/NJUPT-SAST/sast-link-backend).
 
-根目录(`./`)设计为展示已通过验证的用户列表，可通过点击卡片的方式，实现快速登录。若认证过期，则跳转至登录界面 2(./login | step=2)。若认证在时效内，则正常登录，并通过调用 Redux 函数 `login` 更新当前已登陆用户的数据。若不存在已登陆的账户，则重定向至 `./login` 界面。
+SAST Link frontend is built with TypeScript and SCSS, and use Next.js as the web framework.
 
-Login 界面(`./login`)设计为两步登录，首先在步骤 1 界面输入账户信息，判断账户存在性，若存在则跳转至步骤 2，在步骤 2 输入密码实现登录。登录成功时调用 React 函数 `login` 与 `addAccount` 更新信息的添加已认证账户。
+> [!WARNING]
+> This repo is under active development! Formats, schemas, and APIs are subject to rapid and backward incompatible changes!
 
-Regist 界面(`./regist`)设计为四步，首先在步骤 1 输入学校统一学校，判断用户存在性，若不辞你在，则进入下一个界面。步骤 2 为发送验证码，验证码通过则跳转下个界面。步骤 3 为设计密码。步骤 4 为提示注册成功的界面。
+## Get Started
 
-主页`./home`界面还未设计，关于主页 UI 以及路由设计，还有待商榷。
+### Pre-requisites
 
-Auth`./auth`界面正在制作中。
+- Node.js >= 20
+- pnpm >= 8
 
-### 功能相关
+### Clone and Run
 
-#### Redux
+To get started, clone the repository and install dependencies with:
 
-关于 Redux 的具体用法可以去查看官网。
+```bash
+git clone https://github.com/NJUPT-SAST/sast-link.git
+cd sast-link
+pnpm intsall
+```
 
-默认数据被设计在 `./redux/index.ts` 文件内，全局 `Provider` 在 `./redux/reduxProvider.tsx` 文件内。
+To start a dev server, run:
 
-关于 feature 的部分:
+```bash
+pnpm dev
+```
 
-- userList : 存储当前已认证(指已在当前设备登陆过)的账户列表，从 localStorage 获取
-  - addAccount : 用于添加已认证账户
-  - removeAccount : 用于删除已认证账户
-- userProfile : 存储当前已登陆账户的信息，随页面访问时更新。
-  - logout : 用于退出登录，清楚当前账户信息
-  - login : 用于登录，添加账户信息
-  - update : 用于更新账户信息(未编写)
+To compile for production deployment, run:
 
-### 改进
+```bash
+pnpm build
+```
 
-详见 TODO List。
+The output will be in the `.next` directory, you can run it with:
 
-## 相关技术栈
+```bash
+pnpm start
+```
 
-- 框架：[Next.js](https://nextjs.org/)
-- 开发语言：[TypeScript](https://www.typescriptlang.org/)
-- CSS 扩展语言：[SASS](https://sass-lang.com/)
-- UI 组件库：本项目未使用 UI 组件库。
-- API 相关：[Axios](https://axios-http.com/)
-- 全局状态管理：[Redux](https://redux.js.org/)
-- 其他：待补充
-
-## 项目结构
+### Project Structure
 
 ```txt
-\sast-link
-├── app // 存放主体界面
-│  ├── (turist) // 游客可访问界面
-│  │  ├── login // 存放 login 界面文件
-│  │  ├── regist // 存放 regist 界面文件
-│  │  └── layout.tsx // 布局文件
-│  ├── (user) // 用户可访问界面
+sast-link
+├── app
+│  ├── (tourist)
+│  │  ├── login
+│  │  ├── regist
+│  │  └── layout.tsx
+│  ├── (user)
 │  │  ├── home //用户主页
 │  │  └── layout.tsx 布局文件
-│  ├── favicon.ico // 网页图标
-│  ├── global.scss // 全局样式
-│  ├── login.tsx // 登陆界面
-│  ├── page.module.scss // 当前路径下组件样式
-│  └── layout.tsx // 全局布局
-├── components // 存放自定义组件
+│  ├── favicon.ico
+│  ├── global.scss
+│  ├── login.tsx
+│  ├── page.module.scss
+│  └── layout.tsx
+├── components
 │  ├── example1
-│  │  ├── index.module.scss // 组件的样式
-│  │  └── index.tsx // 组件主体代码与集中导出的位置
+│  │  ├── index.module.scss
+│  │  └── index.tsx
 │  └── example2
 │      ├── index.module.scss
 │      └── index.tsx
 ├── lib
-│  ├── apis // 存放 api
-│  └── func // 自定义函数库
-├── node_modules // 依赖
-├── public // 公共文件存放处
-│  ├── fonts // 字体文件
+│  ├── apis
+│  └── func
+├── node_modules
+├── public
+│  ├── fonts
 │  │  └── index.ts
-│  └── svg // 各种 icon
-├── redux // 存放全局状态
-│  ├── features // 存放包含 Reducer 的文件夹
-│  └── index.ts // 存放 config
-├── styles // 样式
-│  ├── globals.scss // 全局样式
+│  └── svg
+├── redux
+│  ├── features
+│  └── index.ts
+├── styles
+│  ├── globals.scss
 │  ├── Home.module.scss
 │  ├── Login.module.scss
 │  ├── Regist.module.scss
@@ -105,39 +103,55 @@ Auth`./auth`界面正在制作中。
 └── tsconfig.json
 ```
 
-## 开发指北
+## Development
 
-本项目使用 [Create Next App](https://nextjs.org/docs/api-reference/create-next-app) 构建，路由结构采用 [App Router](https://nextjs.org/docs/app) 的形式。
+### API Documentation
 
-### 依赖安装
+The API documentation is available at [wiki of the backend](https://github.com/NJUPT-SAST/sast-link-backend/wiki/Api-Doc)
 
-使用 pnpm 进行包管理，混用其他包管理器可能会导致未知错误
+### Code Workflow Explanation
 
-### 实时预览
+TODO
 
-```shell
-pnpm dev
-```
+## Roadmap
 
-### 项目打包
+Goals and Vision for SAST Link (SAST OAuth and SAST Profile):
 
-```shell
-pnpm build
-```
+### SAST OAuth
 
-### 代码检查
+SAST OAuth serves as a unified identity authentication system for SAST, facilitating login across multiple SAST applications.
 
-- 使用空格缩进，默认两空格
-- 使用 `pnpm css-fix` 来对 css 进行修复。
+Example:
 
-### 代码提交
+- Simplifies login processes for SAST members across various projects, such as the FreshCup competition.
+- Enables seamless login via SAST credentials without the need for separate accounts for each project.
+- Allows SAST lecturers to access and manage the FreshCup competition system for tasks like grading via SAST login.
+- Offers multiple login options including SAST Feishu, PassKey, QQ, Github, etc., providing users with convenience and flexibility.
+- Implements additional security measures like F2A and security keys to enhance account security.
 
-## TODO
+In login process, users can choose to log in in multiple ways: SAST Feishu, PassKey, QQ, Github, etc. As long as they have been bound in advance, they can use third-party login, which is convenient and fast. They can also use F2A, security keys, and other methods to enhance account security.
 
-- [ ] Home 界面
-- [ ] Auth 界面，预计与根目录界面有些许差异，仅展示当前登录账号, Auth 时界面跳转功能尚待测试。
-- [ ] 添加请求的错误处理 -> 等待后端完善接口文档
-- [ ] 添加 error、loading 界面 -> 预计完场其他功能后再选择
-- [ ] message 组件，预计使用单例模式, 用于登录、注册等界面的交互反馈
-- [ ] 优化文件结构 -> 交给下一次重构了
-- [ ] 若干嵌入在文件中的 TODO, 使用 `TODO Tree` 快速查看
+### SAST Profile
+
+SAST Profile acts as a centralized user profile system for managing user information and settings within SAST applications.
+
+Features:
+
+- Records basic user information such as SAST membership status, current position, department, group affiliation, etc.
+- Tracks user activities within SAST, including competition results, awards, and permissions across various applications.
+- Provides users with the ability to customize and share their profile page, allowing them to control the visibility of their information.
+
+## Contributing
+
+Pull requests and any feedback are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+> [!warning]
+> Prior to submitting a pull request, please ensure that your code is properly formatted, linted and builds successfully.
+
+### Contributors
+
+[![Contributors](https://contrib.rocks/image?repo=NJUPT-SAST/sast-link)]("https://github.com/NJUPT-SAST/sast-link/graphs/contributors")
+
+## License
+
+[AGPLv3](https://choosealicense.com/licenses/agpl-3.0/)

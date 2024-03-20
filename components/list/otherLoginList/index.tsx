@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import classNames from "classnames";
 import styles from "./index.module.scss";
+import { message } from "@/components/message";
 
 const OtherLoginList = (props: {
   list: {
@@ -15,7 +16,12 @@ const OtherLoginList = (props: {
       <ul className={classNames([styles.icons])}>
         {list.map((item) => {
           return (
-            <li key={`other_login_${item.describe}`}>
+            <li
+              onClick={() => {
+                message.warning("暂未开放");
+              }}
+              key={`other_login_${item.describe}`}
+            >
               <a title={item.describe} href={item.target}>
                 {item.icon}
               </a>

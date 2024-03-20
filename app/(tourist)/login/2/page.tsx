@@ -7,13 +7,14 @@ import { Button } from "@/components/button";
 import { InputWithLabel } from "@/components/input/inputWithLabel";
 import { Footer } from "@/components/footer";
 import { handleError } from "@/lib/func";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { login } from "@/redux/features/userProfile";
 import { addAccount } from "@/redux/features/userList";
 import { useAppDispatch, useAppSelector } from "@/redux";
 import Link from "next/link";
-import { mutate } from "swr";
 import styles from "../page.module.scss";
+import PageTransition from "@/components/pageTransition";
+import { addRedirect, clearLoginMessage } from "@/redux/features/login";
 
 const LoginStep2 = () => {
   const tokenRef = useRef<string>("");
@@ -24,6 +25,8 @@ const LoginStep2 = () => {
   const { redirect, loginTicket } = useAppSelector(
     (state) => state.loginMessage,
   );
+  const redirect_uri = useAppSelector((state) => state.loginMessage.redirect);
+  const urlParams = useSearchParams();
   const [error, setError] = useState<
     { error: false } | { error: true; errMsg: string }
   >({ error: false });
@@ -47,89 +50,107 @@ const LoginStep2 = () => {
 
   return (
     <>
-      <Form
-        className={[`${styles.passForm} ${styles.input}`]}
-        names={["password"]}
-        onSubmit={(args) => {
-          setLoading(true);
-          if (typeof args.password === "string") {
-            const password = args.password;
-            console.log(loginTicket);
-            userLogin(password, loginTicket ?? "")
-              .then((res) => {
-                if (res.data.Success) {
-                  const token = res.data.Data.loginToken;
-                  console.log(token);
+      <PageTransition className={styles.formLayout}>
+        <Form
+          className={[`${styles.passForm} ${styles.input}`]}
+          names={["password"]}
+          onSubmit={(args) => {
+            setLoading(true);
+            if (typeof args.password === "string") {
+              const password = args.password;
+              console.log(loginTicket);
+              userLogin(password, loginTicket ?? "")
+                .then((res) => {
+                  if (res.data.Success) {
+                    const token = res.data.Data.loginToken;
+                    console.log(token);
 
-                  localStorage.setItem("Token", JSON.stringify(token));
-                  tokenRef.current = token;
-                  return getUserInfo().then((res) => {
-                    if (res.data.Success) {
-                      const data = res.data.Data;
-                      dispatch(
-                        addAccount({
-                          nickName: "ming",
-                          email: data.email,
-                          Token: tokenRef.current,
-                          userId: data.userId,
-                        }),
-                      );
-                      dispatch(login({ username: "ming", email: data.email }));
-                      mutate("infoUpdate").then((res) => {
-                        console.log(res);
-                        router.replace(redirect ?? "/home");
-                      });
-                      return;
-                    }
-                    setError(handleError(res.data.ErrMsg));
-                  });
-                }
-                setError(handleError(res.data.ErrMsg));
-              })
-              .catch()
-              .finally(() => {
-                setLoading(false);
-              });
-          }
-        }}
-      >
-        <div className={`${styles.inputDiv}`}>
-          <InputWithLabel
-            setErrorState={setError}
-            veridate={veridate}
-            label="密码"
-            type="password"
-            palceholder="密码"
-            error={error}
-            ref={inputRef}
-            name="password"
-          />
-          <div className={styles.resetPwdContainer}>
-            <Link href={"/reset"} className={styles.resetPwd}>
-              忘记密码
-            </Link>
+                    localStorage.setItem("Token", JSON.stringify(token));
+                    tokenRef.current = token;
+                    return getUserInfo().then((res) => {
+                      if (res.data.Success) {
+                        const data = res.data.Data;
+                        dispatch(
+                          addAccount({
+                            nickName: "ming",
+                            email: data.email,
+                            Token: tokenRef.current,
+                            userId: data.userId,
+                          }),
+                        );
+                        //dispatch(login({ username: "ming", email: data.email }));
+                        if (redirect_uri) {
+                          console.log(redirect_uri);
+                          location.href = redirect_uri;
+                          dispatch(clearLoginMessage());
+                        } else {
+                          router.replace(redirect ?? "/home");
+                        }
+                        return;
+                      }
+
+                      setError(handleError(res.data.ErrMsg));
+                    });
+                  }
+                  //如果loginTicket过期就重定向到登陆页面
+                  if (res.data.ErrCode === 20007) {
+                    router.replace("/login");
+                  }
+                  setError(handleError(res.data.ErrMsg));
+                })
+                .catch((err) => {
+                  //如果密码验证失败,会返回401错误码
+                  if (err.response.status === 401) {
+                    setError({
+                      error: true,
+                      errMsg: "密码错误，请重新输入密码",
+                    });
+                  }
+                })
+                .finally(() => {
+                  setLoading(false);
+                });
+            }
+          }}
+        >
+          <div className={`${styles.inputDiv}`}>
+            <InputWithLabel
+              setErrorState={setError}
+              veridate={veridate}
+              label="密码"
+              type="password"
+              palceholder="密码"
+              error={error}
+              ref={inputRef}
+              name="password"
+            />
+            <div className={styles.resetPwdContainer}>
+              <Link href={"/reset"} className={styles.resetPwd}>
+                忘记密码
+              </Link>
+            </div>
           </div>
-        </div>
-        <Footer>
-          <Button
-            loading={loading}
-            onClick={(e) => {
-              const check = veridate(inputRef.current!.value);
-              if (check) {
-                setError(handleError(check));
-                e.preventDefault();
-                return;
-              }
-            }}
-            type="submit"
-          >
-            {redirect ? "登录并前往授权" : "登录 SAST Link"}
-          </Button>
-          <Button onClick={() => router.replace("../")} type="button" white>
-            使用其他账号
-          </Button>
-        </Footer>
-      </Form>
+          <Footer>
+            <Button
+              loading={loading}
+              onClick={(e) => {
+                const check = veridate(inputRef.current!.value);
+                if (check) {
+                  setError(handleError(check));
+                  e.preventDefault();
+                  return;
+                }
+              }}
+              type="submit"
+            >
+              {redirect ? "登录并前往授权" : "登录 SAST Link"}
+            </Button>
+            <Button onClick={() => router.replace("../")} type="button" white>
+              使用其他账号
+            </Button>
+          </Footer>
+        </Form>
+      </PageTransition>
     </>
   );
 };

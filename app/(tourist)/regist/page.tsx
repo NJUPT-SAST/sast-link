@@ -7,6 +7,7 @@ import { RegistStep3 } from "./registStep3";
 import { RegistStep4 } from "./registStep4";
 import { useSearchParams } from "next/navigation";
 import { RegistContext } from "@/lib/context";
+import PageTransition from "@/components/pageTransition";
 
 const Regist = () => {
   const [registTicket, setRegistTicket] = useState<string | undefined>();
@@ -44,10 +45,34 @@ const Regist = () => {
       <div className={"pageTitle"}>{"<Register>"}</div>
       <div className={"globalContainer"}>
         <RegistContext.Provider value={providerValue}>
-          {step === 1 ? <RegistStep1 /> : <></>}
-          {step === 2 ? <RegistStep2 /> : <></>}
-          {step === 3 ? <RegistStep3 /> : <></>}
-          {step === 4 ? <RegistStep4 /> : <></>}
+          {step === 1 ? (
+            <PageTransition>
+              <RegistStep1 />
+            </PageTransition>
+          ) : (
+            <></>
+          )}
+          {step === 2 ? (
+            <PageTransition>
+              <RegistStep2 />
+            </PageTransition>
+          ) : (
+            <></>
+          )}
+          {step === 3 ? (
+            <PageTransition>
+              <RegistStep3 />
+            </PageTransition>
+          ) : (
+            <></>
+          )}
+          {step === 4 ? (
+            <PageTransition>
+              <RegistStep4 />
+            </PageTransition>
+          ) : (
+            <></>
+          )}
         </RegistContext.Provider>
       </div>
     </>

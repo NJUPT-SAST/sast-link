@@ -12,10 +12,12 @@ import Link from "next/link";
 import { Anchor } from "@/components/anchor";
 import { OtherLoginList } from "@/components/list/otherLoginList";
 import { GithubIcon, QqIcon, MsIcon } from "@/components/icon";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import styles from "./page.module.scss";
 import classNames from "classnames";
+import PageTransition from "@/components/pageTransition";
+import { message } from "@/components/message";
 
 const list = [
   {
@@ -41,6 +43,7 @@ const LoginStep1 = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { redirect } = useAppSelector((state) => state.loginMessage);
+  const urlParams = useSearchParams();
   const [error, setError] = useState<
     { error: false } | { error: true; errMsg: string }
   >({ error: false });
@@ -57,76 +60,91 @@ const LoginStep1 = () => {
    */
   return (
     <>
-      <Form
-        className={[`${styles.nameForm}`]}
-        names={["username"]}
-        onSubmit={(args) => {
-          setLoading(true);
-          const username = args.username as string;
-          veriLoginAccount(username)
-            .then((res) => {
-              console.log("res", res);
-              if (res.data.Success) {
-                const ticket = res.data.Data.loginTicket;
-                console.log(ticket);
-                dispatch(addLoginTicket(ticket));
-                router.replace("/login/2");
+      <PageTransition className={styles.formLayout}>
+        <Form
+          className={[`${styles.nameForm}`]}
+          names={["username"]}
+          onSubmit={(args) => {
+            setLoading(true);
+            const username = args.username as string;
+            veriLoginAccount(username)
+              .then((res) => {
+                console.log("res", res);
+                if (res.data.Success) {
+                  const ticket = res.data.Data.loginTicket;
+                  console.log(ticket);
+                  dispatch(addLoginTicket(ticket));
+                  console.log(urlParams.get("redirect"));
+                  router.replace(
+                    `/login/2${
+                      !!urlParams.get("redirect")
+                        ? `?redirect=${urlParams.get("redirect")}`
+                        : ""
+                    }`,
+                  );
+                  return;
+                }
+                setError({ error: true, errMsg: res.data.ErrMsg });
+              })
+              .catch()
+              .finally(() => {
+                setLoading(false);
+              });
+          }}
+        >
+          <div className={`${styles.inputDiv}`}>
+            <InputWithLabel
+              setErrorState={setError}
+              veridate={veridate}
+              ref={inputRef}
+              label="账户"
+              name="username"
+              error={error}
+              palceholder="学号或邮箱"
+            />
+            <div className={styles.resetPwdContainer}>
+              <Link href={"/reset"} className={styles.resetPwd}>
+                忘记密码
+              </Link>
+            </div>
+          </div>
+
+          <Button
+            loading={loading}
+            onClick={(e) => {
+              const check = veridate(inputRef.current!.value);
+              if (check) {
+                setError(handleError(check));
+                e.preventDefault();
                 return;
               }
-              setError({ error: true, errMsg: res.data.ErrMsg });
-            })
-            .catch()
-            .finally(() => {
-              setLoading(false);
-            });
-        }}
-      >
-        <div className={`${styles.inputDiv}`}>
-          <InputWithLabel
-            setErrorState={setError}
-            veridate={veridate}
-            ref={inputRef}
-            label="账户"
-            name="username"
-            error={error}
-            palceholder="学号或邮箱"
-          />
-          <div className={styles.resetPwdContainer}>
-            <Link href={"/reset"} className={styles.resetPwd}>
-              忘记密码
-            </Link>
-          </div>
-        </div>
-
-        <Button
-          loading={loading}
-          onClick={(e) => {
-            const check = veridate(inputRef.current!.value);
-            if (check) {
-              setError(handleError(check));
-              e.preventDefault();
-              return;
-            }
+            }}
+            className={classNames(styles.formButton)}
+            type={"submit"}
+          >
+            下一步
+          </Button>
+        </Form>
+        {
+          // TODO 第三方认证登录
+        }
+        <Anchor
+          onClick={() => {
+            message.warning("暂未开放");
           }}
-          className={classNames(styles.formButton)}
-          type={"submit"}
+          href="./"
+          className={classNames(styles.anchor)}
         >
-          下一步
-        </Button>
-      </Form>
-      {
-        // TODO 第三方认证登录
-      }
-      <Anchor href="./" className={[styles.anchor]}>
-        SAST 飞书登录
-      </Anchor>
-      <OtherLoginList list={list} />
-      <div className={`${styles.toRegist}`}>
-        没有账号？
-        <Link href={`/regist${!!redirect ? `?redirect=${redirect}` : ""}`}>
-          注册
-        </Link>
-      </div>
+          SAST 飞书登录
+        </Anchor>
+        <OtherLoginList list={list} />
+        <div className={`${styles.toRegist}`}>
+          没有账号？
+          <Link href={`/regist${!!redirect ? `?redirect=${redirect}` : ""}`}>
+            注册
+          </Link>
+        </div>
+      </PageTransition>
     </>
   );
 };
