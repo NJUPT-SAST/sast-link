@@ -5,7 +5,7 @@ const nextConfig = {
     return [
       {
         source: "/apis/:slug*",
-        destination: `http://81.68.225.220:8080/api/v1/:slug*`,
+        destination: `http://10.11.12.13:8080/api/v1/:slug*`,
       },
     ];
   },

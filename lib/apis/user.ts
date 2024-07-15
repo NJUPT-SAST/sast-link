@@ -1,22 +1,30 @@
 import { apis } from ".";
-import qs from "querystring";
-import { EditableProfileType, ResType, UserProfileType } from "./type";
+import type { EditableProfileType, ResType, UserProfileType } from "./type";
 
 /**
  * 用户登录
  * @param password 用户密码
  * @returns 返回用户Token
  */
-export function userLogin(password: string, loginTicket: string) {
+export function userLogin(
+  password: string,
+  loginTicket: string,
+  oauthTicket?: string | null,
+) {
   const formData = new FormData();
   formData.append("password", password);
   return apis.post<ResType<{ loginToken: string }>>(
     "/apis/user/login",
     formData,
     {
-      headers: {
-        "LOGIN-TICKET": loginTicket,
-      },
+      headers: oauthTicket
+        ? {
+            "LOGIN-TICKET": loginTicket,
+            "OAUTH-TICKET": oauthTicket,
+          }
+        : {
+            "LOGIN-TICKET": loginTicket,
+          },
     },
   );
 }

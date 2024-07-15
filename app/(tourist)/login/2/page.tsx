@@ -57,11 +57,14 @@ const LoginStep2 = () => {
             if (typeof args.password === "string") {
               const password = args.password;
               console.log(loginTicket);
-              userLogin(password, loginTicket ?? "")
+              userLogin(
+                password,
+                loginTicket ?? "",
+                urlParams.get("oauthTicket"),
+              )
                 .then((res) => {
                   if (res.data.Success) {
                     const token = res.data.Data.loginToken;
-                    console.log(token);
 
                     localStorage.setItem("Token", JSON.stringify(token));
                     tokenRef.current = token;
@@ -78,10 +81,10 @@ const LoginStep2 = () => {
                         );
                         //dispatch(login({ username: "ming", email: data.email }));
                         if (urlParams.get("redirect") !== null) {
-                          console.log(redirect_uri);
                           router.push(redirect_uri);
                         } else {
-                          router.push(redirect_uri ?? "/home");
+                          console.log("go home");
+                          router.push("/home");
                         }
                         return;
                       }
