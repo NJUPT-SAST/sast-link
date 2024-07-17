@@ -18,7 +18,7 @@ const RegistStep4 = () => {
           <Player
             autoplay={true}
             loop={false}
-            src="https://assets5.lottiefiles.com/packages/lf20_svaw8skx.json"
+            src="/svg/done.json"
             style={{ height: "200px", width: "200px" }}
             keepLastFrame
             renderer="svg"

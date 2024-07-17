@@ -1,8 +1,8 @@
 import BackLayout from "@/components/Layout/BackLayout";
 import { Layout } from "@/components/Layout";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import { Metadata } from "next";
+import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Login",
 };

@@ -1,6 +1,7 @@
 import { apis } from ".";
+// biome-ignore lint/style/useNodejsImportProtocol: <explanation>
 import qs from "querystring";
-import { ResType } from "./type";
+import type { ResType } from "./type";
 /**
  * 验证账户有效性
  * @param username 用户名
@@ -109,3 +110,7 @@ export function resetPassword(password: string, resetTicket: string) {
     },
   );
 }
+
+export const getFeishuLoginStatus = (code: string, state: string) => {
+  return apis.get(`/apis/login/lark/callback?code=${code}&state=${state}`);
+};

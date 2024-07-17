@@ -18,6 +18,7 @@ import styles from "./page.module.scss";
 import classNames from "classnames";
 import PageTransition from "@/components/pageTransition";
 import { message } from "@/components/message";
+import { LarkIcon } from "@/components/icon/larkIcon";
 
 const list = [
   {
@@ -77,8 +78,12 @@ const LoginStep1 = () => {
                   console.log(urlParams.get("redirect"));
                   router.replace(
                     `/login/2${
-                      !!urlParams.get("redirect")
+                      urlParams.get("redirect")
                         ? `?redirect=${urlParams.get("redirect")}`
+                        : ""
+                    }${
+                      urlParams.get("oauthTicket")
+                        ? `?oauthTicket=${urlParams.get("oauthTicket")}`
                         : ""
                     }`,
                   );
@@ -112,6 +117,7 @@ const LoginStep1 = () => {
           <Button
             loading={loading}
             onClick={(e) => {
+              // biome-ignore lint/style/noNonNullAssertion: <explanation>
               const check = veridate(inputRef.current!.value);
               if (check) {
                 setError(handleError(check));
@@ -129,10 +135,10 @@ const LoginStep1 = () => {
           // TODO 第三方认证登录
         }
         <Anchor
-          onClick={() => {
-            message.warning("暂未开放");
-          }}
-          href="./"
+          // onClick={() => {
+          // 	message.warning("暂未开放");
+          // }}
+          href={`/apis/login/lark?redirect_url=${window.location.protocol}//${window.location.host}/callback/feishu`}
           className={classNames(styles.anchor)}
         >
           SAST 飞书登录
@@ -140,7 +146,7 @@ const LoginStep1 = () => {
         <OtherLoginList list={list} />
         <div className={`${styles.toRegist}`}>
           没有账号？
-          <Link href={`/regist${!!redirect ? `?redirect=${redirect}` : ""}`}>
+          <Link href={`/regist${redirect ? `?redirect=${redirect}` : ""}`}>
             注册
           </Link>
         </div>
