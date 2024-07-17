@@ -25,7 +25,7 @@ const OtherLoginList = (props: {
             >
               <a
                 title={item.describe}
-                href={`${item.target}?redirect_url=http://localhost:3000/callback/feishu`}
+                href={`${item.target}?redirect_url=${location.protocol}//${location.host}/callback/feishu`}
               >
                 {item.icon}
               </a>

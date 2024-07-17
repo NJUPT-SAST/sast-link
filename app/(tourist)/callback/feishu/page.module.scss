@@ -1,9 +1,9 @@
 .base {
+  display: grid;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100vh;
-  display: grid;
-  justify-content: center;
-  align-items: center;
   .wrap {
     display: flex;
     flex-direction: column;
