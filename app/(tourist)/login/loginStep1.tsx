@@ -36,11 +36,6 @@ const list = [
     describe: "Microsoft",
     icon: <MsIcon />,
   },
-  {
-    target: "http://10.11.12.13:8080/api/v1/login/lark",
-    describe: "Feishu",
-    icon: <LarkIcon />,
-  },
 ];
 
 const LoginStep1 = () => {
@@ -143,7 +138,7 @@ const LoginStep1 = () => {
           // onClick={() => {
           // 	message.warning("暂未开放");
           // }}
-          href="/apis/login/lark?redirect_url=http://localhost:3000/callback/feishu"
+          href={`/apis/login/lark?redirect_url=${window.location.protocol}//${window.location.host}/callback/feishu`}
           className={classNames(styles.anchor)}
         >
           SAST 飞书登录
