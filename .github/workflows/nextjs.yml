@@ -49,8 +49,8 @@ jobs:
             ### Notice: run for develop ###
             # Stop and remove existing container if it exists
             if [ "$(docker ps -aq -f name=sast-link-frontend)" ]; then
-              docker stop sastlink
-              docker rm sastlink
+              docker stop sast-link-frontend
+              docker rm sast-link-frontend
             fi
             # Remove existing image if it exists
             if [ "$(docker images -q sast/sast-link-frontend)" ]; then
