@@ -45,7 +45,6 @@ jobs:
           SCRIPT_AFTER: |
             cd /tmp/sast-link-frontend
             tar -cf sast-link-frontend.tar *
-            docker load -i sast-link-frontend.tar
             ### Notice: run for develop ###
             # Stop and remove existing container if it exists
             if [ "$(docker ps -aq -f name=sast-link-frontend)" ]; then
