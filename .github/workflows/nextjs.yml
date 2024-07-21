@@ -33,11 +33,12 @@ jobs:
       - name: Copy Docker image to server
         uses: easingthemes/ssh-deploy@main
         with:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+          REMOTE_PORT: ${{ secrets.PORT }}
           ARGS: "-ravc -i --delete"
           SOURCE: "./sast-link-frontend/"
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          REMOTE_HOST: ${{ secrets.HOST }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: /tmp/sast-link-frontend
           SCRIPT_BEFORE: |
             [ -d /tmp/sast-link-frontend ] || mkdir /tmp/sast-link-frontend
