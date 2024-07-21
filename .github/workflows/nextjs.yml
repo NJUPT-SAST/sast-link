@@ -57,4 +57,4 @@ jobs:
               docker rmi sast/sast-link-frontend
             fi
             docker load -i sast-link-frontend.tar
-            docker run --restart always -d --name sast-link-frontend -p 3000:3000 sast/sast-link-frontend
+            docker run --restart always -d --name sast-link-frontend -p 127.0.0.1:3000:3000 sast/sast-link-frontend
