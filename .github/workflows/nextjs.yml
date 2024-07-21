@@ -1,39 +1,59 @@
 name: sast link frontend
 
 on:
-  # push:
-  #   branches: ["master"]
+  push:
+    branches: ["master"]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18.17.1
 
-      - name: sync to server
-        uses: burnett01/rsync-deployments@6.0.0
-        with:
-          switches: -rv
-          path: ./
-          remote_path: /home/link/${{ secrets.HOST }}/frontend/
-          remote_host: ${{ secrets.HOST }}
-          remote_user: ${{ secrets.USERNAME }}
-          remote_key: ${{ secrets.DEPLOY_KEY }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: restart service
-        uses: appleboy/ssh-action@v1.0.0
+      - name: Cache Docker layers
+        uses: actions/cache@v4
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.DEPLOY_KEY }}
-          port: ${{ secrets.PORT }}
-          script: |
-            cd ${{ secrets.HOST }}/frontend
-            rm -r .next
-            echo =====$(pwd)=====
-            pnpm i
-            pnpm build
-            pm2 list | grep -q "link" && pm2 restart "sast-link" || pm2 start pnpm --name "sast-link" -- start
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Build Docker image
+        run: |
+          docker buildx build --platform linux/amd64 -t sast/sast-link-frontend --output type=docker,dest=sast-link-frontend.tar .
+
+      - name: Extract image
+        run: |
+          [ -d sast-link-frontend ] || mkdir sast-link-frontend
+          tar -xf sast-link-frontend.tar -C sast-link-frontend
+
+      - name: Copy Docker image to server
+        uses: easingthemes/ssh-deploy@main
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          ARGS: "-ravc -i --delete"
+          SOURCE: "./sast-link-frontend/"
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          TARGET: /tmp/sast-link-frontend
+          SCRIPT_BEFORE: |
+            [ -d /tmp/sast-link-frontend ] || mkdir /tmp/sast-link-frontend
+          SCRIPT_AFTER: |
+            cd /tmp/sast-link-frontend
+            tar -cf sast-link-frontend.tar *
+            docker load -i sast-link-frontend.tar
+            ### Notice: run for develop ###
+            # Stop and remove existing container if it exists
+            if [ "$(docker ps -aq -f name=sast-link-frontend)" ]; then
+              docker stop sastlink
+              docker rm sastlink
+            fi
+            # Remove existing image if it exists
+            if [ "$(docker images -q sast/sast-link-frontend)" ]; then
+              docker rmi sast/sast-link-frontend
+            fi
+            docker load -i sast-link-frontend.tar
+            docker run --restart always -d --name sast-link-frontend -p 3000:3000 sast/sast-link-frontend
