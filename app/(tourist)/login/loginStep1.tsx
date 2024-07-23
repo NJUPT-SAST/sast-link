@@ -22,7 +22,7 @@ import { LarkIcon } from "@/components/icon/larkIcon";
 
 const list = [
   {
-    target: "",
+    target: `/apis/login/github?redirect_url=${window.location.protocol}//${window.location.host}/callback/github`,
     describe: "Github",
     icon: <GithubIcon />,
   },

@@ -16,16 +16,15 @@ const OtherLoginList = (props: {
       <ul className={classNames([styles.icons])}>
         {list.map((item) => {
           return (
-            // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
             <li
-              // onClick={() => {
-              // 	message.warning("暂未开放");
-              // }}
+              onClick={() => {
+                !item.target && message.warning("暂未开放");
+              }}
               key={`other_login_${item.describe}`}
             >
               <a
                 title={item.describe}
-                href={`${item.target}?redirect_url=${location.protocol}//${location.host}/callback/feishu`}
+                href={item.target ? item.target : undefined}
               >
                 {item.icon}
               </a>

@@ -1,0 +1,16 @@
+.base {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  .wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    .text {
+      font-weight: bold;
+      font-size: large;
+    }
+  }
+}
