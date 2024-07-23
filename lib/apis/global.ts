@@ -117,4 +117,4 @@ export const getFeishuLoginStatus = (code: string, state: string) => {
 
 export const getGithubLoginStatus = (code: string, state: string) => {
   return apis.get(`/apis/login/github/callback?code=${code}&state=${state}`);
-}
+};
