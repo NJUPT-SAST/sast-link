@@ -1,5 +1,5 @@
 "use client";
-import { getFeishuLoginStatus } from "@/lib/apis/global";
+import { getGithubLoginStatus } from "@/lib/apis/global";
 import { getUserInfo } from "@/lib/apis/user";
 import { useAppDispatch } from "@/redux";
 import { addAccount } from "@/redux/features/userList";
@@ -9,7 +9,7 @@ import styles from "./page.module.scss";
 import { Player } from "@lottiefiles/react-lottie-player";
 import BackLayout from "@/components/Layout/BackLayout";
 
-const FeishuCallback = ({
+const GithubCallback = ({
   searchParams,
 }: {
   searchParams: {
@@ -24,11 +24,11 @@ const FeishuCallback = ({
   console.log("code", code, "state", state);
 
   useEffect(() => {
-    getFeishuLoginStatus(code, state).then((feishuRes) => {
-      if (feishuRes.data.Success) {
+    getGithubLoginStatus(code, state).then((githubRes) => {
+      if (githubRes.data.Success) {
         localStorage.setItem(
           "Token",
-          JSON.stringify(feishuRes.data.Data.loginToken),
+          JSON.stringify(githubRes.data.Data.loginToken),
         );
         getUserInfo().then((res) => {
           if (res.data.Success) {
@@ -37,7 +37,7 @@ const FeishuCallback = ({
               addAccount({
                 nickName: "ming",
                 email: data.email,
-                Token: feishuRes.data.Data.loginToken,
+                Token: githubRes.data.Data.loginToken,
                 userId: data.userId,
               }),
             );
@@ -46,10 +46,10 @@ const FeishuCallback = ({
           }
         });
       } else {
-        if (feishuRes.data.ErrCode === 50000) {
-          return <div>飞书登录失败</div>;
+        if (githubRes.data.ErrCode === 50000) {
+          return <div>Github 登录失败</div>;
         }
-        router.replace(`/login?oauthTicket=${feishuRes.data.Data.oauthTicket}`);
+        router.replace(`/login?oauthTicket=${githubRes.data.Data.oauthTicket}`);
       }
     });
   }, [code, dispatch, router, state]);
@@ -73,4 +73,4 @@ const FeishuCallback = ({
   );
 };
 
-export default FeishuCallback;
+export default GithubCallback;

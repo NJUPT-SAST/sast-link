@@ -1,7 +1,7 @@
 "use client";
 
 import { Form } from "@/components/form";
-import { useContext, useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux";
 import { addLoginTicket } from "@/redux/features/login";
 import { veriLoginAccount } from "@/lib/apis/global";
@@ -18,11 +18,10 @@ import styles from "./page.module.scss";
 import classNames from "classnames";
 import PageTransition from "@/components/pageTransition";
 import { message } from "@/components/message";
-import { LarkIcon } from "@/components/icon/larkIcon";
 
 const list = [
   {
-    target: "",
+    target: `/apis/login/github?redirect_url=${window.location.protocol}//${window.location.host}/callback/github`,
     describe: "Github",
     icon: <GithubIcon />,
   },
@@ -56,6 +55,12 @@ const LoginStep1 = () => {
     return false;
   }, []);
 
+  useEffect(() => {
+    if (urlParams.get("oauthTicket")) {
+      message.warning("请先绑定账号");
+    }
+  }, [urlParams]);
+
   /**
    * 输入账号，点击登录后进入判断，验证账号存在性，存储返回信息
    */
@@ -70,12 +75,9 @@ const LoginStep1 = () => {
             const username = args.username as string;
             veriLoginAccount(username)
               .then((res) => {
-                console.log("res", res);
                 if (res.data.Success) {
                   const ticket = res.data.Data.loginTicket;
-                  console.log(ticket);
                   dispatch(addLoginTicket(ticket));
-                  console.log(urlParams.get("redirect"));
                   router.replace(
                     `/login/2${
                       urlParams.get("redirect")
@@ -128,22 +130,20 @@ const LoginStep1 = () => {
             className={classNames(styles.formButton)}
             type={"submit"}
           >
-            下一步
+            {urlParams.get("oauthTicket") ? "绑定账号" : "下一步"}
           </Button>
         </Form>
-        {
-          // TODO 第三方认证登录
-        }
-        <Anchor
-          // onClick={() => {
-          // 	message.warning("暂未开放");
-          // }}
-          href={`/apis/login/lark?redirect_url=${window.location.protocol}//${window.location.host}/callback/feishu`}
-          className={classNames(styles.anchor)}
-        >
-          SAST 飞书登录
-        </Anchor>
-        <OtherLoginList list={list} />
+        {!urlParams.get("oauthTicket") && (
+          <>
+            <Anchor
+              href={`/apis/login/lark?redirect_url=${window.location.protocol}//${window.location.host}/callback/feishu`}
+              className={classNames(styles.anchor)}
+            >
+              SAST 飞书登录
+            </Anchor>
+            <OtherLoginList list={list} />
+          </>
+        )}
         <div className={`${styles.toRegist}`}>
           没有账号？
           <Link href={`/regist${redirect ? `?redirect=${redirect}` : ""}`}>
@@ -155,4 +155,4 @@ const LoginStep1 = () => {
   );
 };
 
-export { LoginStep1 };
+export default LoginStep1;
