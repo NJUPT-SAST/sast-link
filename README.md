@@ -52,6 +52,28 @@ The output will be in the `.next` directory, you can run it with:
 pnpm start
 ```
 
+### Nix Way
+Enter a shell(zsh) environment with node, pnpm... :
+```
+nix develop
+```
+
+Build this project :
+```
+nix build
+```
+this will create a `result` point to nix store path of sast-link
+
+Run :
+```
+nix run
+```
+or
+```
+./result/bin/sast-link
+```
+if `nix build` before
+
 ### Project Structure
 
 ```txt
