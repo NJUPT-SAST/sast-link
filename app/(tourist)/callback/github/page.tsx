@@ -1,5 +1,4 @@
 "use client";
-import { handleError } from "@/components/function";
 import { getGithubLoginStatus } from "@/lib/apis/global";
 import { getUserInfo } from "@/lib/apis/user";
 import { useAppDispatch } from "@/redux";
@@ -7,8 +6,6 @@ import { addAccount } from "@/redux/features/userList";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import styles from "./page.module.scss";
-import { cupSaucer } from "@lucide/lab";
-import { Icon } from "lucide-react";
 import { Player } from "@lottiefiles/react-lottie-player";
 import BackLayout from "@/components/Layout/BackLayout";
 
