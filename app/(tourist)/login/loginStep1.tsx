@@ -1,7 +1,7 @@
 "use client";
 
 import { Form } from "@/components/form";
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux";
 import { addLoginTicket } from "@/redux/features/login";
 import { veriLoginAccount } from "@/lib/apis/global";
@@ -17,6 +17,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./page.module.scss";
 import classNames from "classnames";
 import PageTransition from "@/components/pageTransition";
+import { message } from "@/components/message";
 
 const list = [
   {
@@ -53,6 +54,12 @@ const LoginStep1 = () => {
     }
     return false;
   }, []);
+
+  useEffect(() => {
+    if (urlParams.get("oauthTicket")) {
+      message.warning("请先绑定账号");
+    }
+  }, [urlParams]);
 
   /**
    * 输入账号，点击登录后进入判断，验证账号存在性，存储返回信息
@@ -148,4 +155,4 @@ const LoginStep1 = () => {
   );
 };
 
-export { LoginStep1 };
+export default LoginStep1;
