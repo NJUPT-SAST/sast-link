@@ -9,6 +9,7 @@
   };
 
   outputs = {
+    self,
     nixpkgs,
     flake-utils,
     ...
@@ -57,6 +58,13 @@
 
             runHook postInstall
           '';
+      };
+
+      packages.sast-link-docker = pkgs.dockerTools.buildImage {
+        name = "sast-link-frontend";
+        config = {
+          Entrypoint = [ "${self.packages.${system}.default}/bin/sast-link" ];
+        };
       };
     });
 }
