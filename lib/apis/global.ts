@@ -114,3 +114,7 @@ export function resetPassword(password: string, resetTicket: string) {
 export const getFeishuLoginStatus = (code: string, state: string) => {
   return apis.get(`/apis/login/lark/callback?code=${code}&state=${state}`);
 };
+
+export const getGithubLoginStatus = (code: string, state: string) => {
+  return apis.get(`/apis/login/github/callback?code=${code}&state=${state}`);
+};

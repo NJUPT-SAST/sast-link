@@ -1,0 +1,29 @@
+name: automatically update package-lock.json and npmDepsHash
+
+on:
+  push:
+    branches: ["master"]
+    paths:
+      - package.json
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: update package-lock.json and npmDepsHash
+        uses: cachix/install-nix-action@v27
+        with:
+          github_access_token: ${{ secrets.ACTION_TOKEN }}
+      - run: ./update-nix-npm-dep.sh
+
+      - name: create github pr
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.ACTION_TOKEN }}
+          commit-message: bump package-lock.json and flake npmDepsHash
+          branch: auto-update/nix-npm
+          branch-suffix: short-commit-hash
+          delete-branch: true
+          title: '[Nix Npm Bump] Update package-lock.json and flake npmDepsHash'
