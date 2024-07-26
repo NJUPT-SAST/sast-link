@@ -18,7 +18,6 @@ jobs:
 
       - name: update package-lock.json and npmDepsHash
         uses: cachix/install-nix-action@v27
-        uses: actions/setup-node@v4
         run: ./update-nix-npm-dep.sh
 
       - name: create github pr
