@@ -3,20 +3,14 @@ name: automatically update package-lock.json and npmDepsHash
 on:
   push:
     branches: ["master"]
+    paths:
+      - package.json
 
 jobs:
   update:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: check if package.json has changed
-        run: |
-          if ! git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep package.json; then
-            exit 0
-          fi
 
       - name: update package-lock.json and npmDepsHash
         uses: cachix/install-nix-action@v27
