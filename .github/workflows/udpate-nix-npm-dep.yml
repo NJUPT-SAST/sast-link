@@ -12,7 +12,7 @@ jobs:
 
       - name: check if package.json has changed
         run: |
-          if ! git diff --name-only HEAD HEAD~ | grep package.json; then
+          if ! git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep package.json; then
             exit 0
           fi
 
