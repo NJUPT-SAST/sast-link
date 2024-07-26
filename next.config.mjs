@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  ...(process.env.OUTPUT_STANDALONE && { output: "standalone" }),
   async rewrites() {
     return [
       {
