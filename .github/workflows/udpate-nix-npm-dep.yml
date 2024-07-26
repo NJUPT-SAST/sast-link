@@ -18,7 +18,9 @@ jobs:
 
       - name: update package-lock.json and npmDepsHash
         uses: cachix/install-nix-action@v27
-        run: ./update-nix-npm-dep.sh
+        with:
+          github_access_token: ${{ secrets.ACTION_TOKEN }}
+      - run: ./update-nix-npm-dep.sh
 
       - name: create github pr
         uses: peter-evans/create-pull-request@v6
