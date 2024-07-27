@@ -15,13 +15,13 @@
     flex-direction: column;
     gap: 12px;
     align-items: center;
-    width: 330px;
+    width: 332px;
     height: 36vh;
     min-height: 220px;
     max-height: 310px;
     padding: 28px 0 85px;
     .descript {
-      width: 290px;
+      padding: 0 4px;
 
       font-size: 14px;
       text-align: initial;
@@ -41,10 +41,6 @@
 
 .mailInput {
   position: relative;
-  input {
-    width: 121px;
-    padding: 1px 180px 1px 13px;
-  }
 }
 
 .inputDiv.passInput {

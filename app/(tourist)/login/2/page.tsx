@@ -56,7 +56,6 @@ const LoginStep2 = () => {
             setLoading(true);
             if (typeof args.password === "string") {
               const password = args.password;
-              console.log(loginTicket);
               userLogin(
                 password,
                 loginTicket ?? "",

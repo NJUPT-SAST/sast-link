@@ -1,4 +1,7 @@
-@import url('/reset.scss');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --sast-link: "hello!";
   --color-primary: #1c1f23;
@@ -28,7 +31,7 @@ body {
 
   color: var(--color-primary);
 
-  font-size: 64px;
+  font-size: 43px;
 
   @media screen and (max-width: 498px) {
     width: 322px;
