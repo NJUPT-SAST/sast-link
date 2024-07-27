@@ -27,7 +27,7 @@
           buildInputs  = with pkgs; [
             nodePackages.node-gyp-build
           ];
-          npmDepsHash = "sha256-IlUPLmW18JPyGcY6EWnX2tdLlHTEi4aTk5iipw4H7Gs="; # <prefetch-npm-deps package-lock.json>
+          npmDepsHash = "sha256-Qx/VrcHJZEhK9FLjJEMYk5U+9C9ok11lOcy4kPx+7ME="; # <prefetch-npm-deps package-lock.json>
 
           # see ./next.config.mjs
           env.OUTPUT_STANDALONE = true;
