@@ -48,7 +48,12 @@ const AppPanel = () => {
             className={classNames(styles.appItem)}
           >
             <div className={classNames(styles.appLogo)}>
-              <Image src={aprove} alt={"approve system"} />
+              <Image
+                width={32}
+                height={32}
+                src={aprove}
+                alt={"approve system"}
+              />
             </div>
 
             <span className={styles.appName}>审批系统</span>

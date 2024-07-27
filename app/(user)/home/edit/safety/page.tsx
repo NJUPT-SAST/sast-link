@@ -14,7 +14,7 @@ const Safety = () => {
   const route = useRouter();
   const userBasicInfo = useAppSelector((state) => state.userBasicInfo);
   return (
-    <PageTransition className={styles.settingPanelList}>
+    <div className={styles.settingPanelList}>
       <div className={classNames(styles.settingPanel)}>
         <Back />
         <div className={styles.settingPanelTitle}>邮箱设置</div>
@@ -40,7 +40,7 @@ const Safety = () => {
           </Button>
         </div>
       </div>
-    </PageTransition>
+    </div>
   );
 };
 

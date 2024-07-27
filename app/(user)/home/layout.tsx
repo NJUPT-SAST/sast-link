@@ -12,7 +12,6 @@ const Layout = (props: {
   profilePanel: ReactNode;
   getInfo: ReactNode;
 }) => {
-  // console.log(props);
   const { children, infoPanel, appPanel, profilePanel, getInfo } = props;
   return (
     <>
@@ -20,11 +19,7 @@ const Layout = (props: {
       <TopBar />
       {getInfo}
       <PageTransition
-        style={{
-          display: "flex",
-          width: "100vw",
-          justifyContent: "center",
-        }}
+        className="flex w-full justify-center px-5"
         position="bottomToTop"
       >
         <div className={classNames(styles.homeContainer)}>

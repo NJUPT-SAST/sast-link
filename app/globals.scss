@@ -1,4 +1,7 @@
-@import url('/reset.scss');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --sast-link: "hello!";
   --color-primary: #1c1f23;

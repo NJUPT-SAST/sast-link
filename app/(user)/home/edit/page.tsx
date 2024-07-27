@@ -117,7 +117,7 @@ const Edit = () => {
   return (
     <>
       {!avatarFile ? (
-        <PageTransition className={styles.settingPanelList}>
+        <div className={styles.settingPanelList}>
           <div className={classNames(styles.settingPanel)}>
             <Back />
             <div className={styles.settingPanelTitle}>头像设置</div>
@@ -209,9 +209,9 @@ const Edit = () => {
               </div>
             </div>
           </form>
-        </PageTransition>
+        </div>
       ) : (
-        <PageTransition
+        <div
           style={{ alignItems: "center" }}
           className={styles.settingPanelList}
         >
@@ -240,7 +240,7 @@ const Edit = () => {
           <Button loading={uploadLoading} onClick={handleAvatarUpdate}>
             确认提交
           </Button>
-        </PageTransition>
+        </div>
       )}
     </>
   );

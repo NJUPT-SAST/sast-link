@@ -99,7 +99,7 @@ const LoginStep1 = () => {
               });
           }}
         >
-          <div className={`${styles.inputDiv}`}>
+          <div className="w-full">
             <InputWithLabel
               setErrorState={setError}
               veridate={veridate}
