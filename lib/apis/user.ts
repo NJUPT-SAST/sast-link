@@ -94,3 +94,9 @@ export function uploadAvatar(file: Blob) {
     { headers: { Token: JSON.parse(localStorage.getItem("Token") ?? "") } },
   );
 }
+
+export function getUserBindStatus() {
+  return apis.get<ResType<string[]>>("/apis/profile/bindStatus", {
+    headers: { Token: JSON.parse(localStorage.getItem("Token") ?? "") },
+  });
+}

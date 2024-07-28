@@ -94,7 +94,6 @@
   justify-items: center;
   width: 100%;
   max-height: calc(100vh - 270px);
-  overflow-y: auto;
   @media screen and (min-width: 500px) {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }

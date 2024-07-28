@@ -36,7 +36,7 @@ const Home = () => {
           <Link href="https://fc.sast.fun">
             <MagicCard className="p-4 grid place-content-center">
               <div className="flex flex-col gap-2 items-center">
-                <Image src={fc} alt={"approve system"} />
+                <Image width={45} height={45} src={fc} alt={"sastoj"} />
                 <span className={styles.appName}>SASTOJ</span>
               </div>
             </MagicCard>
@@ -44,7 +44,7 @@ const Home = () => {
           <Link href="https://sastimg.mxte.cc">
             <MagicCard className="p-4 grid place-content-center">
               <div className="flex flex-col gap-2 items-center">
-                <Image src={seeing} alt={"approve system"} />
+                <Image src={seeing} alt={"sast image"} />
                 <span className={styles.appName}>视觉科协</span>
               </div>
             </MagicCard>
@@ -52,7 +52,7 @@ const Home = () => {
           <Link href="https://evento.sast.fun">
             <MagicCard className="p-4 grid place-content-center">
               <div className="flex flex-col gap-2 items-center">
-                <Image src={evento} alt={"approve system"} />
+                <Image src={evento} alt={"sast evento"} />
                 <span className={styles.appName}>SAST Evento</span>
               </div>
             </MagicCard>

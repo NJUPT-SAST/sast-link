@@ -31,11 +31,6 @@ const GetInfo = () => {
     if (localStorage.getItem("Token") === null) {
       return router.replace("/login");
     }
-    // getUserProfile().then((res) => {
-    //   if (res.data.Success === true) {
-    //     dispatch(setUserBasicInfo(res.data.Data));
-    //   } else router.replace("/login");
-    // });
   }, [dispatch, router]);
   return <></>;
 };
