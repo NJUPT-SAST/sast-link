@@ -16,11 +16,15 @@ import { BindAppItem } from "@/components/bindItem";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAppSelector } from "@/redux";
+import useSWR from "swr";
+import { getUserBindStatus } from "@/lib/apis/user";
 
 const ProfilePanel = () => {
   const userBasicInfo = useAppSelector((state) => state.userBasicInfo);
-  // console.log(userBasicInfo);
   const pathname = usePathname();
+  const { data } = useSWR("bindStatus", () =>
+    getUserBindStatus().then((res) => res.data.Data),
+  );
   return (
     <>
       <div
@@ -79,25 +83,25 @@ const ProfilePanel = () => {
         <BindAppItem
           bindAppIconProps={qqIcon}
           bindAppTitle={"QQ"}
-          binded={false}
+          binded={data?.includes("qq") ?? false}
         />
 
         <BindAppItem
           bindAppIconProps={feishuIcon}
           bindAppTitle={"SAST 飞书"}
-          binded={false}
+          binded={data?.includes("lark") ?? false}
         />
 
         <BindAppItem
           bindAppIconProps={msIcon}
           bindAppTitle={"Microsoft"}
-          binded={false}
+          binded={data?.includes("microsoft") ?? false}
         />
 
         <BindAppItem
           bindAppIconProps={githubIcon}
           bindAppTitle={"GutHub"}
-          binded={false}
+          binded={data?.includes("github") ?? false}
         />
       </div>
     </>
