@@ -14,7 +14,7 @@ export function veriRegistAccount(username: string) {
 }
 
 export function veriLoginAccount(username: string) {
-  return apis.get<ResType<{ loginTicket: string }>>("/apis/verify/account", {
+  return apis.get<ResType<{ "login-ticket": string }>>("/apis/verify/account", {
     params: { username: username, flag: 1 },
   });
 }
@@ -54,7 +54,7 @@ export function sendMail(ticket: string, type?: "reset") {
 export function veriCaptcha(ticket: string, captcha: string, type?: "reset") {
   if (type && type === "reset") {
     return apis.post<ResType<null>>(
-      "/apis/verify/captcha",
+      "/apis/verifyCode",
       qs.stringify({ captcha: "S-" + captcha }),
       {
         headers: {
@@ -66,7 +66,7 @@ export function veriCaptcha(ticket: string, captcha: string, type?: "reset") {
   }
 
   return apis.post<ResType<null>>(
-    "/apis/verify/captcha",
+    "/apis/verifyCode",
     qs.stringify({ captcha: "S-" + captcha }),
     {
       headers: {

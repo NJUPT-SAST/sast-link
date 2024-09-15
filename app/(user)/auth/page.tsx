@@ -54,8 +54,8 @@ export default function Auth() {
         dispach(addRedirect(location.href));
       } else {
         getUserInfo().then((res) => {
-          if (res.data.Success === true) {
-            setUserData({ ...res.data.Data });
+          if (res.data.success === true) {
+            setUserData({ ...res.data.data });
           } else {
             router.replace(`/login?redirect=${redirect}`);
             dispach(addRedirect(location.href));

@@ -37,15 +37,15 @@ const RegistStep1 = () => {
             veriRegistAccount(mail)
               .then((res) => {
                 let ticket = "";
-                if (res.data.Success === true) {
-                  ticket = res.data.Data.registerTicket;
+                if (res.data.success === true) {
+                  ticket = res.data.data.registerTicket;
                   handleTicket(ticket);
                   return sendMail(ticket).then((res) => {
-                    if (res.data.Success) handleStep(1);
-                    else setError(handleError(res.data.ErrMsg));
+                    if (res.data.success) handleStep(1);
+                    else setError(handleError(res.data.err_msg));
                   });
                 }
-                setError(handleError(res.data.ErrMsg));
+                setError(handleError(res.data.err_msg));
               })
               .catch((err) => console.log(err))
               .finally(() => {

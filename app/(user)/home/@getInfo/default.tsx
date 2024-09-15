@@ -13,8 +13,8 @@ const GetInfo = () => {
   const dispatch = useAppDispatch();
   const { data, isLoading } = useSWR("getProfile", () =>
     getUserProfile().then((res) => {
-      if (res.data.Success === true) {
-        const data = res.data.Data;
+      if (res.data.success === true) {
+        const data = res.data.data;
         dispatch(setUserBasicInfo(data));
         dispatch(login({ username: data.nickname, email: data.email }));
         dispatch(

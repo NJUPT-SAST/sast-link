@@ -36,15 +36,15 @@ const ResetStep1 = () => {
             veriResetAccount(mail)
               .then((res) => {
                 let ticket = "";
-                if (res.data.Success) {
-                  ticket = res.data.Data.resetPwdTicket;
+                if (res.data.success) {
+                  ticket = res.data.data.resetPwdTicket;
                   handleTicket(ticket);
                   return sendMail(ticket, "reset").then((res) => {
-                    if (res.data.Success) handleStep(1);
-                    else setError(handleError(res.data.ErrMsg));
+                    if (res.data.success) handleStep(1);
+                    else setError(handleError(res.data.err_msg));
                   });
                 }
-                setError(handleError(res.data.ErrMsg));
+                setError(handleError(res.data.err_msg));
               })
               .catch((err) => console.log(err))
               .finally(() => {

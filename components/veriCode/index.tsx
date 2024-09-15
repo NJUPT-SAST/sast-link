@@ -41,8 +41,8 @@ const VeriCode = (props: { reset?: true }) => {
             // console.log(resetContext.username);
             veriResetAccount(resetContext.username ?? "")
               .then((res) => {
-                if (res.data.Success) {
-                  const ticket = res.data.Data.resetPwdTicket;
+                if (res.data.success) {
+                  const ticket = res.data.data.resetPwdTicket;
                   resetContext.handleTicket(ticket);
                   return sendMail(ticket, "reset");
                 }
@@ -71,8 +71,8 @@ const VeriCode = (props: { reset?: true }) => {
           veriRegistAccount(username)
             .then(
               (res) => {
-                if (res.data.Success) {
-                  const ticket = res.data.Data.registerTicket;
+                if (res.data.success) {
+                  const ticket = res.data.data.registerTicket;
                   handleTicket(ticket);
                   return sendMail(ticket);
                 }

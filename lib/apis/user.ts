@@ -13,19 +13,9 @@ export function userLogin(
 ) {
   const formData = new FormData();
   formData.append("password", password);
-  return apis.post<ResType<{ loginToken: string }>>(
+  return apis.post<ResType<{ "sast-link-access-token": string }>>(
     "/apis/user/login",
     formData,
-    {
-      headers: oauthTicket
-        ? {
-            "LOGIN-TICKET": loginTicket,
-            "OAUTH-TICKET": oauthTicket,
-          }
-        : {
-            "LOGIN-TICKET": loginTicket,
-          },
-    },
   );
 }
 
@@ -36,11 +26,6 @@ export function userLogin(
 export function getUserInfo() {
   return apis.get<ResType<{ email: string; userId: string }>>(
     "/apis/user/info",
-    {
-      headers: {
-        Token: JSON.parse(localStorage.getItem("Token") ?? ""),
-      },
-    },
   );
 }
 
@@ -49,11 +34,7 @@ export function getUserInfo() {
  * @returns 返回用户 Token
  */
 export function userLogout() {
-  return apis.post<ResType<null>>(
-    "/apis/user/logout",
-    {},
-    { headers: { Token: JSON.parse(localStorage.getItem("Token") ?? "") } },
-  );
+  return apis.post<ResType<null>>("/apis/user/logout");
 }
 
 /**
@@ -61,11 +42,7 @@ export function userLogout() {
  * @returns
  */
 export function getUserProfile() {
-  return apis.get<ResType<UserProfileType>>("/apis/profile/getProfile", {
-    headers: {
-      Token: JSON.parse(localStorage.getItem("Token") ?? ""),
-    },
-  });
+  return apis.get<ResType<UserProfileType>>("/apis/profile/getProfile");
 }
 
 /**
@@ -75,7 +52,7 @@ export function getUserProfile() {
  */
 export function EditProfile(data: EditableProfileType) {
   return apis.post<ResType<null>>(
-    "/apis/profile/changeProfile",
+    "/apis/profile/change",
     { ...data },
     { headers: { Token: JSON.parse(localStorage.getItem("Token") ?? "") } },
   );

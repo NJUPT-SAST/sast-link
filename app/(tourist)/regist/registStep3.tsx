@@ -48,11 +48,11 @@ const RegistStep3 = () => {
           setLoading(true);
           userRegist(password, registTicket)
             .then((res) => {
-              if (res.data.Success) {
+              if (res.data.success) {
                 handleStep(1);
                 return;
               }
-              setPassError(handleError(res.data.ErrMsg));
+              setPassError(handleError(res.data.err_msg));
             })
             .catch()
             .finally(() => setLoading(false));

@@ -17,8 +17,8 @@ export default function RootLayout({
 }) {
   const fallback = {
     infoUpdate: {
-      Success: false,
-      Data: { email: "", username: "" },
+      success: false,
+      data: { email: "", username: "" },
     },
   };
   return (

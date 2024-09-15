@@ -62,14 +62,17 @@ const LoginStep2 = () => {
                 urlParams.get("oauthTicket"),
               )
                 .then((res) => {
-                  if (res.data.Success) {
-                    const token = res.data.Data.loginToken;
+                  if (res.data.success) {
+                    const token = res.data.data["sast-link-access-token"];
 
                     localStorage.setItem("Token", JSON.stringify(token));
                     tokenRef.current = token;
-                    return getUserInfo().then((res) => {
-                      if (res.data.Success) {
-                        const data = res.data.Data;
+                    console.log(token);
+                    getUserInfo().then((res) => {
+                      console.log(res);
+                      if (res.data.success) {
+                        const data = res.data.data;
+                        console.log(data);
                         dispatch(
                           addAccount({
                             nickName: "ming",
@@ -88,18 +91,18 @@ const LoginStep2 = () => {
                         return;
                       }
 
-                      setError(handleError(res.data.ErrMsg));
+                      setError(handleError(res.data.err_msg));
                     });
                   }
                   //如果loginTicket过期就重定向到登陆页面
-                  if (res.data.ErrCode === 20007) {
+                  if (res.data.err_code === 20007) {
                     router.replace("/login");
                   }
-                  setError(handleError(res.data.ErrMsg));
+                  setError(handleError(res.data.err_msg));
                 })
                 .catch((err) => {
                   //如果密码验证失败,会返回401错误码
-                  if (err.response.status === 401) {
+                  if (err.response?.status === 401) {
                     setError({
                       error: true,
                       errMsg: "密码错误，请重新输入密码",

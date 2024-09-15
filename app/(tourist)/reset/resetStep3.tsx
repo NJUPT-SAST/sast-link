@@ -48,11 +48,11 @@ const ResetStep3 = () => {
           setLoading(true);
           resetPassword(password, resetTicket)
             .then((res) => {
-              if (res.data.Success) {
+              if (res.data.success) {
                 handleStep(1);
                 return;
               }
-              setPassError(handleError(res.data.ErrMsg));
+              setPassError(handleError(res.data.err_msg));
             })
             .catch()
             .finally(() => setLoading(false));

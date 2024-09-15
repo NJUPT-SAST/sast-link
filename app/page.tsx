@@ -51,7 +51,7 @@ export default function Home() {
                   JSON.stringify(localUserList[selected].Token),
                 );
                 getUserInfo().then((res) => {
-                  if (res.data.Success) {
+                  if (res.data.success) {
                     router.replace("/home");
                     return;
                   }

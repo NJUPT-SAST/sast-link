@@ -25,19 +25,19 @@ const FeishuCallback = ({
 
   useEffect(() => {
     getFeishuLoginStatus(code, state).then((feishuRes) => {
-      if (feishuRes.data.Success) {
+      if (feishuRes.data.success) {
         localStorage.setItem(
           "Token",
-          JSON.stringify(feishuRes.data.Data.loginToken),
+          JSON.stringify(feishuRes.data.data.loginToken),
         );
         getUserInfo().then((res) => {
-          if (res.data.Success) {
-            const data = res.data.Data;
+          if (res.data.success) {
+            const data = res.data.data;
             dispatch(
               addAccount({
                 nickName: "ming",
                 email: data.email,
-                Token: feishuRes.data.Data.loginToken,
+                Token: feishuRes.data.data.loginToken,
                 userId: data.userId,
               }),
             );
@@ -46,10 +46,10 @@ const FeishuCallback = ({
           }
         });
       } else {
-        if (feishuRes.data.ErrCode === 50000) {
+        if (feishuRes.data.err_code === 50000) {
           return <div>飞书登录失败</div>;
         }
-        router.replace(`/login?oauthTicket=${feishuRes.data.Data.oauthTicket}`);
+        router.replace(`/login?oauthTicket=${feishuRes.data.data.oauthTicket}`);
       }
     });
   }, [code, dispatch, router, state]);

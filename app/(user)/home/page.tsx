@@ -33,7 +33,7 @@ const Home = () => {
               </div>
             </MagicCard>
           </Link>
-          <Link href="https://fc.sast.fun">
+          <Link href="https://acm.sast.fun">
             <MagicCard className="p-4 grid place-content-center">
               <div className="flex flex-col gap-2 items-center">
                 <Image width={45} height={45} src={fc} alt={"sastoj"} />

@@ -21,7 +21,7 @@ import { message } from "@/components/message";
 
 const list = [
   {
-    target: `/apis/login/github?redirect_url=${window.location.protocol}//${window.location.host}/callback/github`,
+    target: `/apis/user/loginWithSSO/?redirect_url=${window.location.protocol}//${window.location.host}/callback/github&idp=github&code=123`,
     describe: "Github",
     icon: <GithubIcon />,
   },
@@ -75,8 +75,9 @@ const LoginStep1 = () => {
             const username = args.username as string;
             veriLoginAccount(username)
               .then((res) => {
-                if (res.data.Success) {
-                  const ticket = res.data.Data.loginTicket;
+                console.log(res);
+                if (res.data.success) {
+                  const ticket = res.data.data['login-ticket'];
                   dispatch(addLoginTicket(ticket));
                   router.replace(
                     `/login/2${
@@ -91,7 +92,7 @@ const LoginStep1 = () => {
                   );
                   return;
                 }
-                setError({ error: true, errMsg: res.data.ErrMsg });
+                setError({ error: true, errMsg: res.data.err_msg });
               })
               .catch()
               .finally(() => {

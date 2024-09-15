@@ -39,8 +39,8 @@ const ResetStep2 = () => {
           console.log(captcha, resetTicket);
           veriCaptcha(resetTicket, captcha, "reset")
             .then((res) => {
-              if (res.data.Success) handleStep(1);
-              else setError(handleError(res.data.ErrMsg));
+              if (res.data.success) handleStep(1);
+              else setError(handleError(res.data.err_msg));
             })
             .catch()
             .finally(() => {

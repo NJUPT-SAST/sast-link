@@ -23,7 +23,7 @@ const ProfilePanel = () => {
   const userBasicInfo = useAppSelector((state) => state.userBasicInfo);
   const pathname = usePathname();
   const { data } = useSWR("bindStatus", () =>
-    getUserBindStatus().then((res) => res.data.Data),
+    getUserBindStatus().then((res) => res.data.data),
   );
   return (
     <>
@@ -100,7 +100,7 @@ const ProfilePanel = () => {
 
         <BindAppItem
           bindAppIconProps={githubIcon}
-          bindAppTitle={"GutHub"}
+          bindAppTitle={"GitHub"}
           binded={data?.includes("github") ?? false}
         />
       </div>

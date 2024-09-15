@@ -25,19 +25,19 @@ const GithubCallback = ({
 
   useEffect(() => {
     getGithubLoginStatus(code, state).then((githubRes) => {
-      if (githubRes.data.Success) {
+      if (githubRes.data.success) {
         localStorage.setItem(
           "Token",
-          JSON.stringify(githubRes.data.Data.loginToken),
+          JSON.stringify(githubRes.data.data.loginToken),
         );
         getUserInfo().then((res) => {
-          if (res.data.Success) {
-            const data = res.data.Data;
+          if (res.data.success) {
+            const data = res.data.data;
             dispatch(
               addAccount({
                 nickName: "ming",
                 email: data.email,
-                Token: githubRes.data.Data.loginToken,
+                Token: githubRes.data.data.loginToken,
                 userId: data.userId,
               }),
             );
@@ -46,10 +46,10 @@ const GithubCallback = ({
           }
         });
       } else {
-        if (githubRes.data.ErrCode === 50000) {
+        if (githubRes.data.err_code === 50000) {
           return <div>Github 登录失败</div>;
         }
-        router.replace(`/login?oauthTicket=${githubRes.data.Data.oauthTicket}`);
+        router.replace(`/login?oauthTicket=${githubRes.data.data.oauthTicket}`);
       }
     });
   }, [code, dispatch, router, state]);

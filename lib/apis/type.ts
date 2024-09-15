@@ -1,13 +1,15 @@
 interface ResponseErrorType {
-  Success: false;
-  ErrCode: number;
-  ErrMsg: string;
-  Data: null;
+  success: false;
+  err_code: number;
+  err_msg: string;
+  data: null;
 }
 
 interface ResponseSuccessType<T> {
-  Success: true;
-  Data: T;
+  success: true;
+  err_code: number;
+  err_msg: string;
+  data: T;
 }
 
 export type ResType<T> = ResponseErrorType | ResponseSuccessType<T>;

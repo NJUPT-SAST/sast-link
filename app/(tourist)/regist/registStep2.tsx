@@ -39,8 +39,8 @@ const RegistStep2 = () => {
           console.log(captcha, registTicket);
           veriCaptcha(registTicket, captcha)
             .then((res) => {
-              if (res.data.Success) handleStep(1);
-              else setError(handleError(res.data.ErrMsg));
+              if (res.data.success) handleStep(1);
+              else setError(handleError(res.data.err_msg));
             })
             .catch()
             .finally(() => {
