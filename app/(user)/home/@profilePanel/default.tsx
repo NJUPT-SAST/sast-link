@@ -100,7 +100,7 @@ const ProfilePanel = () => {
 
         <BindAppItem
           bindAppIconProps={githubIcon}
-          bindAppTitle={"GutHub"}
+          bindAppTitle={"GitHub"}
           binded={data?.includes("github") ?? false}
         />
       </div>
