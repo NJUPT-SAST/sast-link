@@ -22,12 +22,12 @@ const BindAppItem = (props: {
       ) : (
         <div
           onClick={() => {
-            message.warning("暂未开放");
+            message.warning("请退出并使用该方式登录绑定");
           }}
           className={classNames(styles.unbinded)}
         >
           <span>未绑定</span>
-          <Icon {...arrowheadIcon} />
+          {/* <Icon {...arrowheadIcon} /> */}
         </div>
       )}
     </div>
