@@ -60,11 +60,11 @@
           '';
       };
 
-      #packages.sast-link-docker = pkgs.dockerTools.buildImage {
-      #  name = "sast-link-frontend";
-      #  config = {
-      #    Entrypoint = [ "${self.packages.${system}.default}/bin/sast-link" ];
-      #  };
-      #};
+      packages.sast-link-docker = pkgs.dockerTools.buildImage {
+        name = "sast-link-frontend";
+        config = {
+          Entrypoint = [ "${self.packages.${system}.default}/bin/sast-link" ];
+        };
+      };
     });
 }
