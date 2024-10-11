@@ -32,5 +32,5 @@ export function oAuth(data: oAuthType) {
     JSON.parse(localStorage.getItem("Token") ?? "");
   // console.log(query);
   // TODO 更改为部署后地址
-  return (window.location.href = `http://81.68.225.220:8080/api/v1/oauth2/authorize?${query}`);
+  return (window.location.href = `http://81.68.225.220:8081/api/v1/oauth2/authorize?${query}`);
 }
