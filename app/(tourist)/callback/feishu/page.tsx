@@ -35,7 +35,7 @@ const FeishuCallback = ({
             const data = res.data.Data;
             dispatch(
               addAccount({
-                nickName: "ming",
+                nickName: "NJUPTer",
                 email: data.email,
                 Token: feishuRes.data.Data.loginToken,
                 userId: data.userId,

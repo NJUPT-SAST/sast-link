@@ -36,7 +36,7 @@ const AccountItem = forwardRef<any, AccountItemProps>(
           />
         </div>
         <div className={`${styles.accountMsg}`}>
-          <div className={`${styles.accountName}`}>{nickName ?? "Ming"}</div>
+          <div className={`${styles.accountName}`}>{nickName ?? "NJUPTer"}</div>
           <div className={`${styles.accountMail}`}>
             {mail ?? "B2100000@njupt.edu.cn"}
           </div>

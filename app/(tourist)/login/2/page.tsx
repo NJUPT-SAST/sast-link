@@ -72,13 +72,12 @@ const LoginStep2 = () => {
                         const data = res.data.Data;
                         dispatch(
                           addAccount({
-                            nickName: "ming",
+                            nickName: "NJUPTer",
                             email: data.email,
                             Token: tokenRef.current,
                             userId: data.userId,
                           }),
                         );
-                        //dispatch(login({ username: "ming", email: data.email }));
                         if (urlParams.get("redirect") !== null) {
                           router.push(redirect_uri);
                         } else {

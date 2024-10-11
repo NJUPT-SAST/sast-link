@@ -1,13 +1,14 @@
-"use client";
-import { useCallback, useEffect, useRef } from "react";
-import { MemorizedAccountItem } from "../accountItem";
-import styles from "./index.module.scss";
-import { useAppSelector } from "@/redux";
-import { useAppDispatch } from "@/redux";
-import { removeAccount } from "@/redux/features/userList";
-import { useRouter } from "next/navigation";
-import { useContext } from "react";
-import { SelectedAccountContext } from "@/lib/context";
+'use client'
+import { useCallback, useEffect, useRef } from 'react'
+import { MemorizedAccountItem } from '../accountItem'
+import styles from './index.module.scss'
+import { useAppSelector } from '@/redux'
+import { useAppDispatch } from '@/redux'
+import { removeAccount } from '@/redux/features/userList'
+import { useRouter } from 'next/navigation'
+import { useContext } from 'react'
+import { SelectedAccountContext } from '@/lib/context'
+import defaultAvatar from '@/public/defaultAvatar.png'
 
 /**
  *
@@ -16,14 +17,14 @@ import { SelectedAccountContext } from "@/lib/context";
  * @returns
  */
 const AccountList = () => {
-  const { selected, setSelected } = useContext(SelectedAccountContext);
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const localUserList = useAppSelector((state) => state.localUserList);
-  const dispatch = useAppDispatch();
+  const { selected, setSelected } = useContext(SelectedAccountContext)
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const localUserList = useAppSelector((state) => state.localUserList)
+  const dispatch = useAppDispatch()
 
   const scroll = useCallback((index: number) => {
-    scrollRef.current!.scroll({ top: index * 80, behavior: "smooth" });
-  }, []);
+    scrollRef.current!.scroll({ top: index * 80, behavior: 'smooth' })
+  }, [])
 
   return (
     <>
@@ -38,22 +39,22 @@ const AccountList = () => {
                 key={`${value.email}_${value.nickName}`}
                 nickName={`${value.nickName}`}
                 mail={`${value.email}`}
-                avator={`${value.avator}`}
+                avator={`${value.avator || defaultAvatar.src}`}
                 onFocus={() => {
-                  setSelected(index);
-                  scroll(index);
+                  setSelected(index)
+                  scroll(index)
                 }}
                 onClose={() => {
-                  dispatch(removeAccount(index));
+                  dispatch(removeAccount(index))
                 }}
               />
-            );
+            )
           })}
           <div className={styles.bottomWhite} />
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export { AccountList };
+export { AccountList }

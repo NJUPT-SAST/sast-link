@@ -35,7 +35,7 @@ const GithubCallback = ({
             const data = res.data.Data;
             dispatch(
               addAccount({
-                nickName: "ming",
+                nickName: "NJUPTer",
                 email: data.email,
                 Token: githubRes.data.Data.loginToken,
                 userId: data.userId,
